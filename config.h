@@ -38,3 +38,5 @@
 #define PAXOS_MAX_VALUE_SIZE 8960
 
 #define N_OF_ACCEPTORS  3
+
+#define MAX_PROPOSERS 10

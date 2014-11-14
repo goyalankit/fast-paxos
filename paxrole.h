@@ -94,3 +94,21 @@ class proposer {
 
 };
 
+class acceptor {
+  public:
+    typedef struct acceptor_record_t {
+    int     iid;
+    int     proposer_id;
+    int     ballot;
+    int     value_ballot;
+    int     value_size;
+    int     any_enabled;
+    char*   value;
+    } acceptor_record;
+
+    int acceptor_id;
+    acceptor_record acceptor_array[ACCEPTOR_ARRAY_SIZE];
+    int send_buffer_size;
+
+    int min_ballot = 2 * MAX_PROPOSERS;
+};
