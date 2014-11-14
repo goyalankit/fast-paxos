@@ -7,10 +7,11 @@ learner_init_threaded()
        |============> start_learner() ==> learner_init()
        |                                 /* setup send socket, */
        |                                         | 
-       |								  libevent_start()==> /* set up listening socket, set
-       |                                                         msg_handler = learner_handle_learn_msg() */
-       |                                                                       |
-       |				   				         | <========= /* set up lsync_check event (general time out) */
+       |								                  libevent_start()==> /* set up listening socket, set
+       |                                                      msg_handler = learner_handle_learn_msg() */
+       |                                                                  |
+       |                                                                  |
+       |				   				                       | <========= /* set up lsync_check event (general time out) */
        |                                         |
        learner_wait_ready()              /* init done, signal waiter */                                          
        |                                         |
@@ -40,14 +41,16 @@ learner_handle_learner_msg()
                            else
                                 return 0
                            endif
-                                        |
-            |<===========================
+                                           |
+                                           |
+            |<============================== 
     if nothing changed, return
             |
     check_quorum()=====>  if a majority of learns has been received with same ballot
                           then quorum reached,
                                 close the instance
                           endif
+                                         |
                                          |
             |<============================
     if quorum not reached, return
