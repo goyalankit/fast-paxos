@@ -2,10 +2,6 @@ SYS_UNAME = $(shell uname)
 ifeq ($(SYS_UNAME), Linux)
 CXX = g++-4.8
 else
-CXX = g++
-endif
-
-ifeq ($(USER), ankit)
 CXX = g++-4.9
 endif
 
