@@ -1,0 +1,73 @@
+
+// Initialization
+learner_init_threaded()
+       |
+       |
+       |pthread_create
+       |============> start_learner() ==> learner_init()
+       |                                 /* setup send socket, */
+       |                                         | 
+       |								  libevent_start()==> /* set up listening socket, set
+       |                                                         msg_handler = learner_handle_learn_msg() */
+       |                                                                       |
+       |				   				         | <========= /* set up lsync_check event (general time out) */
+       |                                         |
+       learner_wait_ready()              /* init done, signal waiter */                                          
+       |                                         |
+       return()                           event_dispatch()										
+       
+
+
+Important global variables  init        description
+highest_delivered            -1         the highest value delivered to client (print to console)
+highest_seen                 -1         the highest iid ever seen 
+
+learner_record learner_array[LEARNER_ARRAY_SIZE]   // essentially an accepted_learned (Phase 2b) lookup table
+
+
+
+// The actual learner message handler, called when message is received
+learner_handle_learner_msg()
+            |
+    / * update highest_seen if needed */
+            |
+    update_record()=====>  /* drop if not in the window (either 
+                           in far future or already delivered) */
+                                           |
+                           if  this instance is open /* quorum condition never satisfied */
+                           then 
+                                return add_learn_to_record()  ======> return 1 if this message cause an update, otherwise 0
+                           else
+                                return 0
+                           endif
+                                        |
+            |<===========================
+    if nothing changed, return
+            |
+    check_quorum()=====>  if a majority of learns has been received with same ballot
+                          then quorum reached,
+                                close the instance
+                          endif
+                                         |
+            |<============================
+    if quorum not reached, return
+            |
+            |
+    if the iid is the next to deliver
+    then call deliver_value() ===> deliver all contiguous instances that are 
+                                    closed, update highest_delivered
+    endif
+end
+
+
+// General Timeout handler
+lsync_check()
+   if we have any instances that are open
+   then 
+        batch all those instances and send a lsync (update) requests to acceptor
+   endif
+   schedule another lsync_check() event
+end
+
+
+    
