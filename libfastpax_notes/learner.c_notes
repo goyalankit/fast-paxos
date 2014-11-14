@@ -7,11 +7,11 @@ learner_init_threaded()
        |============> start_learner() ==> learner_init()
        |                                 /* setup send socket, */
        |                                         | 
-       |								                  libevent_start()==> /* set up listening socket, set
+       |                                 libevent_start()==> /* set up listening socket, set
        |                                                      msg_handler = learner_handle_learn_msg() */
        |                                                                  |
        |                                                                  |
-       |				   				                       | <========= /* set up lsync_check event (general time out) */
+       |                                         | <========= /* set up lsync_check event (general time out) */
        |                                         |
        learner_wait_ready()              /* init done, signal waiter */                                          
        |                                         |
@@ -71,6 +71,3 @@ lsync_check()
    endif
    schedule another lsync_check() event
 end
-
-
-    
