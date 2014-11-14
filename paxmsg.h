@@ -105,8 +105,32 @@ struct learner_sync_msg_t : public paxmsg_t {
   }
 };
 
+struct learn_msg_t : public paxmsg_t {
+  static const int ID = 6;
+  static constexpr const char* _descr = "learnerMsg";
+  int     acceptor_id;
+  int     iid;
+  int     ballot;
+  int     proposer_id;
+  int     value_size;
+
+  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, int _value_size) :
+    paxmsg_t(_descr, ID) {
+      acceptor_id = _acceptor_id;
+      iid = _iid;
+      ballot = _ballot;
+      proposer_id = _proposer_id;
+      value_size = _value_size;
+    }
+
+  void pr(std::ostream& os) const {
+    os << "{" << acceptor_id << ", " << iid << ", " << ballot << ", "
+      << proposer_id << ", " << value_size << "}";
+  }
+};
+
 struct anyval_msg_t : public paxmsg_t {
-  static const int ID = 5;
+  static const int ID = 7;
   static constexpr const char* _descr = "anyvalMsg";
   int     ballot;
   int     count;
