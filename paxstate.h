@@ -1,3 +1,16 @@
+#include <bitset>
+
+std::bitset<8> roles;
+#define SET_LEADER   (roles.set(0))
+#define SET_PROPOSER (roles.set(1))
+#define SET_ACCEPTER  (roles.set(2))
+#define SET_LEARNER   (roles.set(3))
+
+#define IS_LEADER   (roles.test(0))
+#define IS_PROPOSER (roles.test(1))
+#define IS_ACCEPTER (roles.test(2))
+#define IS_LEARNER  (roles.test(3))
+
 #define FIRST_BALLOT (2 * MAX_PROPOSERS + proposer_id)
 #define BALLOT_NEXT(lastBal) (lastBal + MAX_PROPOSERS)
 #define VALUE_OWNER(bal) (bal % MAX_PROPOSERS)
