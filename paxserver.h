@@ -3,6 +3,7 @@
 #pragma once
 
 #include "paxmsg.h"
+#include "paxrole.h"
 #include <bitset>
 
 #define SET_LEADER(roles)    (roles.set(0))

@@ -1,5 +1,8 @@
-// paxrole.h - Defines for messages sent in the Paxos algorithm
+// paxrole.h - Defines for role classes for the fast Paxos algorithm
 #pragma once
+
+#include "config.h"
+#include "paxmsg.h"
 
 class learner {
   public:
@@ -9,7 +12,7 @@ class learner {
       int         proposer_id;
       char *      final_value;
       int         final_value_size;
-      learn_msg*  learns[N_OF_ACCEPTORS];
+      learn_msg_t*  learns[N_OF_ACCEPTORS];
     } learner_record;
 
     unsigned int quorum;
@@ -40,7 +43,8 @@ class leader {
     phase2_info p2info;
 
     char leader_send_buffer[MAX_UDP_MSG_SIZE];
-    paxos_msg* msg = (paxos_msg*) leader_send_buffer;
+    // This should probably be removed or be convert into a method
+    // paxos_msg* msg = (paxos_msg*) leader_send_buffer;
 
     typedef enum status_flag_t {
       p1_new,
@@ -62,7 +66,7 @@ class leader {
       status_flag status;
       int promise_count;
       promise_info promises[N_OF_ACCEPTORS];
-      // promise_msg* reserved_promise;
+      promise_msg_t * reserved_promise;
     } proposer_record;
 
     proposer_record proposer_array[PROPOSER_ARRAY_SIZE];
@@ -85,7 +89,7 @@ class proposer {
     typedef struct timeout_info_t {
       int instance_id;
       int hash;
-      struct event to_event;
+      // struct event to_event;
     } timeout_info;
 
 };
