@@ -4,6 +4,11 @@ CXX = g++-4.8
 else
 CXX = g++
 endif
+
+ifeq ($(USER), ankit)
+CXX = g++-4.9
+endif
+
 LINK_TIME=$(shell date)
 GIT_SHA=$(shell git rev-parse HEAD)
 CFLAGS = -Wall -g -O2 -std=gnu++11 -Igetoptpp
