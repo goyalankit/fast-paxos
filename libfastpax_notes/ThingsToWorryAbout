@@ -1,0 +1,11 @@
+// These are some key points of our fastpaxos projects
+
+1. How to set time out properly per role? Namely, how to set mutiple timeout events per paxserver objects.
+
+2. Should we keep the bounded retrasmission window? Or using the infinite Paxlog per role?
+
+3. Simulate the datagram lost events.
+
+4. lsync (learner sync) request handling
+
+5. View change 
