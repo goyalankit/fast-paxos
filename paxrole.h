@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "paxmsg.h"
+#include "paxobj.h"
 
 class learner {
   public:
@@ -10,8 +11,9 @@ class learner {
       int         iid;
       int         ballot;
       int         proposer_id;
-      char *      final_value;
-      int         final_value_size;
+      //char *      final_value;
+      //int         final_value_size;
+      paxobj::request request
       learn_msg_t*  learns[N_OF_ACCEPTORS];
     } learner_record;
 
@@ -42,7 +44,7 @@ class leader {
     } phase2_info;
     phase2_info p2info;
 
-    char leader_send_buffer[MAX_UDP_MSG_SIZE];
+    //char leader_send_buffer[MAX_UDP_MSG_SIZE];
     // This should probably be removed or be convert into a method
     // paxos_msg* msg = (paxos_msg*) leader_send_buffer;
 
@@ -84,7 +86,7 @@ class proposer {
     int last_accept_iid;
     int last_accept_hash;
 
-    char proposer_send_buffer[MAX_UDP_MSG_SIZE];
+    //char proposer_send_buffer[MAX_UDP_MSG_SIZE];
     int msg_size;
     typedef struct timeout_info_t {
       int instance_id;
