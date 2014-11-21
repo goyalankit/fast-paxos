@@ -107,6 +107,7 @@ class proposer_t {
 
 };
 
+
 class acceptor_t {
   public:
   struct acceptor_record_t {
