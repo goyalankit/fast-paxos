@@ -33,7 +33,7 @@ struct paxmsg_t : public net_msg_t {
 /* Fast Paxos Messages START */
 
 struct prepare_msg_t : public paxmsg_t {
-  static const int  ID = 2;
+  static const int  ID = 20;
   static constexpr const char* _descr = "executeARG";
   int iid;
   int ballot;
@@ -49,7 +49,7 @@ struct prepare_msg_t : public paxmsg_t {
 };
 
 struct promise_msg_t : public paxmsg_t {
-  static const int ID = 3;
+  static const int ID = 21;
   static constexpr const char* _descr = "promiseMsg";
   int     iid;
   int     ballot;
@@ -70,7 +70,7 @@ struct promise_msg_t : public paxmsg_t {
 };
 
 struct accept_msg_t : public paxmsg_t {
-  static const int ID = 4;
+  static const int ID = 22;
   static constexpr const char* _descr = "acceptMsg";
   int     iid;
   int     ballot;
@@ -92,7 +92,7 @@ struct accept_msg_t : public paxmsg_t {
 };
 
 struct learner_sync_msg_t : public paxmsg_t {
-  static const int ID = 5;
+  static const int ID = 23;
   static constexpr const char* _descr = "learnerSyncMsg";
   int     count;
 
@@ -106,7 +106,7 @@ struct learner_sync_msg_t : public paxmsg_t {
 };
 
 struct learn_msg_t : public paxmsg_t {
-  static const int ID = 6;
+  static const int ID = 24;
   static constexpr const char* _descr = "learnerMsg";
   int     acceptor_id;
   int     iid;
@@ -130,7 +130,7 @@ struct learn_msg_t : public paxmsg_t {
 };
 
 struct anyval_msg_t : public paxmsg_t {
-  static const int ID = 7;
+  static const int ID = 25;
   static constexpr const char* _descr = "anyvalMsg";
   int     ballot;
   int     count;
