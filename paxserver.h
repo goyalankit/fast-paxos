@@ -90,6 +90,13 @@ struct pax_serv_timo {
    tick_t heartbeat_timo;
 };
 
+// forward declarations for roles
+// due to cyclic dependency
+class learner_t;
+class acceptor_t;
+class leader_t;
+class proposer_t;
+
 class paxserver : public node_t {
 public:
    paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& ps_timo,

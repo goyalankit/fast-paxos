@@ -42,7 +42,7 @@ paxserver::~paxserver() {
 
 void paxserver::init_roles() {
   proposer   = new proposer_t();
-  leader     = new leader_t();
+  leader     = new leader_t(this);
   acceptor   = new acceptor_t();
   learner    = new learner_t();
 }

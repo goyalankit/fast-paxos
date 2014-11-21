@@ -2,6 +2,7 @@
 #pragma once
 
 #include "config.h"
+#include "paxserver.h"
 #include "paxmsg.h"
 #include "paxobj.h"
 #include "node.h"
@@ -42,9 +43,11 @@ class learner_t {
     void timeout_check();
 };
 
+class paxserver;
+
 class leader_t {
   public:
-    unsigned int quorum;
+    paxserver * server;
     int current_iid = 0;
     struct phase1_info_t {
       int pending_count;
@@ -78,12 +81,12 @@ class leader_t {
     };
 
     struct proposer_record_t {
-      int iid;
-      int ballot;
+      int iid = 0;
+      int ballot = -1;
       status_flag status;
-      int promise_count;
+      int promise_count = 0;
       vector<promise_info_t> promises; //set it to [N_OF_ACCEPTORS];
-      promise_msg_t * reserved_promise;
+      promise_msg_t * reserved_promise = nullptr;
     };
 
     proposer_record_t proposer_array[PROPOSER_ARRAY_SIZE];
@@ -92,9 +95,9 @@ class leader_t {
     tick_t phase1_to_tick;
     tick_t phase2_to_tick;
 
-    /* functions for a leader */
+    /*** functions for a leader ***/
     //constuctors
-    //leader_t();
+    leader_t(paxserver * _server);
 };
 
 class proposer_t {
@@ -130,7 +133,6 @@ class acceptor_t {
     paxobj::request  value;
     };
 
-    acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE];
-    
+    acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE]; 
     int min_ballot = 2 * MAX_PROPOSERS;
 };

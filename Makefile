@@ -14,7 +14,7 @@ else
 DBG_CFLAGS = -Wall -g -fno-omit-frame-pointer -std=gnu++11 -Igetoptpp
 endif
 
-libsrc := node.cpp paxserver.cpp paxos_exec.cpp paxos_vc.cpp paxclient.cpp \
+libsrc := node.cpp paxrole.cpp paxserver.cpp paxos_exec.cpp paxos_vc.cpp paxclient.cpp \
 paxlog.cpp paxmsg.cpp word_vec_pax.cpp log.cpp net.cpp dssim.cpp \
 paxos_print.cpp args.cpp md5.cpp
 
