@@ -5,7 +5,7 @@
 #include "paxmsg.h"
 #include "paxobj.h"
 
-class learner {
+class learner_t {
   public:
     typedef struct learner_record_t {
       int         iid;
@@ -23,9 +23,20 @@ class learner {
     int highest_seen = -1;
     learner_record learner_array[LEARNER_ARRAY_SIZE];
     int learner_ready = 0;
+
+    int is_closed(learner_record *rec);
+    int add_learn_to_record(learner_record *rec, learn_msg* lmsg);
+    int update_record(learn_msg *lmsg);
+    int check_quorum(learn_msg *lmsg);
+    void learner_handle_learn_msg(learn_msg *lmsg);
+    void learner_handle_learner_msg(/*XXX need to decide arguments*/);
+    void ask_retransmission();
+    void lsync_check(/*XXX need to decide arguments*/);
+    void learner_wait_ready();
+
 };
 
-class leader {
+class leader_t {
   public:
     int quorum;
     int proposer_id;
@@ -74,7 +85,7 @@ class leader {
     proposer_record proposer_array[PROPOSER_ARRAY_SIZE];
 };
 
-class proposer {
+class proposer_t {
   public:
     int fixed_ballot;
     int proposer_id;
@@ -96,7 +107,7 @@ class proposer {
 
 };
 
-class acceptor {
+class acceptor_t {
   public:
     typedef struct acceptor_record_t {
     int     iid;
