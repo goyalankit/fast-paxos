@@ -4,20 +4,26 @@
 #include "config.h"
 #include "paxmsg.h"
 #include "paxobj.h"
+#include "node.h"
+#include <vector>
+
+using std::vector;
 
 class learner_t {
   public:
+    unsigned int quorum;
     struct learner_record_t {
       int         iid;
       int         ballot;
       int         proposer_id;
       //char *      final_value;
       //int         final_value_size;
-      paxobj::request request;
-      learn_msg_t*  learns[N_OF_ACCEPTORS];
-    }; 
+      paxobj::request final_value;
+      //learn_msg_t*  learns[N_OF_ACCEPTORS]; // set to vector
+      vector <learn_msg_t *> learns;
+    };
 
-    unsigned int quorum;
+    tick_t lsync_to_tick; // used to check the lsync_to
 
     int highest_delivered = -1;
     int highest_seen = -1;
@@ -33,13 +39,12 @@ class learner_t {
     void ask_retransmission();
     void lsync_check(/*XXX need to decide arguments*/);
     void learner_wait_ready();
-
+    void timeout_check();
 };
 
 class leader_t {
   public:
-    int quorum;
-    int proposer_id;
+    unsigned int quorum;
     int current_iid = 0;
     struct phase1_info_t {
       int pending_count;
@@ -69,8 +74,7 @@ class leader_t {
     struct promise_info_t {
       int     iid;
       int     value_ballot;
-      int     value_size;
-      char *  value;
+      paxobj::request value;
     };
 
     struct proposer_record_t {
@@ -78,18 +82,26 @@ class leader_t {
       int ballot;
       status_flag status;
       int promise_count;
-      promise_info_t promises[N_OF_ACCEPTORS];
+      vector<promise_info_t> promises; //set it to [N_OF_ACCEPTORS];
       promise_msg_t * reserved_promise;
     };
 
     proposer_record_t proposer_array[PROPOSER_ARRAY_SIZE];
+
+    // timeout ticks
+    tick_t phase1_to_tick;
+    tick_t phase2_to_tick;
+
+    /* functions for a leader */
+    //constuctors
+    //leader_t();
 };
 
 class proposer_t {
   public:
     int fixed_ballot;
-    int proposer_id;
-    struct timeval proposer_to_interval;
+    //struct timeval proposer_to_interval;
+    tick_t proposer_to_tick;
 
     int client_waiting = 0;
     int current_iid;
@@ -107,7 +119,6 @@ class proposer_t {
 
 };
 
-
 class acceptor_t {
   public:
   struct acceptor_record_t {
@@ -115,14 +126,11 @@ class acceptor_t {
     int     proposer_id;
     int     ballot;
     int     value_ballot;
-    int     value_size;
     int     any_enabled;
-    char*   value;
+    paxobj::request  value;
     };
 
-    int acceptor_id;
     acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE];
-    int send_buffer_size;
-
+    
     int min_ballot = 2 * MAX_PROPOSERS;
 };
