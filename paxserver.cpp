@@ -14,7 +14,7 @@ std::unordered_set<int> paxserver::normal_msg = {
    replicate_res::ID,
    accept_arg::ID,
 };
-  
+
 paxserver::paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& _ps_timo,
                      std::unique_ptr<paxobj> mypaxobj) :
    node_t(_net, _nid)
@@ -30,6 +30,7 @@ paxserver::paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& _ps_timo,
    _paxobj = std::move(mypaxobj);
    ps_timo = _ps_timo;
    stat = {};
+   init_roles();
    sprintf(my_id, "S%02d", nid);
 }
 
@@ -37,6 +38,13 @@ paxserver::~paxserver() {
    _paxobj = nullptr;
    last_req.clear();
    exec_rid_cache.clear();
+}
+
+void paxserver::init_roles() {
+  proposer   = new proposer_t();
+  leader     = new leader_t();
+  acceptor   = new acceptor_t();
+  learner    = new learner_t();
 }
 
 bool paxserver::send_msg(node_id_t dst, std::unique_ptr<net_msg_t> msg) {

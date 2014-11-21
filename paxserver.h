@@ -211,6 +211,9 @@ private:
    // What is the largest timestamp from a received message from this node?
    // Note, it might not be from the most recently received message
    std::unordered_map<node_id_t,tick_t> recent_recv;
+   // Initialize various parameters related to different roles in this
+   // method like timeout values.
+   void init_roles();
 
    // Identifier of the form S02\0
    char my_id[5];
