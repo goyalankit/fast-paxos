@@ -163,6 +163,11 @@ private:
    void do_heartbeat();
    void do_timo();
 
+   // Role specific objects
+   learner_t * learner;
+   leader_t * leader;
+   proposer_t * proposer;
+   acceptor_t * acceptor;
 
    // Convenience functions used by dssim
    virtual bool server() const {return true;}

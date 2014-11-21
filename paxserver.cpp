@@ -32,6 +32,7 @@ paxserver::paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& _ps_timo,
    stat = {};
    sprintf(my_id, "S%02d", nid);
 }
+
 paxserver::~paxserver() {
    _paxobj = nullptr;
    last_req.clear();

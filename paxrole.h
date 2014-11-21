@@ -13,7 +13,7 @@ class learner_t {
       int         proposer_id;
       //char *      final_value;
       //int         final_value_size;
-      paxobj::request request
+      paxobj::request request;
       learn_msg_t*  learns[N_OF_ACCEPTORS];
     } learner_record;
 
@@ -25,10 +25,10 @@ class learner_t {
     int learner_ready = 0;
 
     int is_closed(learner_record *rec);
-    int add_learn_to_record(learner_record *rec, learn_msg* lmsg);
-    int update_record(learn_msg *lmsg);
-    int check_quorum(learn_msg *lmsg);
-    void learner_handle_learn_msg(learn_msg *lmsg);
+    int add_learn_to_record(learner_record *rec, learn_msg_t* lmsg);
+    int update_record(learn_msg_t *lmsg);
+    int check_quorum(learn_msg_t *lmsg);
+    void learner_handle_learn_msg(learn_msg_t *lmsg);
     void learner_handle_learner_msg(/*XXX need to decide arguments*/);
     void ask_retransmission();
     void lsync_check(/*XXX need to decide arguments*/);
