@@ -140,4 +140,5 @@ class acceptor_t {
     acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE]; 
     int min_ballot = 2 * MAX_PROPOSERS;
     acceptor_t(paxserver *_server);
+    void handle_accept(const struct accept_msg_t&);
 };

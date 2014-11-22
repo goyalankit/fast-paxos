@@ -71,6 +71,10 @@ acceptor_t::acceptor_t(paxserver *_server){
   server = _server;
 }
 
+void acceptor_t::handle_accept(const struct accept_msg_t&) {
+  LOG(l::DEBUG, ("********\nMil gaya!\n**********\n"));
+}
+
 /** learner functions **/
 learner_t::learner_t(paxserver *_server){
   server = _server;
