@@ -40,3 +40,11 @@
 #define N_OF_ACCEPTORS  3
 
 #define MAX_PROPOSERS 10
+
+/*
+ PHASE1_TO_TICK is the timeout value for phase 1
+ to happen in case there are no messages in the system
+ TODO(goyalankit) Set appropriate values
+*/
+#define PHASE1_TO_TICK 12
+#define PHASE2_TO_TICK 12

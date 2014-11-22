@@ -4,6 +4,7 @@
 
 #include "paxmsg.h"
 #include "paxrole.h"
+#include "config.h"
 #include <bitset>
 
 #define SET_LEADER(roles)    (roles.set(0))

@@ -15,8 +15,8 @@ leader_t::leader_t(paxserver *_server) {
   //initialize p2info
   p2info.current_iid = -1;
 
-  //phase1_to_tick = PHASE1_TO_TICK;
-  //phase2_to_tick = PHASE2_TO_TICK;
+  phase1_to_tick = PHASE1_TO_TICK;
+  phase2_to_tick = PHASE2_TO_TICK;
 
   //promises.resize(server->get_acceptor_cnt()); //TODO implement get_acceptor_cnt in paxserver class
 
