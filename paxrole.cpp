@@ -18,7 +18,10 @@ leader_t::leader_t(paxserver *_server) {
   phase1_to_tick = PHASE1_TO_TICK;
   phase2_to_tick = PHASE2_TO_TICK;
 
-  //promises.resize(server->get_acceptor_cnt()); //TODO implement get_acceptor_cnt in paxserver class
+  for (int i = 0; i < PROPOSER_ARRAY_SIZE; i++){
+    proposer_array[i] = {};
+    proposer_array[i].promises.resize(server->get_serv_cnt(server->vc_state.view));
+  }
 
 
 }

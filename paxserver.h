@@ -59,13 +59,13 @@ struct vc_mgr_t {
    std::set<std::unique_ptr<struct view_change_accept>, struct vca_less> vca;
    // Servers that have accepted new_view (NOT including me)
    std::set<node_id_t> nvr;
-   // Highest accept.latest 
+   // Highest accept.latest
    viewstamp_t latest;
    viewstamp_t pr_latest_exec;
    // Once conditions warrant announcing a new view, subsequent
    // view_change_accepts get that view.
    bool announce_nv;
-   // Flag indicating completion of vc (if we are not primary, we don't 
+   // Flag indicating completion of vc (if we are not primary, we don't
    // change mode to ACTIVE
    bool complete_vc;
    // Is the old primary planning to be in the new view?
@@ -117,6 +117,12 @@ public:
 
    std::ostream& pr_allstate(std::ostream&);
 
+   // let's be friends to everyone
+   // so that we can access private data
+   friend class leader_t;
+   friend class acceptor_t;
+   friend class learner_t;
+   friend class proposer_t;
 protected:
    std::ostream& pr_stat(std::ostream&) const override;
    std::set<node_id_t> get_other_servers(const view_t& view) {
