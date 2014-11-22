@@ -9,16 +9,15 @@
 #include <vector>
 
 using std::vector;
+class paxserver;
 
 class learner_t {
   public:
-    unsigned int quorum;
+    paxserver *server;
     struct learner_record_t {
       int         iid;
       int         ballot;
       int         proposer_id;
-      //char *      final_value;
-      //int         final_value_size;
       paxobj::request final_value;
       //learn_msg_t*  learns[N_OF_ACCEPTORS]; // set to vector
       vector <learn_msg_t *> learns;
@@ -44,7 +43,6 @@ class learner_t {
     learner_t(paxserver *_server);
 };
 
-class paxserver;
 
 class leader_t {
   public:
@@ -126,13 +124,14 @@ class proposer_t {
 
 class acceptor_t {
   public:
-  struct acceptor_record_t {
-    int     iid;
-    int     proposer_id;
-    int     ballot;
-    int     value_ballot;
-    int     any_enabled;
-    paxobj::request  value;
+    paxserver *server;
+    struct acceptor_record_t {
+      int     iid;
+      int     proposer_id;
+      int     ballot;
+      int     value_ballot;
+      int     any_enabled;
+      paxobj::request  value;
     };
 
     acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE]; 
