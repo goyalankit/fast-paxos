@@ -48,3 +48,7 @@
 */
 #define PHASE1_TO_TICK 12
 #define PHASE2_TO_TICK 12
+
+// TODO(goyalankit) change the value
+#define LSYNC_TICK 12
+

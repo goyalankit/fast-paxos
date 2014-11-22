@@ -176,6 +176,7 @@ private:
    bool send_msg(node_id_t _dst, std::unique_ptr<net_msg_t>);
    void do_heartbeat();
    void do_timo();
+   void do_fastpax_timo();
 
    // Role specific objects
    learner_t * learner;

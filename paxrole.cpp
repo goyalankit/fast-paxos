@@ -18,12 +18,10 @@ leader_t::leader_t(paxserver *_server) {
 
   phase1_to_tick = PHASE1_TO_TICK;
   phase2_to_tick = PHASE2_TO_TICK;
-
   for (int i = 0; i < PROPOSER_ARRAY_SIZE; i++){
     proposer_array[i] = {};
     proposer_array[i].promises.resize(server->get_serv_cnt(server->vc_state.view));
   }
-
 }
 
 /** proposer functions **/
@@ -37,15 +35,14 @@ proposer_t::proposer_t(paxserver *_server) {
 /** acceptor functions **/
 acceptor_t::acceptor_t(paxserver *_server){
   server = _server;
-
 }
 
 /** learner functions **/
 learner_t::learner_t(paxserver *_server){
   server = _server;
+  lsync_to_tick = LSYNC_TICK;
   for (int i = 0; i < LEARNER_ARRAY_SIZE; i++){
     learner_array[i] = {};
     learner_array[i].learns.resize(server->get_serv_cnt(server->vc_state.view));
   }
-
 }
