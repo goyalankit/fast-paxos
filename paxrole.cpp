@@ -32,6 +32,11 @@ proposer_t::proposer_t(paxserver *_server) {
   fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config 
 
 }
+
 /** acceptor functions **/
+acceptor_t::acceptor_t(paxserver *_server){
+}
 
 /** learner functions **/
+learner_t::learner_t(paxserver *_server){
+}

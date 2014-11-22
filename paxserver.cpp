@@ -41,10 +41,10 @@ paxserver::~paxserver() {
 }
 
 void paxserver::init_roles() {
-  proposer   = new proposer_t();
+  proposer   = new proposer_t(this);
   leader     = new leader_t(this);
-  acceptor   = new acceptor_t();
-  learner    = new learner_t();
+  acceptor   = new acceptor_t(this);
+  learner    = new learner_t(this);
 }
 
 bool paxserver::send_msg(node_id_t dst, std::unique_ptr<net_msg_t> msg) {

@@ -9,6 +9,7 @@
 #include <vector>
 
 using std::vector;
+class paxserver;
 
 class learner_t {
   public:
@@ -41,9 +42,9 @@ class learner_t {
     void lsync_check(/*XXX need to decide arguments*/);
     void learner_wait_ready();
     void timeout_check();
+    learner_t(paxserver *_server);
 };
 
-class paxserver;
 
 class leader_t {
   public:
@@ -136,4 +137,5 @@ class acceptor_t {
 
     acceptor_record_t acceptor_array[ACCEPTOR_ARRAY_SIZE]; 
     int min_ballot = 2 * MAX_PROPOSERS;
+    acceptor_t(paxserver *_server);
 };
