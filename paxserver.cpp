@@ -30,7 +30,6 @@ paxserver::paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& _ps_timo,
    _paxobj = std::move(mypaxobj);
    ps_timo = _ps_timo;
    stat = {};
-   init_roles();
    sprintf(my_id, "S%02d", nid);
 }
 
@@ -41,8 +40,11 @@ paxserver::~paxserver() {
 }
 
 void paxserver::init_roles() {
+  if (primary()) {
+    LOG(l::DEBUG, "Creating leader node: " << nid << '\n');
+    leader     = new leader_t(this);
+  }
   proposer   = new proposer_t(this);
-  leader     = new leader_t(this);
   acceptor   = new acceptor_t(this);
   learner    = new learner_t(this);
 }
@@ -349,6 +351,7 @@ bool paxserver::tick(void) {
          do_fake_init_vc();
       else
          do_init_vc();
+      init_roles();
       return false;
    }
    // Processing messages is much faster than transmitting them,
@@ -389,4 +392,3 @@ bool paxserver::in_view(node_id_t node) const {
 paxobj*  paxserver::get_paxobj() { 
    return _paxobj.get();
 }
-
