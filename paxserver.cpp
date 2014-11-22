@@ -195,13 +195,13 @@ void paxserver::do_fastpax_timo() {
   if (leader->phase1_to_tick > 0) {
     leader->phase1_to_tick--;
   } else {
-    leader->do_leader_timeout(phase1ab_t::phase1);
+    leader->do_leader_timeout(phase12_t::phase1);
   }
   // leader phase2 timeout
   if (leader->phase2_to_tick > 0) {
     leader->phase2_to_tick--;
   } else {
-    leader->do_leader_timeout(phase1ab_t::phase2);
+    leader->do_leader_timeout(phase12_t::phase2);
   }
 
   // learner timeout
@@ -211,13 +211,16 @@ void paxserver::do_fastpax_timo() {
     learner->do_learner_timeout();
   }
 
-  // proposer timeout
-  if (proposer->proposer_to_tick) {
-    proposer->proposer_to_tick--;
-  } else {
-    proposer->do_proposer_timeout();
+  if (proposer->has_value) {
+    // proposer timeout
+    if (proposer->proposer_to_tick) {
+      proposer->proposer_to_tick--;
+    } else {
+      proposer->do_proposer_timeout();
+    }
   }
 }
+
 
 // NB: For each timeout in struct pax_serv_timo, there should
 // be code here to process the timeout

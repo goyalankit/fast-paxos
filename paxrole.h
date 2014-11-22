@@ -100,7 +100,7 @@ class leader_t {
     /*** functions for a leader ***/
     //constuctors
     leader_t(paxserver * _server);
-    void do_leader_timeout(phase1ab_t);
+    void do_leader_timeout(phase12_t);
 };
 
 class proposer_t {
@@ -110,11 +110,11 @@ class proposer_t {
     //struct timeval proposer_to_interval;
     tick_t proposer_to_tick;
 
-    int client_waiting = 0;
     int current_iid;
     int value_delivered;
     int last_accept_iid;
     int last_accept_hash;
+    bool has_value;
 
     //char proposer_send_buffer[MAX_UDP_MSG_SIZE];
     int msg_size;

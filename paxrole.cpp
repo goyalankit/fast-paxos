@@ -24,18 +24,19 @@ leader_t::leader_t(paxserver *_server) {
   }
 }
 
-void leader_t::do_leader_timeout(phase1ab_t phase) {
+void leader_t::do_leader_timeout(phase12_t phase) {
   switch (phase){
-    case phase1ab_t::phase1:{
+    case phase12_t::phase1:{
+      phase1_to_tick = PHASE1_TO_TICK;
       break;
     }
-    case phase1ab_t::phase2:{
+    case phase12_t::phase2:{
+      phase2_to_tick = PHASE2_TO_TICK;
       break;
     }
     default: {
       MASSERT(0, "Phase not recognized in leader timeout.\n Destruct sequence initiated. 3..2..1..run!\n");
     }
-
   }
 }
 
@@ -44,10 +45,11 @@ proposer_t::proposer_t(paxserver *_server) {
   server = _server;
   fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config 
   current_iid = 0;
-
+  has_value = false;
 }
 
 void proposer_t::do_proposer_timeout() {
+  proposer_to_tick = PROPOSER_TO_TICK;
 }
 
 /** acceptor functions **/
@@ -66,4 +68,5 @@ learner_t::learner_t(paxserver *_server){
 }
 
 void learner_t::do_learner_timeout() {
+  lsync_to_tick = LSYNC_TICK;
 }

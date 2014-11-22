@@ -1,4 +1,5 @@
 #include "args.h"
+#include "config.h"
 #include <unordered_map>
 #include "getoptpp/getopt_pp.h"
 
@@ -79,9 +80,9 @@ void do_args(int argc, char* argv[], dssim_t::Config& con) {
 
    //////////////////////////////////////////////
    // These options have no command line switch yet
-   con.client_switch_ntimo = 3;
-   con.serv_vca_timo = 50;
-   con.serv_dead_timo = 200;
+   con.client_switch_ntimo = DEFAULT_SWITCH_TIMO;
+   con.serv_vca_timo = SERV_VCA_TIMO;
+   con.serv_dead_timo = SERV_DEAD_TIMO;
    if(con.serv_dead_timo <= con.client_timo) {
       std::cerr << "XXX Possible misconfiguration!\n"
                 << "Client timo " << con.client_timo
@@ -89,6 +90,6 @@ void do_args(int argc, char* argv[], dssim_t::Config& con) {
                 << "\nServer timeout should be bigger than client\n";
    }
    // Less than client timo, right?
-   con.serv_heartbeat_timo = 75;
+   con.serv_heartbeat_timo = SERV_HEARTBEAT_TIMO;
    // XXX Should allow user to set timeout randomization interval
 }
