@@ -194,17 +194,19 @@ void paxserver::do_heartbeat() {
 
 
 void paxserver::do_fastpax_timo() {
-  // leader phase1 timeout
-  if (leader->phase1_to_tick > 0) {
-    leader->phase1_to_tick--;
-  } else {
-    leader->do_leader_timeout(phase12_t::phase1);
-  }
-  // leader phase2 timeout
-  if (leader->phase2_to_tick > 0) {
-    leader->phase2_to_tick--;
-  } else {
-    leader->do_leader_timeout(phase12_t::phase2);
+  if (primary()){
+    // leader phase1 timeout
+    if (leader->phase1_to_tick > 0) {
+      leader->phase1_to_tick--;
+    } else {
+      leader->do_leader_timeout(phase12_t::phase1);
+    }
+    // leader phase2 timeout
+    if (leader->phase2_to_tick > 0) {
+      leader->phase2_to_tick--;
+    } else {
+      leader->do_leader_timeout(phase12_t::phase2);
+    }
   }
 
   // learner timeout
