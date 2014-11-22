@@ -1,6 +1,7 @@
 // TODO The implemation of opertaions taken by diffrent roles
 #include "paxrole.h"
 #include "paxserver.h"
+#include "log.h"
 
 /** leader functions **/
 leader_t::leader_t(paxserver *_server) {
@@ -46,6 +47,19 @@ proposer_t::proposer_t(paxserver *_server) {
   fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config 
   current_iid = 0;
   has_value = false;
+}
+
+void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
+  LOG(l::DEBUG, ("Proposer message received from client\n"));
+  last_accept_hash = 1;
+  std::set<node_id_t> servers = server->get_other_servers(server->vc_state.view);
+  servers.insert(server->get_nid());
+
+  for (node_id_t node_id : servers) {
+    auto amsg = std::make_unique<struct accept_msg_t>(current_iid,
+        fixed_ballot, server->get_nid());
+    server->send_msg(node_id, std::move(amsg));
+  }
 }
 
 void proposer_t::do_proposer_timeout() {

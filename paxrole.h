@@ -44,9 +44,6 @@ class learner_t {
     learner_t(paxserver *_server);
 };
 
-
-
-
 class leader_t {
   public:
     paxserver * server;
@@ -125,6 +122,7 @@ class proposer_t {
 
     proposer_t(paxserver *_server);
     void do_proposer_timeout();
+    void proposer_submit_value(const struct execute_arg&);
 };
 
 class acceptor_t {

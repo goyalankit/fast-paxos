@@ -74,20 +74,18 @@ struct accept_msg_t : public paxmsg_t {
   static constexpr const char* _descr = "acceptMsg";
   int     iid;
   int     ballot;
-  int     value_size;
   int     proposer_id;
 
-  accept_msg_t(int _iid, int _ballot, int _value_size, int _proposer_id) :
+  accept_msg_t(int _iid, int _ballot, int _proposer_id) :
     paxmsg_t(_descr, ID) {
       iid = _iid;
       ballot = _ballot;
-      value_size = _value_size;
       proposer_id = _proposer_id;
     }
 
   void pr(std::ostream& os) const {
     os << "{" << iid << ", " << ballot  << ", " <<
-      value_size << "," << proposer_id << "}";
+      proposer_id << "}";
   }
 };
 

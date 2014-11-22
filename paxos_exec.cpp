@@ -6,7 +6,7 @@
 #include "log.h"
 
 void paxserver::execute_arg(const struct execute_arg& ex_arg) {
-   MASSERT(0, "execute_arg not implemented\n");
+  proposer->proposer_submit_value(ex_arg);
 }
 
 void paxserver::replicate_arg(const struct replicate_arg& repl_arg) {
