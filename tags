@@ -1,0 +1,991 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	t.cpp	/^   A(std::unique_ptr<B> _b) :$/;"	f	struct:A
+A	t.cpp	/^struct A {$/;"	s	file:
+ACCEPTOR_ARRAY_SIZE	config.h	/^#define ACCEPTOR_ARRAY_SIZE /;"	d
+ACTIVE	paxserver.h	/^      ACTIVE,$/;"	e	enum:vc_state_t::__anon4
+ARGC	getoptpp/tests/simpleoptions_test.cpp	/^#define ARGC /;"	d	file:
+A_CJOIN	dssim.h	/^      A_CJOIN,$/;"	e	enum:Sched::aid_t
+A_DIE	dssim.h	/^      A_DIE,$/;"	e	enum:Sched::aid_t
+A_PAUSE	dssim.h	/^      A_PAUSE,$/;"	e	enum:Sched::aid_t
+A_SJOIN	dssim.h	/^      A_SJOIN,$/;"	e	enum:Sched::aid_t
+A_UNPAUSE	dssim.h	/^      A_UNPAUSE$/;"	e	enum:Sched::aid_t
+ArgumentNotFoundEx	getoptpp/getoptpp/getopt_pp.h	/^struct ArgumentNotFoundEx : GetOptEx {};$/;"	s	namespace:GetOpt
+B	t.cpp	/^   B(){}$/;"	f	struct:B
+B	t.cpp	/^struct B {$/;"	s	file:
+BALLOT_NEXT	paxserver.h	/^#define BALLOT_NEXT(/;"	d
+BUF_SZ	log.cpp	/^#define BUF_SZ /;"	d	file:
+BZF_MD5_H	md5.h	/^#define BZF_MD5_H$/;"	d
+BadType	getoptpp/getoptpp/getopt_pp.h	/^        BadType,$/;"	e	enum:GetOpt::_Option::Result
+CFLAGS	Makefile	/^CFLAGS = -Wall -g -O2 -std=gnu++11 -Igetoptpp$/;"	m
+CXX	Makefile	/^CXX = g++-4.8$/;"	m
+CXX	Makefile	/^CXX = g++-4.9$/;"	m
+CXXFLAGS	getoptpp/Makefile	/^CXXFLAGS:=$(CXXFLAGS) -fPIC$/;"	m
+CXXFLAGS	getoptpp/Makefile	/^CXXFLAGS=-Wall -I.$/;"	m
+CmdLine_Extracted	getoptpp/getoptpp/getopt_pp.h	/^        CmdLine_Extracted,$/;"	e	enum:GetOpt::OptionData::_Flags
+CmdLine_NotExtracted	getoptpp/getoptpp/getopt_pp.h	/^        CmdLine_NotExtracted,$/;"	e	enum:GetOpt::OptionData::_Flags
+Config	dssim.cpp	/^dssim_t::Config::Config() {$/;"	f	class:dssim_t::Config
+Config	dssim.h	/^   struct Config {$/;"	s	class:dssim_t
+DBG_CFLAGS	Makefile	/^DBG_CFLAGS = -Wall -g -fno-omit-frame-pointer -std=gnu++11 -Igetoptpp$/;"	m
+DBG_CFLAGS	Makefile	/^DBG_CFLAGS = -Wall -g -fsanitize=address -fno-omit-frame-pointer -std=gnu++11 -Igetoptpp$/;"	m
+DBG_EV	log.h	/^      DBG_EV   = (DEBUG),$/;"	e	enum:l::level
+DBG_NORM	log.h	/^      DBG_NORM = (DEBUG),\/\/ | 0x8000000),$/;"	e	enum:l::level
+DBG_VC	log.h	/^      DBG_VC   = (DEBUG),\/\/ | 0x4000000)$/;"	e	enum:l::level
+DEBUG	log.h	/^      DEBUG,$/;"	e	enum:l::level
+DEV_INSTALL_DIR	getoptpp/Makefile	/^DEV_INSTALL_DIR=$(_PREFIX)\/include\/getoptpp$/;"	m
+Date	getoptpp/examples/example_extendingtypes_date.cpp	/^    Date() {}$/;"	f	struct:Date
+Date	getoptpp/examples/example_extendingtypes_date.cpp	/^    Date(unsigned int y, unsigned int m, unsigned int d) : year(y), month(m), day(d) {}$/;"	f	struct:Date
+Date	getoptpp/examples/example_extendingtypes_date.cpp	/^struct Date$/;"	s	file:
+Date	getoptpp/tests/format_test.cpp	/^    Date() :$/;"	f	struct:Date
+Date	getoptpp/tests/format_test.cpp	/^    Date(unsigned int y, unsigned int m, unsigned int d) : $/;"	f	struct:Date
+Date	getoptpp/tests/format_test.cpp	/^struct Date$/;"	s	file:
+EMERG	log.h	/^      EMERG,$/;"	e	enum:l::level
+EXAMPLES_OBJS	getoptpp/Makefile	/^EXAMPLES_OBJS=$(patsubst %.cpp,%.o,$(EXAMPLES_SRCS))$/;"	m
+EXAMPLES_SRCS	getoptpp/Makefile	/^EXAMPLES_SRCS=$(wildcard examples\/example_*.cpp)$/;"	m
+EXAMPLE_BIN	getoptpp/Makefile	/^EXAMPLE_BIN=$(patsubst %.cpp,%,$(EXAMPLES_SRCS))$/;"	m
+Envir	getoptpp/getoptpp/getopt_pp.h	/^        Envir$/;"	e	enum:GetOpt::OptionData::_Flags
+Environment	getoptpp/getoptpp/getopt_pp.h	/^class Environment$/;"	c	namespace:GetOpt
+F	md5.cpp	/^inline MD5::uint4 MD5::F(uint4 x, uint4 y, uint4 z) {$/;"	f	class:MD5
+FF	md5.cpp	/^inline void MD5::FF(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {$/;"	f	class:MD5
+FIRST_BALLOT	paxserver.h	/^#define FIRST_BALLOT /;"	d
+G	md5.cpp	/^inline MD5::uint4 MD5::G(uint4 x, uint4 y, uint4 z) {$/;"	f	class:MD5
+GETOPT_INLINE	getoptpp/getoptpp/getopt_pp.h	/^#   define GETOPT_INLINE$/;"	d
+GETOPT_INLINE	getoptpp/getoptpp/getopt_pp_standalone.h	/^#define GETOPT_INLINE /;"	d
+GETOPT_INLINE	getoptpp/getoptpp/getopt_pp_standalone.h	/^#undef GETOPT_INLINE$/;"	d
+GETOPT_PP_H	getoptpp/getoptpp/getopt_pp.h	/^#define GETOPT_PP_H$/;"	d
+GETOPT_PP_STANDALONE_H	getoptpp/getoptpp/getopt_pp_standalone.h	/^#define GETOPT_PP_STANDALONE_H$/;"	d
+GG	md5.cpp	/^inline void MD5::GG(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {$/;"	f	class:MD5
+GIT_SHA	Makefile	/^GIT_SHA=$(shell git rev-parse HEAD)$/;"	m
+GIT_SHA	version.cpp	/^#define GIT_SHA /;"	d	file:
+GetOpt	getoptpp/examples/example_extendingtypes_date.cpp	/^namespace GetOpt$/;"	n	file:
+GetOpt	getoptpp/getoptpp/getopt_pp.h	/^namespace GetOpt$/;"	n
+GetOpt	getoptpp/src/getopt_pp.cpp	/^namespace GetOpt$/;"	n	file:
+GetOpt	getoptpp/tests/format_test.cpp	/^namespace GetOpt$/;"	n	file:
+GetOptEx	getoptpp/getoptpp/getopt_pp.h	/^class GetOptEx : public std::exception {};$/;"	c	namespace:GetOpt
+GetOpt_pp	getoptpp/getoptpp/getopt_pp.h	/^class GetOpt_pp$/;"	c	namespace:GetOpt
+GetOpt_pp	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE GetOpt_pp::GetOpt_pp(int argc, const char* const* const argv)$/;"	f	class:GetOpt::GetOpt_pp
+GetOpt_pp	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE GetOpt_pp::GetOpt_pp(int argc, const char* const* const argv, _EnvTag)$/;"	f	class:GetOpt::GetOpt_pp
+GlobalArgument	getoptpp/getoptpp/getopt_pp.h	/^        GlobalArgument,$/;"	e	enum:GetOpt::Token::Type
+GlobalArgumentUsed	getoptpp/getoptpp/getopt_pp.h	/^        GlobalArgumentUsed, \/\/ already read, skip in the next read$/;"	e	enum:GetOpt::Token::Type
+GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^inline _GlobalOption<T> GlobalOption(T& target)$/;"	f	namespace:GetOpt
+H	md5.cpp	/^inline MD5::uint4 MD5::H(uint4 x, uint4 y, uint4 z) {$/;"	f	class:MD5
+HH	md5.cpp	/^inline void MD5::HH(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {$/;"	f	class:MD5
+I	md5.cpp	/^inline MD5::uint4 MD5::I(uint4 x, uint4 y, uint4 z) {$/;"	f	class:MD5
+ID	paxmsg.h	/^  static const int  ID = 2;$/;"	m	struct:prepare_msg_t
+ID	paxmsg.h	/^  static const int ID = 10;$/;"	m	struct:view_change_reject
+ID	paxmsg.h	/^  static const int ID = 11;$/;"	m	struct:view_change_accept
+ID	paxmsg.h	/^  static const int ID = 12;$/;"	m	struct:new_view_arg
+ID	paxmsg.h	/^  static const int ID = 13;$/;"	m	struct:new_view_res
+ID	paxmsg.h	/^  static const int ID = 14;$/;"	m	struct:init_view_arg
+ID	paxmsg.h	/^  static const int ID = 15;$/;"	m	struct:init_view_request
+ID	paxmsg.h	/^  static const int ID = 16;$/;"	m	struct:getstate_arg
+ID	paxmsg.h	/^  static const int ID = 17;$/;"	m	struct:getstate_res
+ID	paxmsg.h	/^  static const int ID = 1;$/;"	m	struct:nop_msg
+ID	paxmsg.h	/^  static const int ID = 3;$/;"	m	struct:execute_arg
+ID	paxmsg.h	/^  static const int ID = 3;$/;"	m	struct:promise_msg_t
+ID	paxmsg.h	/^  static const int ID = 4;$/;"	m	struct:accept_msg_t
+ID	paxmsg.h	/^  static const int ID = 4;$/;"	m	struct:execute_success
+ID	paxmsg.h	/^  static const int ID = 5;$/;"	m	struct:execute_fail
+ID	paxmsg.h	/^  static const int ID = 5;$/;"	m	struct:learner_sync_msg_t
+ID	paxmsg.h	/^  static const int ID = 6;$/;"	m	struct:learn_msg_t
+ID	paxmsg.h	/^  static const int ID = 6;$/;"	m	struct:replicate_arg
+ID	paxmsg.h	/^  static const int ID = 7;$/;"	m	struct:anyval_msg_t
+ID	paxmsg.h	/^  static const int ID = 7;$/;"	m	struct:replicate_res
+ID	paxmsg.h	/^  static const int ID = 8;$/;"	m	struct:accept_arg
+ID	paxmsg.h	/^  static const int ID = 9;$/;"	m	struct:view_change_arg
+II	md5.cpp	/^inline void MD5::II(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {$/;"	f	class:MD5
+INFO	log.h	/^      INFO,$/;"	e	enum:l::level
+INSTALL_DIR	getoptpp/Makefile	/^INSTALL_DIR=$(_PREFIX)\/lib\/getoptpp$/;"	m
+IS_ACCEPTER	paxserver.h	/^#define IS_ACCEPTER(/;"	d
+IS_LEADER	paxserver.h	/^#define IS_LEADER(/;"	d
+IS_LEARNER	paxserver.h	/^#define IS_LEARNER(/;"	d
+IS_PROPOSER	paxserver.h	/^#define IS_PROPOSER(/;"	d
+Include_Environment	getoptpp/getoptpp/getopt_pp.h	/^    Include_Environment$/;"	e	enum:GetOpt::_EnvTag
+InvalidFormatEx	getoptpp/getoptpp/getopt_pp.h	/^struct InvalidFormatEx : GetOptEx {};$/;"	s	namespace:GetOpt
+ItCtorData	getoptpp/getoptpp/getopt_pp.h	/^    struct ItCtorData$/;"	s	class:GetOpt::GetOpt_pp
+LEARNER_ARRAY_SIZE	config.h	/^#define LEARNER_ARRAY_SIZE /;"	d
+LINK_TIME	Makefile	/^LINK_TIME=$(shell date)$/;"	m
+LINK_TIME	version.cpp	/^#define LINK_TIME /;"	d	file:
+LOG	log.h	/^#define LOG(/;"	d
+LongAdapter	getoptpp/getoptpp/getopt_pp.h	/^    struct LongAdapter$/;"	s	class:GetOpt::GetOpt_pp
+LongOption	getoptpp/getoptpp/getopt_pp.h	/^        LongOption,$/;"	e	enum:GetOpt::Token::Type
+LongOptions	getoptpp/getoptpp/getopt_pp.h	/^typedef std::map<std::string, OptionData> LongOptions;$/;"	t	namespace:GetOpt
+MANAGER	paxserver.h	/^      MANAGER,$/;"	e	enum:vc_state_t::__anon4
+MASSERT	massert.h	/^#   define MASSERT(/;"	d
+MAX_PROPOSERS	config.h	/^#define MAX_PROPOSERS /;"	d
+MAX_UDP_MSG_SIZE	config.h	/^#define MAX_UDP_MSG_SIZE /;"	d
+MD5	md5.cpp	/^MD5::MD5()$/;"	f	class:MD5
+MD5	md5.cpp	/^MD5::MD5(const std::string &text)$/;"	f	class:MD5
+MD5	md5.h	/^class MD5$/;"	c
+NO_SHORT_OPT	getoptpp/getoptpp/getopt_pp.h	/^    static const char NO_SHORT_OPT = 0;$/;"	m	struct:GetOpt::_Option
+N_OF_ACCEPTORS	config.h	/^#define N_OF_ACCEPTORS /;"	d
+Net	net.cpp	/^Net::Net(dssim_t* _dssim) :$/;"	f	class:Net
+Net	net.h	/^class Net {$/;"	c
+NoArgs	getoptpp/getoptpp/getopt_pp.h	/^        NoArgs,$/;"	e	enum:GetOpt::_Option::Result
+OBJECTS	getoptpp/Makefile	/^OBJECTS=src\/getopt_pp.o$/;"	m
+OK	getoptpp/getoptpp/getopt_pp.h	/^        OK,$/;"	e	enum:GetOpt::_Option::Result
+Option	getoptpp/getoptpp/getopt_pp.h	/^Option(char short_opt, const std::string& long_opt, T& target, const T& def)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^Option(char short_opt, const std::string& long_opt, std::string& target, const char* def)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^Option(const std::string& long_opt, T& target, const T& def)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^Option(const std::string& long_opt, std::string& target, const char* def)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^inline _DefValOption<T, _OptionT<T> > Option(char short_opt, T& target, const T& def)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^inline _OptionT<T> Option(char short_opt, T& target)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^inline _OptionT<T> Option(char short_opt, const std::string& long_opt, T& target)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^inline _OptionT<T> Option(const std::string& long_opt, T& target)$/;"	f	namespace:GetOpt
+Option	getoptpp/getoptpp/getopt_pp.h	/^inline _OptionT<std::string> Option(char short_opt, std::string& target, const char* def)$/;"	f	namespace:GetOpt
+OptionArgument	getoptpp/getoptpp/getopt_pp.h	/^        OptionArgument,$/;"	e	enum:GetOpt::Token::Type
+OptionData	getoptpp/getoptpp/getopt_pp.h	/^    OptionData() : flags(CmdLine_NotExtracted) {}$/;"	f	struct:GetOpt::OptionData
+OptionData	getoptpp/getoptpp/getopt_pp.h	/^struct OptionData$/;"	s	namespace:GetOpt
+OptionNotFound	getoptpp/getoptpp/getopt_pp.h	/^        OptionNotFound,$/;"	e	enum:GetOpt::_Option::Result
+OptionNotFoundEx	getoptpp/getoptpp/getopt_pp.h	/^struct OptionNotFoundEx : GetOptEx {};$/;"	s	namespace:GetOpt
+OptionNotFound_NoEx	getoptpp/getoptpp/getopt_pp.h	/^        OptionNotFound_NoEx$/;"	e	enum:GetOpt::_Option::Result
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(char short_opt)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(char short_opt, bool& present)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(char short_opt, const std::string& long_opt)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(char short_opt, const std::string& long_opt, bool& present)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(const std::string& long_opt)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^    OptionPresent(const std::string& long_opt, bool& present)$/;"	f	class:GetOpt::OptionPresent
+OptionPresent	getoptpp/getoptpp/getopt_pp.h	/^class OptionPresent : public _Option$/;"	c	namespace:GetOpt
+OptionsFileNotFoundEx	getoptpp/getoptpp/getopt_pp.h	/^    OptionsFileNotFoundEx(const std::string& file) : targetFile(file) {}$/;"	f	struct:GetOpt::OptionsFileNotFoundEx
+OptionsFileNotFoundEx	getoptpp/getoptpp/getopt_pp.h	/^struct OptionsFileNotFoundEx : GetOptEx$/;"	s	namespace:GetOpt
+PAXOS_MAX_VALUE_SIZE	config.h	/^#define PAXOS_MAX_VALUE_SIZE /;"	d
+PROPOSER_ARRAY_SIZE	config.h	/^#define PROPOSER_ARRAY_SIZE /;"	d
+PROPOSER_PREEXEC_WIN_SIZE	config.h	/^#define PROPOSER_PREEXEC_WIN_SIZE /;"	d
+ParsingError	getoptpp/getoptpp/getopt_pp.h	/^        ParsingError,$/;"	e	enum:GetOpt::_Option::Result
+ParsingErrorEx	getoptpp/getoptpp/getopt_pp.h	/^struct ParsingErrorEx : GetOptEx {};$/;"	s	namespace:GetOpt
+Paxlog	paxlog.cpp	/^Paxlog::Paxlog() {$/;"	f	class:Paxlog
+Paxlog	paxlog.cpp	/^Paxlog::Paxlog(const Paxlog& pl) {$/;"	f	class:Paxlog
+Paxlog	paxlog.h	/^class Paxlog {$/;"	c
+PossibleNegativeArgument	getoptpp/getoptpp/getopt_pp.h	/^        PossibleNegativeArgument,$/;"	e	enum:GetOpt::Token::Type
+Result	getoptpp/getoptpp/getopt_pp.h	/^    enum Result$/;"	g	struct:GetOpt::_Option
+S11	md5.cpp	/^#define S11 /;"	d	file:
+S12	md5.cpp	/^#define S12 /;"	d	file:
+S13	md5.cpp	/^#define S13 /;"	d	file:
+S14	md5.cpp	/^#define S14 /;"	d	file:
+S21	md5.cpp	/^#define S21 /;"	d	file:
+S22	md5.cpp	/^#define S22 /;"	d	file:
+S23	md5.cpp	/^#define S23 /;"	d	file:
+S24	md5.cpp	/^#define S24 /;"	d	file:
+S31	md5.cpp	/^#define S31 /;"	d	file:
+S32	md5.cpp	/^#define S32 /;"	d	file:
+S33	md5.cpp	/^#define S33 /;"	d	file:
+S34	md5.cpp	/^#define S34 /;"	d	file:
+S41	md5.cpp	/^#define S41 /;"	d	file:
+S42	md5.cpp	/^#define S42 /;"	d	file:
+S43	md5.cpp	/^#define S43 /;"	d	file:
+S44	md5.cpp	/^#define S44 /;"	d	file:
+SET_ACCEPTER	paxserver.h	/^#define SET_ACCEPTER(/;"	d
+SET_LEADER	paxserver.h	/^#define SET_LEADER(/;"	d
+SET_LEARNER	paxserver.h	/^#define SET_LEARNER(/;"	d
+SET_PROPOSER	paxserver.h	/^#define SET_PROPOSER(/;"	d
+SHORT	log.h	/^      SHORT, \/\/ Try to keep output to about a page$/;"	e	enum:l::level
+SYS_UNAME	Makefile	/^SYS_UNAME = $(shell uname)$/;"	m
+Sched	dssim.cpp	/^Sched::Sched(){$/;"	f	class:Sched
+Sched	dssim.h	/^class Sched {$/;"	c
+ShortAdapter	getoptpp/getoptpp/getopt_pp.h	/^    struct ShortAdapter$/;"	s	class:GetOpt::GetOpt_pp
+ShortOption	getoptpp/getoptpp/getopt_pp.h	/^        ShortOption,$/;"	e	enum:GetOpt::Token::Type
+ShortOptions	getoptpp/getoptpp/getopt_pp.h	/^typedef std::map<char, OptionData> ShortOptions;$/;"	t	namespace:GetOpt
+TEST	getoptpp/tests/format_test.cpp	/^TEST(GetOptPPFormatTest, date)$/;"	f
+TEST	getoptpp/tests/format_test.cpp	/^TEST(GetOptPPFormatTest, hexa)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, both_options_long)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, both_options_short)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, global_options)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, globals_last)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, just_long_option)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, just_long_option_default)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, negative_float)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, negative_integer)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, negative_integer_as_string_token)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, negative_integers_as_string_tokens)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, negative_integers_vector)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, no_manipulators)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, no_manipulators_option_not_found)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, option_not_found)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, suboptions_bad)$/;"	f
+TEST	getoptpp/tests/simpleoptions_test.cpp	/^TEST(GetOptPPTest, suboptions_good)$/;"	f
+Token	getoptpp/getoptpp/getopt_pp.h	/^    Token(const std::string& value, Type type = UnknownYet)$/;"	f	struct:GetOpt::Token
+Token	getoptpp/getoptpp/getopt_pp.h	/^struct Token$/;"	s	namespace:GetOpt
+TokensDeleter	getoptpp/getoptpp/getopt_pp.h	/^        TokensDeleter(Token*& first) : _first(first) {}$/;"	f	class:GetOpt::GetOpt_pp::TokensDeleter
+TokensDeleter	getoptpp/getoptpp/getopt_pp.h	/^    class TokensDeleter$/;"	c	class:GetOpt::GetOpt_pp
+TooManyArgs	getoptpp/getoptpp/getopt_pp.h	/^        TooManyArgs,$/;"	e	enum:GetOpt::_Option::Result
+TooManyArgumentsEx	getoptpp/getoptpp/getopt_pp.h	/^struct TooManyArgumentsEx : GetOptEx {};$/;"	s	namespace:GetOpt
+TooManyOptionsEx	getoptpp/getoptpp/getopt_pp.h	/^struct TooManyOptionsEx : GetOptEx {};$/;"	s	namespace:GetOpt
+Type	getoptpp/getoptpp/getopt_pp.h	/^    enum Type$/;"	g	struct:GetOpt::Token
+UNDERLING	paxserver.h	/^      UNDERLING$/;"	e	enum:vc_state_t::__anon4
+UnknownYet	getoptpp/getoptpp/getopt_pp.h	/^        UnknownYet  \/\/ can be a global option, or an option of the previous one$/;"	e	enum:GetOpt::Token::Type
+VALUE_OWNER	paxserver.h	/^#define VALUE_OWNER(/;"	d
+WARN	log.h	/^      WARN,$/;"	e	enum:l::level
+_DefValOption	getoptpp/getoptpp/getopt_pp.h	/^    _DefValOption(char short_opt, const std::string& long_opt, T& target, const T& default_value)$/;"	f	class:GetOpt::_DefValOption
+_DefValOption	getoptpp/getoptpp/getopt_pp.h	/^    _DefValOption(const _DefValOption<T, BaseOption>& other)$/;"	f	class:GetOpt::_DefValOption
+_DefValOption	getoptpp/getoptpp/getopt_pp.h	/^class _DefValOption : public BaseOption$/;"	c	namespace:GetOpt
+_EnvTag	getoptpp/getoptpp/getopt_pp.h	/^enum _EnvTag$/;"	g	namespace:GetOpt
+_Flags	getoptpp/getoptpp/getopt_pp.h	/^    enum _Flags$/;"	g	struct:GetOpt::OptionData
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^    _GlobalOption(T& target)$/;"	f	class:GetOpt::_GlobalOption
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^    _GlobalOption(const _GlobalOption<T>& other)$/;"	f	class:GetOpt::_GlobalOption
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^    _GlobalOption(const _GlobalOption<std::vector<T> >& other)$/;"	f	class:GetOpt::_GlobalOption
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^    _GlobalOption(std::vector<T>& target)$/;"	f	class:GetOpt::_GlobalOption
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^class _GlobalOption : public _Option$/;"	c	namespace:GetOpt
+_GlobalOption	getoptpp/getoptpp/getopt_pp.h	/^class _GlobalOption<std::vector<T> > : public _Option$/;"	c	namespace:GetOpt
+_Option	getoptpp/getoptpp/getopt_pp.h	/^struct _Option$/;"	s	namespace:GetOpt
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^    _OptionT(char short_opt, const std::string& long_opt, T& target)$/;"	f	class:GetOpt::_OptionT
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^    _OptionT(char short_opt, const std::string& long_opt, std::vector<T>& target)$/;"	f	class:GetOpt::_OptionT
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^    _OptionT(const _OptionT<T>& other)$/;"	f	class:GetOpt::_OptionT
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^    _OptionT(const _OptionT<std::vector<T> >& other)$/;"	f	class:GetOpt::_OptionT
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^template <class T> class _OptionT : public _OptionTBase<T>$/;"	c	namespace:GetOpt
+_OptionT	getoptpp/getoptpp/getopt_pp.h	/^template <class T> class _OptionT<std::vector<T> > : public _OptionTBase<std::vector<T> >$/;"	c	namespace:GetOpt
+_OptionTBase	getoptpp/getoptpp/getopt_pp.h	/^    _OptionTBase(char short_opt, const std::string& long_opt, T& target)$/;"	f	class:GetOpt::_OptionTBase
+_OptionTBase	getoptpp/getoptpp/getopt_pp.h	/^    _OptionTBase(const _OptionTBase<T>& other)$/;"	f	class:GetOpt::_OptionTBase
+_OptionTBase	getoptpp/getoptpp/getopt_pp.h	/^template <class T> class _OptionTBase : public _Option$/;"	c	namespace:GetOpt
+_PREFIX	getoptpp/Makefile	/^_PREFIX=$(if $(PREFIX),$(PREFIX),\/usr)$/;"	m
+_add_token	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE Token* GetOpt_pp::_add_token(const std::string& value, Token::Type type)$/;"	f	class:GetOpt::GetOpt_pp
+_app_name	getoptpp/getoptpp/getopt_pp.h	/^    std::string _app_name;$/;"	m	class:GetOpt::GetOpt_pp
+_argc_argv_to_vector	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE void GetOpt_pp::_argc_argv_to_vector(int argc, const char* const* const argv, std::vector<std::string>& args)$/;"	f	class:GetOpt::GetOpt_pp
+_assign	getoptpp/getoptpp/getopt_pp.h	/^    virtual _Option::Result _assign(Token* token, std::ios::fmtflags flags, ShortOptions& short_ops) const$/;"	f	class:GetOpt::_OptionT
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "accept ARG";$/;"	m	struct:accept_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "acceptMsg";$/;"	m	struct:accept_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "anyvalMsg";$/;"	m	struct:anyval_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "executeARG";$/;"	m	struct:execute_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "executeARG";$/;"	m	struct:prepare_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "executeFAI";$/;"	m	struct:execute_fail
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "executeSUC";$/;"	m	struct:execute_success
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "getsta_ARG";$/;"	m	struct:getstate_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "getsta_RES";$/;"	m	struct:getstate_res
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "init_viARG";$/;"	m	struct:init_view_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "init_viREQ";$/;"	m	struct:init_view_request
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "learnerMsg";$/;"	m	struct:learn_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "learnerSyncMsg";$/;"	m	struct:learner_sync_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "new_vieARG";$/;"	m	struct:new_view_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "new_vieRES";$/;"	m	struct:new_view_res
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "nop";$/;"	m	struct:nop_msg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "promiseMsg";$/;"	m	struct:promise_msg_t
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "replicaARG";$/;"	m	struct:replicate_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "replicaRES";$/;"	m	struct:replicate_res
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "view_chACC";$/;"	m	struct:view_change_accept
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "view_chARG";$/;"	m	struct:view_change_arg
+_descr	paxmsg.h	/^  static constexpr const char* _descr = "view_chREJ";$/;"	m	struct:view_change_reject
+_exc	getoptpp/getoptpp/getopt_pp.h	/^    std::ios_base::iostate _exc;$/;"	m	class:GetOpt::GetOpt_pp
+_first	getoptpp/getoptpp/getopt_pp.h	/^        Token*& _first;$/;"	m	class:GetOpt::GetOpt_pp::TokensDeleter
+_first_token	getoptpp/getoptpp/getopt_pp.h	/^    Token* _first_token;$/;"	m	class:GetOpt::GetOpt_pp
+_flags	getoptpp/getoptpp/getopt_pp.h	/^    std::ios::fmtflags _flags;$/;"	m	class:GetOpt::GetOpt_pp
+_getopt_pp	getoptpp/getoptpp/getopt_pp.h	/^        GetOpt_pp* _getopt_pp;$/;"	m	class:GetOpt::GetOpt_pp::_iterator
+_init_flags	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE void GetOpt_pp::_init_flags()$/;"	f	class:GetOpt::GetOpt_pp
+_it	getoptpp/getoptpp/getopt_pp.h	/^        typename Container::const_iterator _it;$/;"	m	class:GetOpt::GetOpt_pp::_iterator
+_iterator	getoptpp/getoptpp/getopt_pp.h	/^        _iterator() : _getopt_pp(NULL)$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+_iterator	getoptpp/getoptpp/getopt_pp.h	/^        _iterator(const ItCtorData& ctor_data)$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+_iterator	getoptpp/getoptpp/getopt_pp.h	/^    class _iterator$/;"	c	class:GetOpt::GetOpt_pp
+_last	getoptpp/getoptpp/getopt_pp.h	/^    _Option::Result _last;$/;"	m	class:GetOpt::GetOpt_pp
+_last_token	getoptpp/getoptpp/getopt_pp.h	/^    Token* _last_token;$/;"	m	class:GetOpt::GetOpt_pp
+_longOps	getoptpp/getoptpp/getopt_pp.h	/^    LongOptions _longOps;$/;"	m	class:GetOpt::GetOpt_pp
+_mutex	log.cpp	/^static std::mutex _mutex;$/;"	v	file:
+_parse	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE void GetOpt_pp::_parse(const std::vector<std::string>& args)$/;"	f	class:GetOpt::GetOpt_pp
+_parse_env	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE void GetOpt_pp::_parse_env()$/;"	f	class:GetOpt::GetOpt_pp
+_parse_sub_file	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE void GetOpt_pp::_parse_sub_file(const std::string& file)$/;"	f	class:GetOpt::GetOpt_pp
+_paxobj	paxserver.h	/^   std::unique_ptr<paxobj> _paxobj;$/;"	m	class:paxserver
+_pkt_num	net.cpp	/^uint64_t net_msg_t::_pkt_num = 1ULL;$/;"	m	class:net_msg_t	file:
+_pkt_num	net.h	/^   static uint64_t _pkt_num;$/;"	m	struct:net_msg_t
+_shortOps	getoptpp/getoptpp/getopt_pp.h	/^    ShortOptions _shortOps;$/;"	m	class:GetOpt::GetOpt_pp
+_tokens_deleter	getoptpp/getoptpp/getopt_pp.h	/^    TokensDeleter _tokens_deleter;$/;"	m	class:GetOpt::GetOpt_pp
+accept_arg	paxmsg.h	/^  accept_arg(const viewstamp_t& _committed) : $/;"	f	struct:accept_arg
+accept_arg	paxmsg.h	/^struct accept_arg : public paxmsg_t {$/;"	s
+accept_arg	paxos_exec.cpp	/^void paxserver::accept_arg(const struct accept_arg& acc_arg) {$/;"	f	class:paxserver
+accept_msg_t	paxmsg.h	/^  accept_msg_t(int _iid, int _ballot, int _value_size, int _proposer_id) :$/;"	f	struct:accept_msg_t
+accept_msg_t	paxmsg.h	/^struct accept_msg_t : public paxmsg_t {$/;"	s
+accepted	paxmsg.h	/^  bool accepted;$/;"	m	struct:new_view_res
+accepted_view	paxserver.h	/^   std::unique_ptr<view_t> accepted_view;$/;"	m	struct:vc_state_t
+acceptor	paxrole.h	/^class acceptor {$/;"	c
+acceptor_array	paxrole.h	/^    acceptor_record acceptor_array[ACCEPTOR_ARRAY_SIZE];$/;"	m	class:acceptor
+acceptor_id	paxmsg.h	/^  int     acceptor_id;$/;"	m	struct:learn_msg_t
+acceptor_id	paxrole.h	/^    int acceptor_id;$/;"	m	class:acceptor
+acceptor_record	paxrole.h	/^    } acceptor_record;$/;"	t	class:acceptor	typeref:struct:acceptor::acceptor_record_t
+acceptor_record_t	paxrole.h	/^    typedef struct acceptor_record_t {$/;"	s	class:acceptor
+adapt	getoptpp/getoptpp/getopt_pp.h	/^        static LongOptions::const_iterator adapt(const ItCtorData& data)$/;"	f	struct:GetOpt::GetOpt_pp::LongAdapter
+adapt	getoptpp/getoptpp/getopt_pp.h	/^        static ShortOptions::const_iterator adapt(const ItCtorData& data)$/;"	f	struct:GetOpt::GetOpt_pp::ShortAdapter
+add	dssim.cpp	/^void Sched::add(tick_t tick, nidid_t nidid, Sched::aid_t aid) {$/;"	f	class:Sched
+added_tick	paxlog.h	/^      tick_t added_tick;$/;"	m	struct:Paxlog::tup
+aid	dssim.h	/^      aid_t aid;$/;"	m	struct:Sched::event
+aid2str	dssim.cpp	/^std::unordered_map<int, std::string> aid2str ={$/;"	v
+aid_t	dssim.h	/^   enum aid_t {$/;"	g	class:Sched
+announce	net.cpp	/^void Net::announce(node_id_t node) {$/;"	f	class:Net
+announce_newview	paxos_vc.cpp	/^void paxserver::announce_newview() {$/;"	f	class:paxserver
+announce_nv	paxserver.h	/^   bool announce_nv;$/;"	m	struct:vc_mgr_t
+any_enabled	paxrole.h	/^    int     any_enabled;$/;"	m	struct:acceptor::acceptor_record_t
+any_pending	net.cpp	/^bool Net::any_pending() const {$/;"	f	class:Net
+anyval_msg_t	paxmsg.h	/^  anyval_msg_t(int _ballot, int _count) : paxmsg_t(_descr, ID) {$/;"	f	struct:anyval_msg_t
+anyval_msg_t	paxmsg.h	/^struct anyval_msg_t : public paxmsg_t {$/;"	s
+app_name	getoptpp/getoptpp/getopt_pp.h	/^    const std::string& app_name() const$/;"	f	class:GetOpt::GetOpt_pp
+arg	paxmsg.h	/^  execute_arg arg;$/;"	m	struct:replicate_arg
+argument_type	paxtypes.h	/^      typedef viewid_t argument_type;$/;"	t	struct:std::hash
+argument_type	paxtypes.h	/^      typedef viewstamp_t argument_type;$/;"	t	struct:std::hash
+b	t.cpp	/^   std::unique_ptr<B> b;$/;"	m	struct:A	file:
+backups	paxtypes.h	/^   std::set<node_id_t> backups;$/;"	m	struct:view_t
+ballot	paxmsg.h	/^  int     ballot;$/;"	m	struct:accept_msg_t
+ballot	paxmsg.h	/^  int     ballot;$/;"	m	struct:anyval_msg_t
+ballot	paxmsg.h	/^  int     ballot;$/;"	m	struct:learn_msg_t
+ballot	paxmsg.h	/^  int     ballot;$/;"	m	struct:promise_msg_t
+ballot	paxmsg.h	/^  int ballot;$/;"	m	struct:prepare_msg_t
+ballot	paxrole.h	/^      int         ballot;$/;"	m	struct:learner::learner_record_t
+ballot	paxrole.h	/^      int ballot;$/;"	m	struct:leader::proposer_record_t
+ballot	paxrole.h	/^    int     ballot;$/;"	m	struct:acceptor::acceptor_record_t
+become_underling	paxos_vc.cpp	/^void paxserver::become_underling(const viewid_t& newvid, node_id_t mgr,$/;"	f	class:paxserver
+begin	getoptpp/getoptpp/getopt_pp.h	/^    ItCtorData begin()$/;"	f	class:GetOpt::GetOpt_pp
+begin	paxlog.h	/^   std::vector<std::unique_ptr<tup>>::iterator begin() {$/;"	f	class:Paxlog
+bk_started_op	paxserver.h	/^		uint64_t bk_started_op;$/;"	m	struct:paxserver::__anon5
+bk_success_op	paxserver.h	/^		uint64_t bk_success_op;$/;"	m	struct:paxserver::__anon5
+blocksize	md5.h	/^  enum {blocksize = 64}; \/\/ VC6 won't eat a const static int here$/;"	e	enum:MD5::__anon1
+buf	dssim.cpp	/^char buf[16];$/;"	v
+buf	log.cpp	/^static char buf[BUF_SZ];$/;"	v	file:
+buffer	md5.h	/^  uint1 buffer[blocksize]; \/\/ bytes that didn't fit in last 64 byte chunk$/;"	m	class:MD5
+build_git_sha	version.cpp	/^const char build_git_sha[] = GIT_SHA;$/;"	v
+catchup_state	paxos_vc.cpp	/^void paxserver::catchup_state(const view_t& view) {$/;"	f	class:paxserver
+cb	paxclient.h	/^   typedef std::unique_ptr<std::function<void(std::string)>> cb;$/;"	t	class:paxclient
+cb_cnt	word_vec_pax.h	/^   uint64_t cb_cnt; \/\/ Number of callbacks$/;"	m	class:pc_word_vec
+check_timo	paxclient.cpp	/^bool paxclient::req_rec::check_timo() {$/;"	f	class:paxclient::req_rec
+client	paxclient.h	/^      paxclient* client;$/;"	m	struct:paxclient::req_rec
+client_switch_ntimo	dssim.h	/^      int client_switch_ntimo;$/;"	m	struct:dssim_t::Config
+client_timo	dssim.h	/^      int client_timo;$/;"	m	struct:dssim_t::Config
+client_waiting	paxrole.h	/^    int client_waiting = 0;$/;"	m	class:proposer
+clone	paxobj.h	/^   virtual std::unique_ptr<paxobj> clone() {return nullptr;}$/;"	f	class:paxobj
+clone	word_vec_pax.cpp	/^std::unique_ptr<paxobj> po_word_vec::clone() {$/;"	f	class:po_word_vec
+committed	paxmsg.h	/^  viewstamp_t committed;$/;"	m	struct:accept_arg
+committed	paxmsg.h	/^  viewstamp_t committed;$/;"	m	struct:replicate_arg
+complete_vc	paxserver.h	/^   bool complete_vc;$/;"	m	struct:vc_mgr_t
+config	dssim.h	/^   Config config;$/;"	m	class:dssim_t
+configure	dssim.cpp	/^void dssim_t::configure(Net* _net, const dssim_t::Config& _config) {$/;"	f	class:dssim_t
+convert	getoptpp/examples/example_extendingtypes_date.cpp	/^template <> _Option::Result convert<Date>(const std::string& s, Date& d, std::ios::fmtflags)$/;"	f	namespace:GetOpt
+convert	getoptpp/getoptpp/getopt_pp.h	/^template <> inline _Option::Result convert<std::string>(const std::string& s, std::string& result, std::ios::fmtflags \/*flags*\/)$/;"	f	namespace:GetOpt
+convert	getoptpp/getoptpp/getopt_pp.h	/^template <class T> inline _Option::Result convert(const std::string& s, T& result, std::ios::fmtflags flags)$/;"	f	namespace:GetOpt
+convert	getoptpp/tests/format_test.cpp	/^template <> _Option::Result convert<Date>(const std::string& s, Date& d, std::ios::fmtflags)$/;"	f	namespace:GetOpt
+count	md5.h	/^  uint4 count[2];   \/\/ 64bit counter for number of bits (lo, hi)$/;"	m	class:MD5
+count	paxmsg.h	/^  int     count;$/;"	m	struct:anyval_msg_t
+count	paxmsg.h	/^  int     count;$/;"	m	struct:learner_sync_msg_t
+counter	paxtypes.h	/^   uint64_t counter;$/;"	m	struct:viewid_t
+ctor	log.cpp	/^static void ctor() {$/;"	f	file:
+curr_req	word_vec_pax.h	/^   uint64_t curr_req; \/\/ current request number$/;"	m	class:pc_word_vec
+current_iid	paxrole.h	/^      int current_iid;$/;"	m	struct:leader::phase2_info_t
+current_iid	paxrole.h	/^    int current_iid = 0;$/;"	m	class:leader
+current_iid	paxrole.h	/^    int current_iid;$/;"	m	class:proposer
+day	getoptpp/examples/example_extendingtypes_date.cpp	/^    unsigned int day;$/;"	m	struct:Date	file:
+day	getoptpp/tests/format_test.cpp	/^    unsigned int day;$/;"	m	struct:Date	file:
+dead_timo	paxserver.h	/^   tick_t dead_timo;$/;"	m	struct:pax_serv_timo
+decode	md5.cpp	/^void MD5::decode(uint4 output[], const uint1 input[], size_type len)$/;"	f	class:MD5
+default_value	getoptpp/getoptpp/getopt_pp.h	/^    const T default_value;$/;"	m	class:GetOpt::_DefValOption
+delay	dssim.cpp	/^bool dssim_t::delay() {$/;"	f	class:dssim_t
+delay	net.cpp	/^bool Net::delay() {$/;"	f	class:Net
+descr	net.h	/^   const char* descr;$/;"	m	struct:net_msg_t
+die	net.cpp	/^void Net::die(node_id_t node) {$/;"	f	class:Net
+digest	md5.h	/^  uint1 digest[16]; \/\/ the result$/;"	m	class:MD5
+dispatch	paxclient.cpp	/^void paxclient::dispatch(paxmsg_t* paxmsg) {$/;"	f	class:paxclient
+dispatch	paxserver.cpp	/^void paxserver::dispatch(paxmsg_t &paxmsg) {$/;"	f	class:paxserver
+do_args	args.cpp	/^void do_args(int argc, char* argv[], dssim_t::Config& con) {$/;"	f
+do_events	dssim.cpp	/^void dssim_t::do_events() {$/;"	f	class:dssim_t
+do_fake_init_vc	paxserver.cpp	/^void paxserver::do_fake_init_vc() {$/;"	f	class:paxserver
+do_heartbeat	paxserver.cpp	/^void paxserver::do_heartbeat() {$/;"	f	class:paxserver
+do_init_vc	paxserver.cpp	/^void paxserver::do_init_vc() {$/;"	f	class:paxserver
+do_timo	paxclient.cpp	/^void paxclient::do_timo() {$/;"	f	class:paxclient
+do_timo	paxserver.cpp	/^void paxserver::do_timo() {$/;"	f	class:paxserver
+drop	net.cpp	/^void Net::drop(node_t* me, const net_msg_t& msg, const char* reason){$/;"	f	class:Net
+dssim	net.h	/^   dssim_t* dssim;$/;"	m	class:Net
+dssim_ex_t	dssim.cpp	/^class dssim_ex_t: public std::exception {$/;"	c	file:
+dssim_t	dssim.cpp	/^dssim_t::dssim_t() {$/;"	f	class:dssim_t
+dssim_t	dssim.h	/^class dssim_t {$/;"	c
+dummyf	log.cpp	/^static std::ofstream dummyf;$/;"	v	file:
+dynamic_pointer_move	make_unique.h	/^bool dynamic_pointer_move(std::unique_ptr<T_DEST, T_DELETER> & dest,$/;"	f
+dynamic_pointer_move	make_unique.h	/^bool dynamic_pointer_move(std::unique_ptr<T_DEST> & dest,$/;"	f
+elt_in	paxtypes.h	/^   bool elt_in(node_id_t node) const {$/;"	f	struct:view_t
+empty	paxlog.cpp	/^bool Paxlog::empty() const {$/;"	f	class:Paxlog
+encode	md5.cpp	/^void MD5::encode(uint1 output[], const uint4 input[], size_type len)$/;"	f	class:MD5
+end	getoptpp/getoptpp/getopt_pp.h	/^    ItCtorData end()$/;"	f	class:GetOpt::GetOpt_pp
+end	paxlog.h	/^   std::vector<std::unique_ptr<tup>>::iterator end() {$/;"	f	class:Paxlog
+end_of_options	getoptpp/getoptpp/getopt_pp.h	/^    void end_of_options() const throw(GetOptEx)$/;"	f	class:GetOpt::GetOpt_pp
+environ	getoptpp/src/getopt_pp.cpp	/^#define environ /;"	d	file:
+eq	paxobj.h	/^   virtual bool eq(const paxobj* o) const { return false; }$/;"	f	class:paxobj
+erase	paxclient.cpp	/^paxclient::erase(rid_t rid) {$/;"	f	class:paxclient
+event	dssim.h	/^      event(tick_t t, const char* nidid_str, const char* aid_str) {$/;"	f	struct:Sched::event
+event	dssim.h	/^   struct event {$/;"	s	class:Sched
+eventp	dssim.cpp	/^bool Sched::eventp(tick_t tick) {$/;"	f	class:Sched
+events	dssim.h	/^   std::vector<event> events;$/;"	m	class:Sched
+exceptions	getoptpp/getoptpp/getopt_pp.h	/^    std::ios_base::iostate exceptions() const$/;"	f	class:GetOpt::GetOpt_pp
+exceptions	getoptpp/getoptpp/getopt_pp.h	/^    void exceptions(std::ios_base::iostate except)$/;"	f	class:GetOpt::GetOpt_pp
+exceptions_all	getoptpp/getoptpp/getopt_pp.h	/^    void exceptions_all()$/;"	f	class:GetOpt::GetOpt_pp
+exec_rid_cache	paxserver.h	/^   std::unordered_multimap<node_id_t,rid_t> exec_rid_cache;$/;"	m	class:paxserver
+execute	paxlog.cpp	/^bool Paxlog::execute(std::unique_ptr<tup>& ex) {$/;"	f	class:Paxlog
+execute	paxobj.h	/^   std::string execute(request f) {$/;"	f	class:paxobj
+execute_arg	paxmsg.h	/^  execute_arg(node_id_t _nid, rid_t _rid, viewid_t _vid,$/;"	f	struct:execute_arg
+execute_arg	paxmsg.h	/^struct execute_arg : public paxmsg_t {$/;"	s
+execute_arg	paxos_exec.cpp	/^void paxserver::execute_arg(const struct execute_arg& ex_arg) {$/;"	f	class:paxserver
+execute_fail	paxclient.cpp	/^void paxclient::execute_fail(struct execute_fail* ex_fail) {$/;"	f	class:paxclient
+execute_fail	paxmsg.h	/^  execute_fail(const viewid_t& _vid, node_id_t _primary, rid_t _rid) : $/;"	f	struct:execute_fail
+execute_fail	paxmsg.h	/^struct execute_fail : public paxmsg_t {$/;"	s
+execute_success	paxclient.cpp	/^void paxclient::execute_success(struct execute_success* ex_succ) {$/;"	f	class:paxclient
+execute_success	paxmsg.h	/^  execute_success(std::string _reply, rid_t _rid) :$/;"	f	struct:execute_success
+execute_success	paxmsg.h	/^struct execute_success : public paxmsg_t {$/;"	s
+executed	paxlog.h	/^      bool executed;$/;"	m	struct:Paxlog::tup
+exedep	Makefile	/^exedep := $(patsubst %.cpp,%.d,$(exesrc))$/;"	m
+exeobj	Makefile	/^exeobj := $(patsubst %.cpp,%.o,$(exesrc)) getopt_pp.o$/;"	m
+exesrc	Makefile	/^exesrc := main.cpp$/;"	m
+extract	getoptpp/getoptpp/getopt_pp.h	/^        static void extract(T& t, GetOpt_pp& getopt_pp, char option)$/;"	f	struct:GetOpt::GetOpt_pp::ShortAdapter
+extract	getoptpp/getoptpp/getopt_pp.h	/^        static void extract(T& t, GetOpt_pp& getopt_pp, const std::string& option)$/;"	f	struct:GetOpt::GetOpt_pp::LongAdapter
+fake_init_vc	dssim.h	/^      bool fake_init_vc;$/;"	m	struct:dssim_t::Config
+finalize	md5.cpp	/^MD5& MD5::finalize()$/;"	f	class:MD5
+finalized	md5.h	/^  bool finalized;$/;"	m	class:MD5
+find_kill_req_rec	paxclient.cpp	/^paxclient::find_kill_req_rec(rid_t rid) {$/;"	f	class:paxclient
+find_rid	paxlog.cpp	/^bool Paxlog::find_rid(node_id_t src, rid_t rid) {$/;"	f	class:Paxlog
+first_to_check	paxrole.h	/^      int first_to_check;$/;"	m	struct:leader::phase1_info_t
+fixed_ballot	paxrole.h	/^    int fixed_ballot;$/;"	m	class:proposer
+flags	getoptpp/getoptpp/getopt_pp.h	/^    _Flags flags;$/;"	m	struct:GetOpt::OptionData
+flags	getoptpp/getoptpp/getopt_pp.h	/^    std::ios::fmtflags flags() const$/;"	f	class:GetOpt::GetOpt_pp
+flags	getoptpp/getoptpp/getopt_pp.h	/^    void flags(std::ios::fmtflags flags)$/;"	f	class:GetOpt::GetOpt_pp
+form_newview	paxos_vc.cpp	/^void paxserver::form_newview() {$/;"	f	class:paxserver
+func	paxobj.h	/^      std::function<std::string (paxobj*)> func;$/;"	m	struct:paxobj::op
+get_initial_num_servers	dssim.cpp	/^int dssim_t::get_initial_num_servers() {$/;"	f	class:dssim_t
+get_initial_num_servers	net.cpp	/^int Net::get_initial_num_servers() {$/;"	f	class:Net
+get_new_nid	net.cpp	/^node_id_t Net::get_new_nid() {$/;"	f	class:Net
+get_next_option_argument	getoptpp/getoptpp/getopt_pp.h	/^    Token* get_next_option_argument() const$/;"	f	struct:GetOpt::Token
+get_nid	node.cpp	/^node_id_t node_t::get_nid() const {$/;"	f	class:node_t
+get_other_servers	paxserver.h	/^   std::set<node_id_t> get_other_servers(const view_t& view) {$/;"	f	class:paxserver
+get_paxobj	node.h	/^   virtual paxobj* get_paxobj() { return nullptr; }$/;"	f	class:node_t
+get_paxobj	paxserver.cpp	/^paxobj*  paxserver::get_paxobj() { $/;"	f	class:paxserver
+get_rand_server	dssim.cpp	/^node_id_t dssim_t::get_rand_server() {$/;"	f	class:dssim_t
+get_rand_server	net.cpp	/^node_id_t Net::get_rand_server() {$/;"	f	class:Net
+get_serv_cnt	paxserver.cpp	/^unsigned int paxserver::get_serv_cnt(const view_t& view) {$/;"	f	class:paxserver
+get_serv_ids	dssim.cpp	/^std::set<node_id_t> dssim_t::get_serv_ids(node_id_t nid) {$/;"	f	class:dssim_t
+get_serv_ids	net.cpp	/^std::set<node_id_t> Net::get_serv_ids(node_id_t nid) {$/;"	f	class:Net
+get_servers	paxtypes.h	/^   std::set<node_id_t> get_servers() const {$/;"	f	struct:view_t
+get_tup	paxlog.cpp	/^const Paxlog::tup* Paxlog::get_tup(const viewstamp_t& vs) {$/;"	f	class:Paxlog
+getopt	getoptpp/getoptpp/getopt_pp.h	/^    template <class T> inline T getopt(char short_opt) throw(GetOptEx)$/;"	f	class:GetOpt::GetOpt_pp
+getopt	getoptpp/getoptpp/getopt_pp.h	/^    template <class T> inline T getopt(char short_opt, const T& def_value)$/;"	f	class:GetOpt::GetOpt_pp
+getopt	getoptpp/getoptpp/getopt_pp.h	/^    template <class T> inline T getopt(char short_opt, const std::string& long_opt) throw(GetOptEx)$/;"	f	class:GetOpt::GetOpt_pp
+getopt	getoptpp/getoptpp/getopt_pp.h	/^    template <class T> inline T getopt(char short_opt, const std::string& long_opt, const T& def_value)$/;"	f	class:GetOpt::GetOpt_pp
+getopt_pp	getoptpp/getoptpp/getopt_pp.h	/^        GetOpt_pp* getopt_pp;$/;"	m	struct:GetOpt::GetOpt_pp::ItCtorData
+getstate_arg	paxmsg.h	/^  getstate_arg() : paxmsg_t( _descr, ID) {}$/;"	f	struct:getstate_arg
+getstate_arg	paxmsg.h	/^struct getstate_arg : public paxmsg_t {$/;"	s
+getstate_arg	paxos_vc.cpp	/^void paxserver::getstate_arg(const struct getstate_arg& gs_arg) {$/;"	f	class:paxserver
+getstate_res	paxmsg.h	/^  getstate_res() : paxmsg_t( _descr, ID) {}$/;"	f	struct:getstate_res
+getstate_res	paxmsg.h	/^struct getstate_res : public paxmsg_t {$/;"	s
+getstate_res	paxos_vc.cpp	/^void paxserver::getstate_res(struct getstate_res& gs_res) {$/;"	f	class:paxserver
+hash	paxrole.h	/^      int hash;$/;"	m	struct:proposer::timeout_info_t
+hash	paxtypes.h	/^      struct hash<viewid_t> {$/;"	s	namespace:std
+hash	paxtypes.h	/^      struct hash<viewstamp_t> {$/;"	s	namespace:std
+heartbeat_timo	paxserver.h	/^   tick_t heartbeat_timo;$/;"	m	struct:pax_serv_timo
+hexdigest	md5.cpp	/^std::string MD5::hexdigest() const$/;"	f	class:MD5
+highest_delivered	paxrole.h	/^    int highest_delivered = -1;$/;"	m	class:learner
+highest_ready	paxrole.h	/^      int highest_ready;$/;"	m	struct:leader::phase1_info_t
+highest_seen	paxrole.h	/^    int highest_seen = -1;$/;"	m	class:learner
+id_str	dssim.cpp	/^const char* dssim_t::id_str(node_id_t n) {$/;"	f	class:dssim_t
+id_str	net.cpp	/^const char* Net::id_str(node_id_t n) {$/;"	f	class:Net
+id_str	paxclient.h	/^   virtual const char* id_str() const {$/;"	f	class:paxclient
+id_str	paxserver.h	/^   virtual const char* id_str() const {$/;"	f	class:paxserver
+iid	paxmsg.h	/^  int     iid;$/;"	m	struct:accept_msg_t
+iid	paxmsg.h	/^  int     iid;$/;"	m	struct:learn_msg_t
+iid	paxmsg.h	/^  int     iid;$/;"	m	struct:promise_msg_t
+iid	paxmsg.h	/^  int iid;$/;"	m	struct:prepare_msg_t
+iid	paxrole.h	/^      int         iid;$/;"	m	struct:learner::learner_record_t
+iid	paxrole.h	/^      int     iid;$/;"	m	struct:leader::promise_info_t
+iid	paxrole.h	/^      int iid;$/;"	m	struct:leader::proposer_record_t
+iid	paxrole.h	/^    int     iid;$/;"	m	struct:acceptor::acceptor_record_t
+in_view	node.h	/^   virtual bool in_view(node_id_t) const { MASSERT(0, "Not primary"); }$/;"	f	class:node_t
+in_view	paxserver.cpp	/^bool paxserver::in_view(node_id_t node) const {$/;"	f	class:paxserver
+include_me	paxmsg.h	/^  bool include_me;$/;"	m	struct:view_change_accept
+include_me	paxserver.h	/^   bool include_me;$/;"	m	struct:vc_mgr_t
+incr_resp	paxlog.cpp	/^Paxlog::incr_resp(const viewstamp_t& vs) {$/;"	f	class:Paxlog
+init	dssim.cpp	/^void Sched::init(const std::string& str) {$/;"	f	class:Sched
+init	md5.cpp	/^void MD5::init()$/;"	f	class:MD5
+init_view_arg	paxmsg.h	/^  init_view_arg(const view_t& _view) :$/;"	f	struct:init_view_arg
+init_view_arg	paxmsg.h	/^struct init_view_arg : public paxmsg_t {$/;"	s
+init_view_arg	paxos_vc.cpp	/^void paxserver::init_view_arg(const struct init_view_arg& iva) {$/;"	f	class:paxserver
+init_view_request	paxmsg.h	/^  init_view_request() : paxmsg_t( _descr, ID) {}$/;"	f	struct:init_view_request
+init_view_request	paxmsg.h	/^struct init_view_request : public paxmsg_t {$/;"	s
+init_view_request	paxos_vc.cpp	/^void paxserver::init_view_request(const struct init_view_request& iv_req) {$/;"	f	class:paxserver
+initiate_vc	paxos_vc.cpp	/^void paxserver::initiate_vc(bool include_me) {$/;"	f	class:paxserver
+inqs	net.h	/^      std::unique_ptr<std::deque<std::unique_ptr<net_msg_t>>>>inqs;$/;"	m	class:Net
+instance_id	paxrole.h	/^      int instance_id;$/;"	m	struct:proposer::timeout_info_t
+iomanip	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE GetOpt_pp& GetOpt_pp::operator >> (std::ios_base & (*iomanip)(std::ios_base&))$/;"	f	class:GetOpt::GetOpt_pp
+is_last	getoptpp/getoptpp/getopt_pp.h	/^    bool is_last() const$/;"	f	struct:GetOpt::Token
+is_normal_msg	paxserver.h	/^   static bool is_normal_msg(int rpc_id) {$/;"	f	class:paxserver
+l	log.h	/^   l() {};     \/\/ Empty constructor$/;"	f	class:l
+l	log.h	/^class l {$/;"	c
+l	paxlog.h	/^   std::vector<std::unique_ptr<tup>> l;$/;"	m	class:Paxlog
+last_accept_hash	paxrole.h	/^    int last_accept_hash;$/;"	m	class:proposer
+last_accept_iid	paxrole.h	/^    int last_accept_iid;$/;"	m	class:proposer
+last_accept_vs	paxlog.h	/^   viewstamp_t last_accept_vs;$/;"	m	class:Paxlog
+last_exec_vs	paxlog.h	/^   viewstamp_t last_exec_vs;$/;"	m	class:Paxlog
+last_req	paxserver.h	/^   std::unordered_map<node_id_t, std::unique_ptr<last_tup_res>> last_req;$/;"	m	class:paxserver
+last_resp	paxserver.h	/^   tick_t last_resp;$/;"	m	struct:vc_mgr_t
+last_to_check	paxrole.h	/^      int last_to_check;$/;"	m	struct:leader::phase1_info_t
+last_tup_res	paxserver.h	/^   struct last_tup_res {$/;"	s	class:paxserver
+latest	paxserver.h	/^   viewstamp_t latest;$/;"	m	struct:vc_mgr_t
+latest_accept	paxlog.h	/^   viewstamp_t latest_accept() const { return last_accept_vs; }$/;"	f	class:Paxlog
+latest_exec	paxlog.h	/^   viewstamp_t latest_exec() const { return last_exec_vs; }$/;"	f	class:Paxlog
+latest_exec	paxmsg.h	/^  viewstamp_t latest_exec;$/;"	m	struct:new_view_arg
+latest_exec	paxmsg.h	/^  viewstamp_t latest_exec;$/;"	m	struct:view_change_accept
+latest_seen	paxserver.h	/^   viewstamp_t latest_seen;$/;"	m	struct:vc_state_t
+leader	paxrole.h	/^class leader {$/;"	c
+learn_msg_t	paxmsg.h	/^  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, int _value_size) :$/;"	f	struct:learn_msg_t
+learn_msg_t	paxmsg.h	/^struct learn_msg_t : public paxmsg_t {$/;"	s
+learner	paxrole.h	/^class learner {$/;"	c
+learner_array	paxrole.h	/^    learner_record learner_array[LEARNER_ARRAY_SIZE];$/;"	m	class:learner
+learner_ready	paxrole.h	/^    int learner_ready = 0;$/;"	m	class:learner
+learner_record	paxrole.h	/^    } learner_record;$/;"	t	class:learner	typeref:struct:learner::learner_record_t
+learner_record_t	paxrole.h	/^    typedef struct learner_record_t {$/;"	s	class:learner
+learner_sync_msg_t	paxmsg.h	/^  learner_sync_msg_t(int _count) : paxmsg_t(_descr, ID) {$/;"	f	struct:learner_sync_msg_t
+learner_sync_msg_t	paxmsg.h	/^struct learner_sync_msg_t : public paxmsg_t {$/;"	s
+learns	paxrole.h	/^      learn_msg_t*  learns[N_OF_ACCEPTORS];$/;"	m	struct:learner::learner_record_t
+level	log.h	/^   enum level {$/;"	g	class:l
+libdep	Makefile	/^libdep := $(patsubst %.cpp,%.d,$(libsrc))$/;"	m
+libdobj	Makefile	/^libdobj := $(patsubst %.cpp,%.og,$(libsrc))$/;"	m
+libobj	Makefile	/^libobj := $(patsubst %.cpp,%.o,$(libsrc))$/;"	m
+libsrc	Makefile	/^libsrc := node.cpp paxserver.cpp paxos_exec.cpp paxos_vc.cpp paxclient.cpp \\$/;"	m
+link_time	version.cpp	/^const char link_time[] = LINK_TIME;$/;"	v
+link_to	getoptpp/getoptpp/getopt_pp.h	/^    void link_to(Token* new_next)$/;"	f	struct:GetOpt::Token
+local_rid	paxclient.h	/^	rid_t local_rid;$/;"	m	class:paxclient
+local_vid	paxclient.h	/^	viewid_t local_vid;$/;"	m	class:paxclient
+log	paxlog.cpp	/^void Paxlog::log(node_id_t src, rid_t rid, const viewstamp_t& vs, $/;"	f	class:Paxlog
+log_level	dssim.h	/^      std::string log_level;$/;"	m	struct:dssim_t::Config
+log_level	log.cpp	/^l::level l::log_level = l::DEBUG;$/;"	m	class:l	file:
+log_level	log.h	/^   static level log_level;$/;"	m	class:l
+log_mask	log.cpp	/^unsigned int l::log_mask = 0x00000FF; \/\/ Print all$/;"	m	class:l	file:
+log_mask	log.h	/^   static unsigned int log_mask;$/;"	m	class:l
+log_ok	log.cpp	/^static bool log_ok() {$/;"	f	file:
+logf	log.cpp	/^static std::ostream* logf = nullptr;$/;"	v	file:
+long_iter	getoptpp/getoptpp/getopt_pp.h	/^        LongOptions::const_iterator  long_iter;$/;"	m	struct:GetOpt::GetOpt_pp::ItCtorData
+long_iterator	getoptpp/getoptpp/getopt_pp.h	/^    typedef _iterator<LongOptions, LongAdapter, const std::string&> long_iterator;$/;"	t	class:GetOpt::GetOpt_pp
+long_opt	getoptpp/getoptpp/getopt_pp.h	/^    const std::string long_opt;$/;"	m	class:GetOpt::OptionPresent
+long_opt	getoptpp/getoptpp/getopt_pp.h	/^    const std::string long_opt;$/;"	m	class:GetOpt::_OptionTBase
+main	getoptpp/examples/example_env.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_extendingtypes_date.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_formatflags.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_general1.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_global_option.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_helloworld.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_helloworld_ex.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_iterators.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_nomanip.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	getoptpp/examples/example_nomanip_ex.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	main.cpp	/^int main(int argc, char* argv[]) {$/;"	f
+main	t.cpp	/^int main() {$/;"	f
+make_client	dssim.cpp	/^void dssim_t::make_client(node_id_t nid, std::string prefix) {$/;"	f	class:dssim_t
+make_server	dssim.cpp	/^void dssim_t::make_server(node_id_t nid) {$/;"	f	class:dssim_t
+make_unique	make_unique.h	/^std::unique_ptr<Value> make_unique(Arguments && ... arguments_for_constructor)$/;"	f	namespace:std
+manager	paxtypes.h	/^   node_id_t manager; \/\/ node_id_t instead of cid$/;"	m	struct:viewid_t
+max_paxlog	paxserver.h	/^      std::size_t max_paxlog;$/;"	m	struct:paxserver::__anon5
+max_req	word_vec_pax.h	/^   uint64_t max_req; \/\/ Limit total number of requests$/;"	m	class:pc_word_vec
+max_rid_in_cache	paxserver.h	/^   const unsigned int max_rid_in_cache = 500;$/;"	m	class:paxserver
+md5	md5.cpp	/^std::string md5(const std::string str)$/;"	f
+min_ballot	paxrole.h	/^    int min_ballot = 2 * MAX_PROPOSERS;$/;"	m	class:acceptor
+mode	paxserver.h	/^   } mode;$/;"	m	struct:vc_state_t	typeref:enum:vc_state_t::__anon4
+month	getoptpp/examples/example_extendingtypes_date.cpp	/^    unsigned int month;$/;"	m	struct:Date	file:
+month	getoptpp/tests/format_test.cpp	/^    unsigned int month;$/;"	m	struct:Date	file:
+msg_size	paxrole.h	/^    int msg_size;$/;"	m	class:proposer
+my_id	paxclient.h	/^   char my_id[5];$/;"	m	class:paxclient
+my_id	paxserver.h	/^   char my_id[5];$/;"	m	class:paxserver
+mynid	paxmsg.h	/^  node_id_t mynid;$/;"	m	struct:view_change_accept
+name	paxobj.h	/^      std::string name;$/;"	m	struct:paxobj::op
+nclient_req	dssim.h	/^      int nclient_req;$/;"	m	struct:dssim_t::Config
+nclients	dssim.h	/^      int nclients;$/;"	m	struct:dssim_t::Config
+net	dssim.h	/^   Net* net;$/;"	m	class:dssim_t
+net	node.h	/^   Net* net;$/;"	m	class:node_t
+net_msg_t	net.h	/^   net_msg_t(const char* _descr) { $/;"	f	struct:net_msg_t
+net_msg_t	net.h	/^struct net_msg_t {$/;"	s
+new_view_arg	paxmsg.h	/^  new_view_arg() : paxmsg_t( _descr, ID) {}$/;"	f	struct:new_view_arg
+new_view_arg	paxmsg.h	/^struct new_view_arg : public paxmsg_t {$/;"	s
+new_view_arg	paxos_vc.cpp	/^void paxserver::new_view_arg(const struct new_view_arg& nv_arg) {$/;"	f	class:paxserver
+new_view_res	paxmsg.h	/^  explicit new_view_res(bool _accepted) : $/;"	f	struct:new_view_res
+new_view_res	paxmsg.h	/^struct new_view_res : public paxmsg_t {$/;"	s
+new_view_res	paxos_vc.cpp	/^void paxserver::new_view_res(const struct new_view_res& nv_res) {$/;"	f	class:paxserver
+newvid	paxmsg.h	/^  viewid_t newvid;$/;"	m	struct:view_change_accept
+newvid	paxmsg.h	/^  viewid_t newvid;$/;"	m	struct:view_change_arg
+newvid	paxmsg.h	/^  viewid_t newvid;$/;"	m	struct:view_change_reject
+newview	paxmsg.h	/^  std::unique_ptr<view_t> newview;$/;"	m	struct:view_change_accept
+newview	paxmsg.h	/^  view_t newview;$/;"	m	struct:init_view_request
+next	getoptpp/getoptpp/getopt_pp.h	/^    Token* next;$/;"	m	struct:GetOpt::Token
+next_req_rec	paxclient.cpp	/^paxclient::next_req_rec() {$/;"	f	class:paxclient
+next_to_exec	paxlog.cpp	/^bool Paxlog::next_to_exec(std::vector<std::unique_ptr<tup>>::iterator it) {$/;"	f	class:Paxlog
+nid	node.h	/^   node_id_t nid;$/;"	m	class:node_t
+nid	paxmsg.h	/^  node_id_t nid;$/;"	m	struct:execute_arg
+nidid	dssim.h	/^      nidid_t nidid;$/;"	m	struct:Sched::event
+nidid2nid	dssim.h	/^   std::unordered_map<nidid_t, node_id_t> nidid2nid;$/;"	m	class:Sched
+nidid_t	dssim.h	/^   typedef std::string nidid_t;$/;"	t	class:Sched
+node_id_t	node.h	/^typedef int node_id_t;$/;"	t
+node_t	node.cpp	/^node_t::node_t(Net* _net, node_id_t mynid) :$/;"	f	class:node_t
+node_t	node.h	/^class node_t {$/;"	c
+nodes	dssim.h	/^   std::unordered_map<node_id_t, std::unique_ptr<node_t>> nodes;$/;"	m	class:dssim_t
+nop_msg	paxmsg.h	/^  nop_msg() : paxmsg_t(_descr, ID) {$/;"	f	struct:nop_msg
+nop_msg	paxmsg.h	/^struct nop_msg : public paxmsg_t {$/;"	s
+normal_msg	paxserver.cpp	/^std::unordered_set<int> paxserver::normal_msg = {$/;"	m	class:paxserver	file:
+normal_msg	paxserver.h	/^   static std::unordered_set<int> normal_msg;$/;"	m	class:paxserver
+now	dssim.cpp	/^tick_t dssim_t::now() {$/;"	f	class:dssim_t
+now	net.cpp	/^tick_t Net::now() {$/;"	f	class:Net
+nservers	dssim.h	/^      int nservers;$/;"	m	struct:dssim_t::Config
+nvr	paxserver.h	/^   std::set<node_id_t> nvr;$/;"	m	struct:vc_mgr_t
+og	log.cpp	/^std::ostream& l::og(l::level _log_level) {$/;"	f	class:l
+og	log.cpp	/^void l::og(l::level _log_level, const char* format, ...) {$/;"	f	class:l
+old_pr_in	paxserver.h	/^   bool old_pr_in;$/;"	m	struct:vc_mgr_t
+oldview	paxmsg.h	/^  view_t oldview;$/;"	m	struct:view_change_arg
+oldview	paxmsg.h	/^  view_t oldview;$/;"	m	struct:view_change_reject
+op	paxobj.h	/^   op(std::function<std::string (paxobj*)> _func, const std::string& _name) :$/;"	f	struct:paxobj::op
+op	paxobj.h	/^   struct op {$/;"	s	class:paxobj
+operator !=	getoptpp/getoptpp/getopt_pp.h	/^        bool operator != (const _iterator<Container, Adapter, OptionType>& other) const$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+operator !=	paxtypes.h	/^   bool operator !=(const viewid_t& vid) const {$/;"	f	struct:viewid_t
+operator !=	paxtypes.h	/^   bool operator!=(const viewstamp_t& vs) const {$/;"	f	struct:viewstamp_t
+operator ()	getoptpp/getoptpp/getopt_pp.h	/^    virtual Result operator()(ShortOptions& short_ops, LongOptions& \/*long_ops*\/, Token* first, std::ios::fmtflags flags) const$/;"	f	class:GetOpt::_GlobalOption
+operator ()	getoptpp/getoptpp/getopt_pp.h	/^    virtual Result operator()(ShortOptions& short_ops, LongOptions& long_ops, Token* \/*first*\/, std::ios::fmtflags \/*flags*\/) const$/;"	f	class:GetOpt::OptionPresent
+operator ()	getoptpp/getoptpp/getopt_pp.h	/^    virtual Result operator()(ShortOptions& short_ops, LongOptions& long_ops, Token* \/*first*\/, std::ios::fmtflags flags) const$/;"	f	class:GetOpt::_OptionTBase
+operator ()	getoptpp/getoptpp/getopt_pp.h	/^    virtual Result operator()(ShortOptions& short_ops, LongOptions& long_ops, Token* first, std::ios::fmtflags flags) const$/;"	f	class:GetOpt::_GlobalOption
+operator ()	getoptpp/getoptpp/getopt_pp.h	/^    virtual _Option::Result operator()(ShortOptions& short_ops, LongOptions& long_ops, Token* first, std::ios::fmtflags flags) const$/;"	f	class:GetOpt::_DefValOption
+operator ()	paxclient.h	/^      bool operator()(const std::shared_ptr<struct req_rec> &a,$/;"	f	struct:paxclient::req_rec_less
+operator ()	paxmsg.h	/^  bool operator()(const std::unique_ptr<struct view_change_accept> &a,$/;"	f	struct:vca_less
+operator ()	paxtypes.h	/^      value_type operator()(const argument_type& s) const {$/;"	f	struct:std::hash
+operator *	getoptpp/getoptpp/getopt_pp.h	/^        OptionType operator*() const$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+operator ++	getoptpp/getoptpp/getopt_pp.h	/^        _iterator<Container, Adapter, OptionType>& operator ++()$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+operator <	paxclient.h	/^      bool operator<(const struct req_rec& o) {$/;"	f	struct:paxclient::req_rec
+operator <	paxmsg.cpp	/^bool operator <(const viewid_t& x, const viewid_t& y) {$/;"	f
+operator <	paxmsg.cpp	/^bool operator <(const viewstamp_t& x, const viewstamp_t& y) {$/;"	f
+operator <	paxmsg.h	/^  bool operator<(const view_change_accept& o) {$/;"	f	struct:view_change_accept
+operator <<	dssim.cpp	/^std::ostream& operator<<(std::ostream& os, const dssim_t::Config& con){$/;"	f
+operator <<	md5.cpp	/^std::ostream& operator<<(std::ostream& out, MD5 md5)$/;"	f
+operator <<	net.cpp	/^std::ostream& operator<<(std::ostream& os, const Net& net){$/;"	f
+operator <<	node.cpp	/^std::ostream& operator<<(std::ostream& os, const node_t& n) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const Paxlog& plog) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const Paxlog::tup& tup) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const net_msg_t& msg) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const paxclient::req_rec& rr) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const paxobj& po) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const vc_mgr_t& vcmgr) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const vc_state_t& vcs) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const view_t& view) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const viewid_t& v) {$/;"	f
+operator <<	paxos_print.cpp	/^std::ostream& operator<<(std::ostream& os, const viewstamp_t& vs) {$/;"	f
+operator <=	paxmsg.cpp	/^bool operator <=(const viewid_t& x, const viewid_t& y) {$/;"	f
+operator <=	paxmsg.cpp	/^bool operator <=(const viewstamp_t& x, const viewstamp_t& y) {$/;"	f
+operator =	getoptpp/getoptpp/getopt_pp.h	/^        _iterator<Container, Adapter, OptionType>& operator = (const _iterator<Container, Adapter, OptionType>& other)$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+operator =	paxlog.cpp	/^Paxlog& Paxlog::operator=(const Paxlog& pl) {$/;"	f	class:Paxlog
+operator ==	paxtypes.h	/^   bool operator ==(const viewid_t& vid) const {$/;"	f	struct:viewid_t
+operator ==	paxtypes.h	/^   bool operator==(const view_t& v) {$/;"	f	struct:view_t
+operator ==	paxtypes.h	/^   bool operator==(const viewstamp_t& vs) const {$/;"	f	struct:viewstamp_t
+operator >	paxmsg.cpp	/^bool operator >(const viewid_t& x, const viewid_t& y) {$/;"	f
+operator >	paxmsg.cpp	/^bool operator >(const viewstamp_t& x, const viewstamp_t& y) {$/;"	f
+operator >=	paxmsg.cpp	/^bool operator >=(const viewid_t& x, const viewid_t& y) {$/;"	f
+operator >=	paxmsg.cpp	/^bool operator >=(const viewstamp_t& x, const viewstamp_t& y) {$/;"	f
+operator >>	getoptpp/getoptpp/getopt_pp.h	/^        GetOpt_pp& operator >> (T& t)$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+operator >>	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE GetOpt_pp& GetOpt_pp::operator >> (const _Option& opt) throw(GetOptEx)$/;"	f	class:GetOpt::GetOpt_pp
+operator bool	getoptpp/getoptpp/getopt_pp.h	/^    operator bool() const$/;"	f	class:GetOpt::GetOpt_pp
+option	getoptpp/getoptpp/getopt_pp.h	/^        OptionType option() const$/;"	f	class:GetOpt::GetOpt_pp::_iterator
+options_remain	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE bool GetOpt_pp::options_remain() const$/;"	f	class:GetOpt::GetOpt_pp
+out_fname	log.cpp	/^static std::string out_fname = "dslog.txt";$/;"	v	file:
+out_req	paxclient.h	/^   std::set<std::shared_ptr<req_rec>, struct req_rec_less> out_req;$/;"	m	class:paxclient
+outfile	dssim.h	/^      std::string outfile;$/;"	m	struct:dssim_t::Config
+override	paxclient.h	/^	virtual bool tick(void) override;$/;"	m	class:paxclient
+override	paxclient.h	/^   std::ostream& pr_stat(std::ostream&) const override;$/;"	m	class:paxclient
+override	paxserver.h	/^   std::ostream& pr_stat(std::ostream&) const override;$/;"	m	class:paxserver
+override	paxserver.h	/^   virtual bool in_view(node_id_t) const override;$/;"	m	class:paxserver
+override	paxserver.h	/^   virtual bool primary() const override;$/;"	m	class:paxserver
+override	paxserver.h	/^   virtual bool tick(void) override;$/;"	m	class:paxserver
+override	paxserver.h	/^   virtual paxobj* get_paxobj() override;$/;"	m	class:paxserver
+override	word_vec_pax.h	/^   virtual bool work_done() override;$/;"	m	class:pc_word_vec
+override	word_vec_pax.h	/^   virtual std::unique_ptr<paxclient::req_cb> work_get() override;$/;"	m	class:pc_word_vec
+override	word_vec_pax.h	/^   virtual std::unique_ptr<paxobj> clone() override;$/;"	m	class:po_word_vec
+override	word_vec_pax.h	/^  std::string to_str() const override;$/;"	m	class:po_word_vec
+p1_finished	paxrole.h	/^      p1_finished$/;"	e	enum:leader::status_flag_t
+p1_new	paxrole.h	/^      p1_new,$/;"	e	enum:leader::status_flag_t
+p1_pending	paxrole.h	/^      p1_pending,$/;"	e	enum:leader::status_flag_t
+p1_ready	paxrole.h	/^      p1_ready,$/;"	e	enum:leader::status_flag_t
+p1info	paxrole.h	/^    phase1_info p1info;$/;"	m	class:leader
+p2info	paxrole.h	/^    phase2_info p2info;$/;"	m	class:leader
+paused	dssim.h	/^   std::unordered_set<node_id_t> paused;$/;"	m	class:dssim_t
+pax_serv_timo	paxserver.h	/^struct pax_serv_timo {$/;"	s
+paxclient	paxclient.cpp	/^paxclient::paxclient(Net* _net, node_id_t _nid, int _timo,$/;"	f	class:paxclient
+paxclient	paxclient.h	/^class paxclient : public node_t {$/;"	c
+paxlog	paxserver.h	/^   Paxlog paxlog;$/;"	m	class:paxserver
+paxmsg_t	paxmsg.h	/^  paxmsg_t(const char* _descr, int _rpc_id) : $/;"	f	struct:paxmsg_t
+paxmsg_t	paxmsg.h	/^struct paxmsg_t : public net_msg_t {$/;"	s
+paxobj	paxobj.h	/^   paxobj() {}$/;"	f	class:paxobj
+paxobj	paxobj.h	/^class paxobj {$/;"	c
+paxop_on_paxobj	paxserver.cpp	/^std::string paxserver::paxop_on_paxobj(std::unique_ptr<Paxlog::tup>& logop) {$/;"	f	class:paxserver
+paxrpc2str	paxmsg.cpp	/^std::unordered_map<int, std::string> paxrpc2str = {$/;"	v
+paxserver	paxserver.cpp	/^paxserver::paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& _ps_timo,$/;"	f	class:paxserver
+paxserver	paxserver.h	/^class paxserver : public node_t {$/;"	c
+pc_word_vec	word_vec_pax.cpp	/^pc_word_vec::pc_word_vec(Net* _net, node_id_t _nid, int _timo, $/;"	f	class:pc_word_vec
+pc_word_vec	word_vec_pax.h	/^class pc_word_vec : public paxclient {$/;"	c
+pending_count	paxrole.h	/^      int pending_count;$/;"	m	struct:leader::phase1_info_t
+phase1_info	paxrole.h	/^    } phase1_info;$/;"	t	class:leader	typeref:struct:leader::phase1_info_t
+phase1_info_t	paxrole.h	/^    typedef struct phase1_info_t {$/;"	s	class:leader
+phase2_info	paxrole.h	/^    } phase2_info;$/;"	t	class:leader	typeref:struct:leader::phase2_info_t
+phase2_info_t	paxrole.h	/^    typedef struct phase2_info_t {$/;"	s	class:leader
+pkt_num	net.h	/^   uint64_t pkt_num;$/;"	m	struct:net_msg_t
+po	paxmsg.h	/^  std::unique_ptr<paxobj> po;$/;"	m	struct:getstate_res
+po_word_vec	word_vec_pax.h	/^  po_word_vec() : paxobj() {}$/;"	f	class:po_word_vec
+po_word_vec	word_vec_pax.h	/^class po_word_vec : public paxobj {$/;"	c
+pop	dssim.cpp	/^Sched::event Sched::pop() {$/;"	f	class:Sched
+pr	net.h	/^   virtual void pr(std::ostream& os) const {$/;"	f	struct:net_msg_t
+pr	paxclient.cpp	/^std::ostream& paxclient::req_rec::pr(std::ostream& os) const {$/;"	f	class:paxclient::req_rec
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:accept_arg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:accept_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:anyval_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:execute_arg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:execute_fail
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:execute_success
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:getstate_arg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:getstate_res
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:init_view_request
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:learn_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:learner_sync_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:new_view_arg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:nop_msg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:prepare_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:promise_msg_t
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:replicate_arg
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:replicate_res
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:view_change_accept
+pr	paxmsg.h	/^  void pr(std::ostream& os) const {$/;"	f	struct:view_change_reject
+pr_agreement	dssim.cpp	/^std::ostream& dssim_t::pr_agreement(std::ostream& os, bool verbose) {$/;"	f	class:dssim_t
+pr_allstate	paxos_print.cpp	/^std::ostream& paxserver::pr_allstate(std::ostream& os) {$/;"	f	class:paxserver
+pr_latest_exec	paxserver.h	/^   viewstamp_t pr_latest_exec;$/;"	m	struct:vc_mgr_t
+pr_rpc_stat	net.cpp	/^std::ostream& Net::pr_rpc_stat(std::ostream& os) const {$/;"	f	class:Net
+pr_short_short_stat	dssim.cpp	/^std::ostream& dssim_t::pr_short_short_stat(std::ostream& os) {$/;"	f	class:dssim_t
+pr_short_stat	dssim.cpp	/^std::ostream& dssim_t::pr_short_stat(std::ostream& os) {$/;"	f	class:dssim_t
+pr_started_op	paxserver.h	/^		uint64_t pr_started_op;$/;"	m	struct:paxserver::__anon5
+pr_stat	dssim.cpp	/^std::ostream& dssim_t::pr_stat(std::ostream& os) {$/;"	f	class:dssim_t
+pr_stat	net.cpp	/^std::ostream& Net::pr_stat(std::ostream& os) const {$/;"	f	class:Net
+pr_stat	paxos_print.cpp	/^std::ostream& paxclient::pr_stat(std::ostream& os) const {$/;"	f	class:paxclient
+pr_stat	paxos_print.cpp	/^std::ostream& paxserver::pr_stat(std::ostream& os) const {$/;"	f	class:paxserver
+pr_success_op	paxserver.h	/^		uint64_t pr_success_op;$/;"	m	struct:paxserver::__anon5
+prefix	word_vec_pax.h	/^   std::string prefix;$/;"	m	class:pc_word_vec
+prepare_msg_t	paxmsg.h	/^  prepare_msg_t(int _iid, int _ballot) : paxmsg_t(_descr, ID) {$/;"	f	struct:prepare_msg_t
+prepare_msg_t	paxmsg.h	/^struct prepare_msg_t : public paxmsg_t {$/;"	s
+present	getoptpp/getoptpp/getopt_pp.h	/^    bool* const present;$/;"	m	class:GetOpt::OptionPresent
+prev	paxmsg.h	/^  viewstamp_t prev;$/;"	m	struct:init_view_request
+primary	node.h	/^   virtual bool primary() const { return false; }$/;"	f	class:node_t
+primary	paxclient.h	/^   node_id_t primary;$/;"	m	class:paxclient
+primary	paxmsg.h	/^  node_id_t primary;$/;"	m	struct:execute_fail
+primary	paxserver.cpp	/^bool paxserver::primary() const {$/;"	f	class:paxserver
+primary	paxtypes.h	/^   node_id_t primary;$/;"	m	struct:view_t
+prob_delay	dssim.h	/^      int prob_delay;$/;"	m	struct:dssim_t::Config
+prob_shuffle	dssim.h	/^      int prob_shuffle;$/;"	m	struct:dssim_t::Config
+promise_count	paxrole.h	/^      int promise_count;$/;"	m	struct:leader::proposer_record_t
+promise_info	paxrole.h	/^    } promise_info;$/;"	t	class:leader	typeref:struct:leader::promise_info_t
+promise_info_t	paxrole.h	/^    typedef struct promise_info_t {$/;"	s	class:leader
+promise_msg_t	paxmsg.h	/^  promise_msg_t(int _iid, int _ballot, int _value_ballot, int _value_size) : paxmsg_t(_descr, ID) {$/;"	f	struct:promise_msg_t
+promise_msg_t	paxmsg.h	/^struct promise_msg_t : public paxmsg_t {$/;"	s
+promises	paxrole.h	/^      promise_info promises[N_OF_ACCEPTORS];$/;"	m	struct:leader::proposer_record_t
+proposed_vid	paxserver.h	/^   viewid_t proposed_vid;$/;"	m	struct:vc_state_t
+proposer	paxrole.h	/^class proposer {$/;"	c
+proposer_array	paxrole.h	/^    proposer_record proposer_array[PROPOSER_ARRAY_SIZE];$/;"	m	class:leader
+proposer_id	paxmsg.h	/^  int     proposer_id;$/;"	m	struct:accept_msg_t
+proposer_id	paxmsg.h	/^  int     proposer_id;$/;"	m	struct:learn_msg_t
+proposer_id	paxrole.h	/^      int         proposer_id;$/;"	m	struct:learner::learner_record_t
+proposer_id	paxrole.h	/^    int     proposer_id;$/;"	m	struct:acceptor::acceptor_record_t
+proposer_id	paxrole.h	/^    int proposer_id;$/;"	m	class:leader
+proposer_id	paxrole.h	/^    int proposer_id;$/;"	m	class:proposer
+proposer_record	paxrole.h	/^    } proposer_record;$/;"	t	class:leader	typeref:struct:leader::proposer_record_t
+proposer_record_t	paxrole.h	/^    typedef struct proposer_record_t {$/;"	s	class:leader
+proposer_to_interval	paxrole.h	/^    struct timeval proposer_to_interval;$/;"	m	class:proposer	typeref:struct:proposer::timeval
+ps_timo	paxserver.h	/^   pax_serv_timo ps_timo;$/;"	m	class:paxserver
+push_back	word_vec_pax.h	/^  void push_back(const std::string& str) {$/;"	f	class:po_word_vec
+quorum	paxrole.h	/^    int quorum;$/;"	m	class:leader
+quorum	paxrole.h	/^    unsigned int quorum;$/;"	m	class:learner
+rand_gen	dssim.h	/^   std::default_random_engine rand_gen;$/;"	m	class:dssim_t
+rand_int	dssim.cpp	/^int dssim_t::rand_int(int lo, int hi) {$/;"	f	class:dssim_t
+rand_percent	dssim.h	/^   std::unique_ptr<std::uniform_int_distribution<int>> rand_percent;$/;"	m	class:dssim_t
+rand_seed	dssim.h	/^      int rand_seed;$/;"	m	struct:dssim_t::Config
+ready_count	paxrole.h	/^      int ready_count;$/;"	m	struct:leader::phase1_info_t
+recent_recv	paxserver.h	/^   std::unordered_map<node_id_t,tick_t> recent_recv;$/;"	m	class:paxserver
+recent_send	paxserver.h	/^   std::unordered_map<node_id_t,tick_t> recent_send;$/;"	m	class:paxserver
+recv	net.cpp	/^std::unique_ptr<net_msg_t> Net::recv(node_t* me) {$/;"	f	class:Net
+recvs	net.cpp	/^uint64_t Net::recvs(node_id_t nid) {$/;"	f	class:Net
+recvs	net.h	/^      std::unordered_map<node_id_t, uint64_t> recvs;$/;"	m	struct:Net::__anon2
+replicate_arg	paxmsg.h	/^  replicate_arg(const viewstamp_t& _vs, const execute_arg& _arg,$/;"	f	struct:replicate_arg
+replicate_arg	paxmsg.h	/^struct replicate_arg : public paxmsg_t {$/;"	s
+replicate_arg	paxos_exec.cpp	/^void paxserver::replicate_arg(const struct replicate_arg& repl_arg) {$/;"	f	class:paxserver
+replicate_res	paxmsg.h	/^  replicate_res(const viewstamp_t& _vs) : $/;"	f	struct:replicate_res
+replicate_res	paxmsg.h	/^struct replicate_res : public paxmsg_t {$/;"	s
+replicate_res	paxos_exec.cpp	/^void paxserver::replicate_res(const struct replicate_res& repl_res) {$/;"	f	class:paxserver
+reply	paxmsg.h	/^  std::string reply;$/;"	m	struct:execute_success
+reply_cb	paxclient.h	/^      cb reply_cb;$/;"	m	struct:paxclient::req_cb
+reply_cb	paxclient.h	/^      cb reply_cb;$/;"	m	struct:paxclient::req_rec
+req_cb	paxclient.h	/^      req_cb( std::unique_ptr<paxobj::op> _req,  cb _reply_cb ) {$/;"	f	struct:paxclient::req_cb
+req_cb	paxclient.h	/^   struct req_cb {$/;"	s	class:paxclient
+req_rec	paxclient.cpp	/^paxclient::req_rec::req_rec(paxclient* _client, rid_t _rid, $/;"	f	class:paxclient::req_rec
+req_rec	paxclient.h	/^   struct req_rec {$/;"	s	class:paxclient
+req_rec_less	paxclient.h	/^   struct req_rec_less {$/;"	s	class:paxclient
+request	paxclient.h	/^      paxobj::request request;$/;"	m	struct:paxclient::req_rec
+request	paxclient.h	/^      std::unique_ptr<paxobj::op> request;$/;"	m	struct:paxclient::req_cb
+request	paxlog.h	/^      paxobj::request request;$/;"	m	struct:Paxlog::tup
+request	paxmsg.h	/^  paxobj::request request;$/;"	m	struct:execute_arg
+request	paxobj.h	/^   typedef std::shared_ptr<op> request;$/;"	t	class:paxobj
+reserved_promise	paxrole.h	/^      promise_msg_t * reserved_promise;$/;"	m	struct:leader::proposer_record_t
+reset_timo	paxclient.cpp	/^void paxclient::req_rec::reset_timo() {$/;"	f	class:paxclient::req_rec
+resp_cnt	paxlog.h	/^      unsigned int resp_cnt;$/;"	m	struct:Paxlog::tup
+result	paxserver.h	/^      std::string result;$/;"	m	struct:paxserver::last_tup_res
+rhs	dssim.h	/^   dssim_t& operator=(const dssim_t& rhs) = delete;$/;"	m	class:dssim_t
+rhs	dssim.h	/^   dssim_t(const dssim_t& rhs) = delete;$/;"	m	class:dssim_t
+rid	paxclient.h	/^      rid_t rid;$/;"	m	struct:paxclient::req_rec
+rid	paxlog.h	/^      rid_t rid;$/;"	m	struct:Paxlog::tup
+rid	paxmsg.h	/^  rid_t rid;$/;"	m	struct:execute_arg
+rid	paxmsg.h	/^  rid_t rid;$/;"	m	struct:execute_fail
+rid	paxmsg.h	/^  rid_t rid;$/;"	m	struct:execute_success
+rid_t	paxtypes.h	/^typedef uint64_t rid_t; \/\/ Request identifier, 0 is illegal$/;"	t
+roles	paxserver.h	/^   std::bitset<8> roles;$/;"	m	class:paxserver
+rotate_left	md5.cpp	/^inline MD5::uint4 MD5::rotate_left(uint4 x, int n) {$/;"	f	class:MD5
+rpc_cnt	net.h	/^      std::unordered_map<int, uint64_t> rpc_cnt;$/;"	m	struct:Net::__anon2
+rpc_id	paxmsg.h	/^  int rpc_id;$/;"	m	struct:paxmsg_t
+rpc_incr	net.cpp	/^void Net::rpc_incr(int rpc_num) {$/;"	f	class:Net
+rpc_tot	net.h	/^      uint64_t rpc_tot;$/;"	m	struct:Net::__anon2
+s2level	args.cpp	/^std::unordered_map<std::string,l::level> s2level = {$/;"	v
+sched	dssim.h	/^      Sched sched;$/;"	m	struct:dssim_t::Config
+select_randomly	dssim.cpp	/^Iter select_randomly(Iter start, Iter end, RandomGenerator& g) {$/;"	f
+send	net.cpp	/^bool Net::send(node_t *src, node_id_t dst, $/;"	f	class:Net
+send_buffer_size	paxrole.h	/^    int send_buffer_size;$/;"	m	class:acceptor
+send_msg	paxserver.cpp	/^bool paxserver::send_msg(node_id_t dst, std::unique_ptr<net_msg_t> msg) {$/;"	f	class:paxserver
+sends	net.cpp	/^uint64_t Net::sends(node_id_t nid) {$/;"	f	class:Net
+sends	net.h	/^      std::unordered_map<node_id_t, uint64_t> sends;$/;"	m	struct:Net::__anon2
+sent_tick	net.h	/^   tick_t sent_tick;$/;"	m	struct:net_msg_t
+serv_cnt	paxlog.h	/^      unsigned int serv_cnt;$/;"	m	struct:Paxlog::tup
+serv_cnt	paxserver.h	/^   unsigned int serv_cnt;$/;"	m	struct:vc_mgr_t
+serv_dead_timo	dssim.h	/^      int serv_dead_timo;$/;"	m	struct:dssim_t::Config
+serv_heartbeat_timo	dssim.h	/^      int serv_heartbeat_timo;$/;"	m	struct:dssim_t::Config
+serv_vca_timo	dssim.h	/^      int serv_vca_timo;$/;"	m	struct:dssim_t::Config
+server	node.h	/^   virtual bool server() const { return false; }$/;"	f	class:node_t
+server	paxserver.h	/^   virtual bool server() const {return true;}$/;"	f	class:paxserver
+setTokenAsUsed	getoptpp/getoptpp/getopt_pp.h	/^    static void setTokenAsUsed(Token* token, ShortOptions& short_ops, Token::Type usedAs)$/;"	f	struct:GetOpt::_Option
+set_latest_accept	paxlog.h	/^   void set_latest_accept(const viewstamp_t& vs) { $/;"	f	class:Paxlog
+set_latest_exec	paxlog.h	/^   void set_latest_exec(const viewstamp_t& vs) { last_exec_vs = vs; }$/;"	f	class:Paxlog
+set_log_level	log.cpp	/^void l::set_log_level(l::level ll) {$/;"	f	class:l
+set_ofname	log.cpp	/^void l::set_ofname(std::string s) {$/;"	f	class:l
+set_unpaused_tick	node.h	/^   void set_unpaused_tick(tick_t now) {unpaused_tick = now;}$/;"	f	class:node_t
+short_iter	getoptpp/getoptpp/getopt_pp.h	/^        ShortOptions::const_iterator short_iter;$/;"	m	struct:GetOpt::GetOpt_pp::ItCtorData
+short_iterator	getoptpp/getoptpp/getopt_pp.h	/^    typedef _iterator<ShortOptions, ShortAdapter, char> short_iterator;$/;"	t	class:GetOpt::GetOpt_pp
+short_opt	getoptpp/getoptpp/getopt_pp.h	/^    const char short_opt;$/;"	m	class:GetOpt::OptionPresent
+short_opt	getoptpp/getoptpp/getopt_pp.h	/^    const char short_opt;$/;"	m	class:GetOpt::_OptionTBase
+shuffle	dssim.cpp	/^bool dssim_t::shuffle() {$/;"	f	class:dssim_t
+size	paxlog.h	/^   std::size_t size() const {return l.size();}$/;"	f	class:Paxlog
+size_type	md5.h	/^  typedef unsigned int size_type; \/\/ must be 32bit$/;"	t	class:MD5
+src	net.h	/^   node_id_t src; $/;"	m	struct:net_msg_t
+src	paxlog.h	/^      node_id_t src;$/;"	m	struct:Paxlog::tup
+start	paxserver.h	/^   tick_t start;$/;"	m	struct:vc_mgr_t
+started_op	paxclient.h	/^		uint64_t started_op;$/;"	m	struct:paxclient::__anon3
+stat	net.h	/^   } stat;$/;"	m	class:Net	typeref:struct:Net::__anon2
+stat	paxclient.h	/^	} stat;$/;"	m	class:paxclient	typeref:struct:paxclient::__anon3
+stat	paxserver.h	/^	} stat;$/;"	m	class:paxserver	typeref:struct:paxserver::__anon5
+state	md5.h	/^  uint4 state[4];   \/\/ digest so far$/;"	m	class:MD5
+state	word_vec_pax.h	/^   std::vector<std::string> state;$/;"	m	class:po_word_vec
+status	paxrole.h	/^      status_flag status;$/;"	m	struct:leader::proposer_record_t
+status_flag	paxrole.h	/^    } status_flag;$/;"	t	class:leader	typeref:enum:leader::status_flag_t
+status_flag_t	paxrole.h	/^    typedef enum status_flag_t {$/;"	g	class:leader
+std	make_unique.h	/^namespace std { $/;"	n
+std	paxtypes.h	/^namespace std {$/;"	n
+str_sched	dssim.h	/^      std::string str_sched;$/;"	m	struct:dssim_t::Config
+success_op	paxclient.h	/^		uint64_t success_op;$/;"	m	struct:paxclient::__anon3
+sucessor	paxtypes.h	/^   bool sucessor(const viewstamp_t& vs) const {$/;"	f	struct:viewstamp_t
+switch_ntimo	paxclient.h	/^   int switch_ntimo;$/;"	m	class:paxclient
+sync_writes	paxserver.h	/^		uint64_t sync_writes;$/;"	m	struct:paxserver::__anon5
+target	getoptpp/getoptpp/getopt_pp.h	/^    T& target;$/;"	m	class:GetOpt::_GlobalOption
+target	getoptpp/getoptpp/getopt_pp.h	/^    T& target;$/;"	m	class:GetOpt::_OptionTBase
+target	getoptpp/getoptpp/getopt_pp.h	/^    std::vector<T>& target;$/;"	m	class:GetOpt::_GlobalOption
+targetFile	getoptpp/getoptpp/getopt_pp.h	/^    const std::string targetFile;$/;"	m	struct:GetOpt::OptionsFileNotFoundEx
+tick	dssim.cpp	/^bool dssim_t::tick() {$/;"	f	class:dssim_t
+tick	dssim.h	/^      tick_t tick;$/;"	m	struct:Sched::event
+tick	paxclient.cpp	/^bool paxclient::tick(void) {$/;"	f	class:paxclient
+tick	paxserver.cpp	/^bool paxserver::tick(void) {$/;"	f	class:paxserver
+tick_last_sent	paxclient.h	/^      tick_t tick_last_sent;$/;"	m	struct:paxclient::req_rec
+tick_t	node.h	/^typedef uint64_t tick_t;$/;"	t
+ticks	dssim.h	/^   tick_t ticks;$/;"	m	class:dssim_t
+timeout_info	paxrole.h	/^    } timeout_info;$/;"	t	class:proposer	typeref:struct:proposer::timeout_info_t
+timeout_info_t	paxrole.h	/^    typedef struct timeout_info_t {$/;"	s	class:proposer
+timo	paxclient.h	/^   int timo;$/;"	m	class:paxclient
+timo_cnt	paxclient.h	/^      int timo_cnt;     \/\/ How many timeouts?$/;"	m	struct:paxclient::req_rec
+timop	net.cpp	/^bool Net::timop(tick_t base, tick_t timo) {$/;"	f	class:Net
+to_str	paxobj.h	/^   virtual std::string to_str() const { $/;"	f	class:paxobj
+to_str	word_vec_pax.cpp	/^std::string po_word_vec::to_str() const {$/;"	f	class:po_word_vec
+to_str	word_vec_pax.cpp	/^void po_word_vec::to_str(std::ostringstream& os, unsigned int start, $/;"	f	class:po_word_vec
+token	getoptpp/getoptpp/getopt_pp.h	/^    Token* token;$/;"	m	struct:GetOpt::OptionData
+tot_msg_recv	net.h	/^      uint64_t tot_msg_recv;$/;"	m	struct:Net::__anon2
+tot_msg_send	net.h	/^      uint64_t tot_msg_send;$/;"	m	struct:Net::__anon2
+transform	md5.cpp	/^void MD5::transform(const uint1 block[blocksize])$/;"	f	class:MD5
+trim_front	paxlog.cpp	/^void Paxlog::trim_front(std::function<bool (const std::unique_ptr<tup>&)> trimf) {$/;"	f	class:Paxlog
+ts	paxserver.h	/^   uint64_t ts; \/\/ timestamp$/;"	m	class:paxserver
+ts	paxtypes.h	/^	uint64_t ts;$/;"	m	struct:viewstamp_t
+tup	paxlog.cpp	/^Paxlog::tup::tup(Paxlog::tup& t) {$/;"	f	class:Paxlog::tup
+tup	paxlog.cpp	/^Paxlog::tup::tup(node_id_t _src, rid_t _rid, const viewstamp_t& _vs, $/;"	f	class:Paxlog::tup
+tup	paxlog.h	/^   struct tup {$/;"	s	class:Paxlog
+tup	paxserver.h	/^      std::unique_ptr<Paxlog::tup> tup;$/;"	m	struct:paxserver::last_tup_res
+type	getoptpp/getoptpp/getopt_pp.h	/^    Type type;$/;"	m	struct:GetOpt::Token
+uint1	md5.h	/^  typedef unsigned char uint1; \/\/  8bit$/;"	t	class:MD5
+uint4	md5.h	/^  typedef unsigned int uint4;  \/\/ 32bit$/;"	t	class:MD5
+unpaused_tick	node.h	/^   tick_t unpaused_tick;$/;"	m	class:node_t
+update	md5.cpp	/^void MD5::update(const char input[], size_type length)$/;"	f	class:MD5
+update	md5.cpp	/^void MD5::update(const unsigned char input[], size_type length)$/;"	f	class:MD5
+usage	args.cpp	/^void usage(const char* exe_name) {$/;"	f
+use_fake_init_vc	dssim.cpp	/^bool dssim_t::use_fake_init_vc() {$/;"	f	class:dssim_t
+use_fake_init_vc	net.cpp	/^bool Net::use_fake_init_vc() {$/;"	f	class:Net
+valid	getoptpp/examples/example_extendingtypes_date.cpp	/^    bool valid() const$/;"	f	struct:Date
+valid	getoptpp/tests/format_test.cpp	/^    bool valid() const$/;"	f	struct:Date
+value	getoptpp/getoptpp/getopt_pp.h	/^    std::string value;$/;"	m	struct:GetOpt::Token
+value	paxrole.h	/^      char *  value;$/;"	m	struct:leader::promise_info_t
+value	paxrole.h	/^    char*   value;$/;"	m	struct:acceptor::acceptor_record_t
+value_ballot	paxmsg.h	/^  int     value_ballot;$/;"	m	struct:promise_msg_t
+value_ballot	paxrole.h	/^      int     value_ballot;$/;"	m	struct:leader::promise_info_t
+value_ballot	paxrole.h	/^    int     value_ballot;$/;"	m	struct:acceptor::acceptor_record_t
+value_delivered	paxrole.h	/^    int value_delivered;$/;"	m	class:proposer
+value_size	paxmsg.h	/^  int     value_size;$/;"	m	struct:accept_msg_t
+value_size	paxmsg.h	/^  int     value_size;$/;"	m	struct:learn_msg_t
+value_size	paxmsg.h	/^  int     value_size;$/;"	m	struct:promise_msg_t
+value_size	paxrole.h	/^      int     value_size;$/;"	m	struct:leader::promise_info_t
+value_size	paxrole.h	/^    int     value_size;$/;"	m	struct:acceptor::acceptor_record_t
+value_type	paxtypes.h	/^      typedef std::size_t value_type;$/;"	t	struct:std::hash
+vc_mgr	paxserver.h	/^   vc_mgr_t vc_mgr;$/;"	m	class:paxserver
+vc_mgr_t	paxserver.h	/^struct vc_mgr_t {$/;"	s
+vc_state	paxserver.h	/^   vc_state_t vc_state;$/;"	m	class:paxserver
+vc_state_t	paxserver.h	/^struct vc_state_t {$/;"	s
+vca	paxserver.h	/^   std::set<std::unique_ptr<struct view_change_accept>, struct vca_less> vca;$/;"	m	struct:vc_mgr_t
+vca_less	paxmsg.h	/^struct vca_less {$/;"	s
+vca_timo	paxserver.h	/^   tick_t vca_timo;$/;"	m	struct:pax_serv_timo
+vid	paxclient.h	/^      viewid_t vid;$/;"	m	struct:paxclient::req_rec
+vid	paxmsg.h	/^  viewid_t vid;$/;"	m	struct:execute_arg
+vid	paxmsg.h	/^  viewid_t vid;$/;"	m	struct:execute_fail
+vid	paxtypes.h	/^	viewid_t vid;$/;"	m	struct:viewstamp_t
+vid	paxtypes.h	/^   viewid_t vid;$/;"	m	struct:view_t
+view	paxmsg.h	/^  view_t view;$/;"	m	struct:init_view_arg
+view	paxmsg.h	/^  view_t view;$/;"	m	struct:new_view_arg
+view	paxserver.h	/^   view_t view;$/;"	m	struct:vc_state_t
+view_change_accept	paxmsg.h	/^  view_change_accept() : paxmsg_t(_descr, ID) {}$/;"	f	struct:view_change_accept
+view_change_accept	paxmsg.h	/^  view_change_accept(const view_change_accept& o) :$/;"	f	struct:view_change_accept
+view_change_accept	paxmsg.h	/^struct view_change_accept : public paxmsg_t {$/;"	s
+view_change_accept	paxos_vc.cpp	/^void paxserver::view_change_accept(const struct view_change_accept& vc_acc) {$/;"	f	class:paxserver
+view_change_arg	paxmsg.h	/^  view_change_arg(const view_t& _oldview, const viewid_t& _newvid) :$/;"	f	struct:view_change_arg
+view_change_arg	paxmsg.h	/^struct view_change_arg : public paxmsg_t {$/;"	s
+view_change_arg	paxos_vc.cpp	/^void paxserver::view_change_arg(const struct view_change_arg& vc_arg) {$/;"	f	class:paxserver
+view_change_reject	paxmsg.h	/^  view_change_reject(const view_t& _oldview, const viewid_t& _newvid) :$/;"	f	struct:view_change_reject
+view_change_reject	paxmsg.h	/^struct view_change_reject : public paxmsg_t {$/;"	s
+view_change_reject	paxos_vc.cpp	/^void paxserver::view_change_reject(const struct view_change_reject& vc_rej) {$/;"	f	class:paxserver
+view_possible	paxserver.h	/^   tick_t view_possible;$/;"	m	struct:vc_mgr_t
+view_t	paxtypes.h	/^struct view_t {$/;"	s
+viewid_t	paxtypes.h	/^struct viewid_t {$/;"	s
+viewstamp_t	paxtypes.h	/^struct viewstamp_t {$/;"	s
+vprime	paxserver.h	/^   view_t vprime;$/;"	m	struct:vc_mgr_t
+vs	paxlog.h	/^      viewstamp_t vs;$/;"	m	struct:Paxlog::tup
+vs	paxmsg.h	/^  viewstamp_t vs; \/\/ Viewstamp of last_exec_vs for po$/;"	m	struct:getstate_res
+vs	paxmsg.h	/^  viewstamp_t vs;$/;"	m	struct:replicate_arg
+vs	paxmsg.h	/^  viewstamp_t vs;$/;"	m	struct:replicate_res
+what	dssim.cpp	/^   virtual const char* what() const throw() {$/;"	f	class:dssim_ex_t	file:
+work_done	word_vec_pax.cpp	/^bool pc_word_vec::work_done(){$/;"	f	class:pc_word_vec
+work_get	word_vec_pax.cpp	/^pc_word_vec::work_get(){$/;"	f	class:pc_word_vec
+wvec	word_vec_pax.h	/^   std::vector<std::string> wvec;$/;"	m	class:pc_word_vec
+year	getoptpp/examples/example_extendingtypes_date.cpp	/^    unsigned int year;$/;"	m	struct:Date	file:
+year	getoptpp/tests/format_test.cpp	/^    unsigned int year;$/;"	m	struct:Date	file:
+~Net	net.cpp	/^Net::~Net() {$/;"	f	class:Net
+~OptionsFileNotFoundEx	getoptpp/getoptpp/getopt_pp.h	/^    ~OptionsFileNotFoundEx() throw() {}$/;"	f	struct:GetOpt::OptionsFileNotFoundEx
+~Paxlog	paxlog.h	/^   ~Paxlog() {l.resize(0);};$/;"	f	class:Paxlog
+~TokensDeleter	getoptpp/src/getopt_pp.cpp	/^GETOPT_INLINE GetOpt_pp::TokensDeleter::~TokensDeleter()$/;"	f	class:GetOpt::GetOpt_pp::TokensDeleter
+~_Option	getoptpp/getoptpp/getopt_pp.h	/^    virtual ~_Option() {}$/;"	f	struct:GetOpt::_Option
+~dssim_t	dssim.cpp	/^dssim_t::~dssim_t() {$/;"	f	class:dssim_t
+~net_msg_t	net.h	/^   ~net_msg_t() {}$/;"	f	struct:net_msg_t
+~node_t	node.cpp	/^node_t::~node_t() {}$/;"	f	class:node_t
+~paxclient	paxclient.cpp	/^paxclient::~paxclient() {$/;"	f	class:paxclient
+~paxobj	paxobj.h	/^   virtual ~paxobj() {}$/;"	f	class:paxobj
+~paxserver	paxserver.cpp	/^paxserver::~paxserver() {$/;"	f	class:paxserver
+~pc_word_vec	word_vec_pax.cpp	/^pc_word_vec::~pc_word_vec() {$/;"	f	class:pc_word_vec
+~po_word_vec	word_vec_pax.h	/^   virtual ~po_word_vec() {}$/;"	f	class:po_word_vec
