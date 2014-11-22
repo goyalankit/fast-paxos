@@ -191,8 +191,32 @@ void paxserver::do_heartbeat() {
 
 
 void paxserver::do_fastpax_timo() {
-  // leader timeout
+  // leader phase1 timeout
+  if (leader->phase1_to_tick > 0) {
+    leader->phase1_to_tick--;
+  } else {
+    leader->do_leader_timeout();
+  }
+  // leader phase2 timeout
+  if (leader->phase2_to_tick > 0) {
+    leader->phase2_to_tick--;
+  } else {
+    leader->do_leader_timeout();
+  }
 
+  // learner timeout
+  if (learner->lsync_to_tick > 0) {
+    learner->lsync_to_tick--;
+  } else {
+    learner->do_learner_timeout();
+  }
+
+  // proposer timeout
+  if (proposer->proposer_to_tick) {
+    proposer->proposer_to_tick--;
+  } else {
+    proposer->do_proposer_timeout();
+  }
 }
 
 // NB: For each timeout in struct pax_serv_timo, there should

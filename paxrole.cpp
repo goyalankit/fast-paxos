@@ -24,12 +24,19 @@ leader_t::leader_t(paxserver *_server) {
   }
 }
 
+void leader_t::do_leader_timeout() {
+
+}
+
 /** proposer functions **/
 proposer_t::proposer_t(paxserver *_server) {
   server = _server;
   fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config 
   current_iid = 0;
 
+}
+
+void proposer_t::do_proposer_timeout() {
 }
 
 /** acceptor functions **/
@@ -45,4 +52,7 @@ learner_t::learner_t(paxserver *_server){
     learner_array[i] = {};
     learner_array[i].learns.resize(server->get_serv_cnt(server->vc_state.view));
   }
+}
+
+void learner_t::do_learner_timeout() {
 }

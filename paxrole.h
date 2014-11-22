@@ -40,8 +40,11 @@ class learner_t {
     void lsync_check(/*XXX need to decide arguments*/);
     void learner_wait_ready();
     void timeout_check();
+    void do_learner_timeout();
     learner_t(paxserver *_server);
 };
+
+
 
 
 class leader_t {
@@ -97,6 +100,7 @@ class leader_t {
     /*** functions for a leader ***/
     //constuctors
     leader_t(paxserver * _server);
+    void do_leader_timeout();
 };
 
 class proposer_t {
@@ -120,6 +124,7 @@ class proposer_t {
     };
 
     proposer_t(paxserver *_server);
+    void do_proposer_timeout();
 };
 
 class acceptor_t {
