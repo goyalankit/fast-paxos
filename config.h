@@ -52,3 +52,8 @@
 // TODO(goyalankit) change the value
 #define LSYNC_TICK 12
 
+
+enum phase1ab_t {
+  phase1,
+  phase2
+};

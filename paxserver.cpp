@@ -195,13 +195,13 @@ void paxserver::do_fastpax_timo() {
   if (leader->phase1_to_tick > 0) {
     leader->phase1_to_tick--;
   } else {
-    leader->do_leader_timeout();
+    leader->do_leader_timeout(phase1ab_t::phase1);
   }
   // leader phase2 timeout
   if (leader->phase2_to_tick > 0) {
     leader->phase2_to_tick--;
   } else {
-    leader->do_leader_timeout();
+    leader->do_leader_timeout(phase1ab_t::phase2);
   }
 
   // learner timeout

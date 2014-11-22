@@ -24,8 +24,19 @@ leader_t::leader_t(paxserver *_server) {
   }
 }
 
-void leader_t::do_leader_timeout() {
+void leader_t::do_leader_timeout(phase1ab_t phase) {
+  switch (phase){
+    case phase1ab_t::phase1:{
+      break;
+    }
+    case phase1ab_t::phase2:{
+      break;
+    }
+    default: {
+      MASSERT(0, "Phase not recognized in leader timeout.\n Destruct sequence initiated. 3..2..1..run!\n");
+    }
 
+  }
 }
 
 /** proposer functions **/

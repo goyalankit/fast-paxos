@@ -100,7 +100,7 @@ class leader_t {
     /*** functions for a leader ***/
     //constuctors
     leader_t(paxserver * _server);
-    void do_leader_timeout();
+    void do_leader_timeout(phase1ab_t);
 };
 
 class proposer_t {
