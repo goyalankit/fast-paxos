@@ -124,3 +124,6 @@ sympy-plots-for-*.tex/
 
 *.d
 pax
+*.swp
+*.swo
+*~
