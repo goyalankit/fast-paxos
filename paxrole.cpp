@@ -52,6 +52,7 @@ proposer_t::proposer_t(paxserver *_server) {
 void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
   last_accept_hash = 1;
+  last_accept_iid = current_iid;
   std::set<node_id_t> servers = server->get_other_servers(server->vc_state.view);
   servers.insert(server->get_nid());
 
