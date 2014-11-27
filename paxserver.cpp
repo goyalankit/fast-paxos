@@ -440,17 +440,3 @@ paxobj*  paxserver::get_paxobj() {
     return _paxobj.get();
 }
 
-template< typename T >
-void paxserver::broadcast(T arg) {}
-/*
-template< typename T, typename... Arguments >
-void paxserver::broadcast(Arguments ... args) {
-  std::set<node_id_t> servers = get_other_servers(vc_state.view);
-  servers.insert(get_nid());
-
-  for (node_id_t node_id : servers) {
-    auto amsg = std::make_unique<T>(args...);
-    send_msg(node_id, std::move(amsg));
-  }
-}
-*/

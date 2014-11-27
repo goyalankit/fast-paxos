@@ -66,8 +66,7 @@ void leader_t::execute_phase1() {
   }
 
   if(!messages.empty()) {
-    //server->broadcast<prepare_batch_msg_t>(messages);
-  //  LOG(DBG, ("Sending propose batch for %d instances\n", ((prepare_batch_msg*)msg->data)->count));
+    server->broadcast<prepare_batch_msg_t>(messages);
   }
 
 }
@@ -101,21 +100,7 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
   last_accept_hash = 1;
   last_accept_iid = current_iid;
-  /*
-   *std::set<node_id_t> servers = server->get_other_servers(server->vc_state.view);
-   *servers.insert(server->get_nid());
-   */
-  //server->broadcast<struct accept_msg_t>(current_iid, fixed_ballot, server->get_nid());
-  struct accept_msg_t amsg (1,2,3);
-  server->broadcast<accept_msg_t>(amsg);
-  /*
-  for (node_id_t node_id : servers) {
-
-    auto amsg = std::make_unique<struct accept_msg_t>(current_iid,
-        fixed_ballot, server->get_nid());
-    server->send_msg(node_id, std::move(amsg));
-  }
-  */
+  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid());
 }
 
 void proposer_t::do_proposer_timeout() {

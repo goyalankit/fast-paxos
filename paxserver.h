@@ -238,8 +238,16 @@ private:
       return normal_msg.count(rpc_id) > 0;
    }
 
-  template< typename T>//, typename... Arguments >
-  void broadcast(T);
+  template< typename T, typename... Arguments >
+  void broadcast(Arguments ... args) {
+    std::set<node_id_t> servers = get_other_servers(vc_state.view);
+    servers.insert(get_nid());
+
+    for (node_id_t node_id : servers) {
+      auto amsg = std::make_unique<T>(args...);
+      send_msg(node_id, std::move(amsg));
+    }
+  }
 
 	struct {
 		uint64_t pr_started_op;
