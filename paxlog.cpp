@@ -95,6 +95,13 @@ const Paxlog::tup* Paxlog::get_tup(const viewstamp_t& vs) {
    return nullptr;
 }
 
+const Paxlog::tup* Paxlog::get_tup(int iid) {
+   for(const auto& entry : l) {
+      if(entry->iid == iid) return entry.get();
+   }
+   return nullptr;
+}
+
 void Paxlog::log(node_id_t src, rid_t rid, const viewstamp_t& vs, 
                     paxobj::request req, unsigned int serv_cnt, tick_t now) {
    // Insert records in viewstamp order
@@ -121,6 +128,29 @@ void Paxlog::log(node_id_t src, rid_t rid, const viewstamp_t& vs,
       }
    }
 #endif
+}
+
+void Paxlog::fastlog(node_id_t src, rid_t rid, int iid, int ballot, int value_ballot,
+                      paxobj::request req, tick_t now) {
+
+  auto logit = l.begin();
+  while(logit != l.end() && (*logit)->iid < iid)
+    ++logit;
+
+  l.emplace(logit, std::make_unique<Paxlog::tup>(src, rid, iid, ballot, value_ballot, std::move(req), now));
+   LOG(l::DEBUG, "Log: " << *l[l.size()-1] << "\n");
+}
+
+
+Paxlog::tup::tup(node_id_t _src, rid_t _rid, int _iid, int _ballot, int _value_ballot,
+                    paxobj::request _request, tick_t now) {
+  src = _src;
+  rid = _rid;
+  iid = _iid;
+  ballot = _ballot;
+  value_ballot = _value_ballot;
+  request = std::move(_request);
+  added_tick = now;
 }
 
 Paxlog::tup::tup(node_id_t _src, rid_t _rid, const viewstamp_t& _vs, 

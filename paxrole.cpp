@@ -90,7 +90,7 @@ void leader_t::phase1_check_cb(){
             prepare_msg_t msg (rec.iid,rec.ballot);
             messages.push_back(msg);
         }
-    }    
+    }
 
     // LOG(V_VRB, ("pending count: %d\n", p1info.pending_count));
     // LOG(V_VRB, ("ready count: %d\n", p1info.ready_count));
@@ -98,7 +98,7 @@ void leader_t::phase1_check_cb(){
     if (p1info.pending_count + p1info.ready_count < (PROPOSER_PREEXEC_WIN_SIZE/2)) {
         execute_phase1(); //add some stuff to sendbuf
     }
-    
+
     if(!messages.empty()) {
       server->broadcast<prepare_batch_msg_t> (messages);
     }
@@ -126,35 +126,35 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
 
 void leader_t::phase2_check_cb(){
     // LOG(DBG, ("Leader periodic p2 check\n"));
-    
+
     // TODO leaner should update leader::current_iid
     if (current_iid == p2info.current_iid) {
         // LOG(DBG, ("No progress from last time!\n"));
-        
+
         //Check in learner:
         //Quorum has my ballot?
-        
+
         // Y -> directly 2a with v (collision)
-        
+
         // N -> (my any was lost?
                 // another leader?
                 // no proposer sending value?)
         //Restart from p1
         // (collect promises and send any/accept)
         std::vector<prepare_msg_t>  messages;
-        
+
         proposer_record_t * rec = &proposer_array[GET_PRO_INDEX(current_iid)];
         MASSERT(rec->iid == current_iid, "phase2_check_cb(): current_iid Mismatch\n");
-        
+
         if(rec->status == p1_finished) {
             p1info.ready_count--;
             p1info.pending_count++;
             rec->status = p1_pending;
         }
-        
+
         rec->ballot = BALLOT_NEXT(rec->ballot);
         rec->promise_count = 0;
-        
+
         for(auto promise : rec->promises) {
             promise.iid = -1;
             promise.value_ballot = -1;
@@ -263,7 +263,7 @@ void leader_t::do_leader_timeout(phase12_t phase) {
   switch (phase){
     case phase12_t::phase1:{
 
-      if(do_first_TO) { 
+      if(do_first_TO) {
         execute_phase1();
         do_first_TO = false;
       } else {
@@ -289,7 +289,7 @@ void leader_t::do_leader_timeout(phase12_t phase) {
 /** proposer functions **/
 proposer_t::proposer_t(paxserver *_server) {
   server = _server;
-  fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config 
+  fixed_ballot = MAX_PROPOSERS + server->get_nid(); //TODO: add MAX_PROPOSER to config
   current_iid = 0;
   has_value = false;
 }
@@ -315,15 +315,88 @@ void acceptor_t::handle_accept(const struct accept_msg_t&) {
 }
 
 
-// TODO(goyalankit) implement this method
 void acceptor_t::paxlog_update_record(acceptor_t::acceptor_record_t &rec) {
-
+  
 }
 
 
-// TODO(goyalankit) define this method
 acceptor_t::acceptor_record_t * acceptor_t::paxlog_lookup_record(int iid) {
-  return NULL;
+  const Paxlog::tup* tup = (server->paxlog).get_tup(iid);
+  if (tup == nullptr) {
+    return nullptr;
+  } else {
+    return (new acceptor_record_t(tup));
+  }
+}
+
+void acceptor_t::apply_anyval(acceptor_record_t * rec, int iid, int ballot) {
+}
+
+int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg) {
+  std::vector<int> iids = anyval_msg.messages;
+  int ballot = anyval_msg.ballot;
+  for (int iid : iids) {
+    // found in array ->
+    // not in array
+    // -> new
+    // -> old
+    // fetch from disk
+    //  -> found
+    //  -> not found
+
+    // found  -> check ballot and enabled
+    // not found -> return 0
+
+    int ret;
+    acceptor_record_t* rec;
+
+    //Lookup
+    rec = &acceptor_array[GET_ACC_INDEX(iid)];
+
+    //Found record previously written
+    if (iid == rec->iid) {
+      if (rec->any_enabled || (ballot >= rec->ballot)) {
+        //LOG(DBG, ("Accepting anyval for instance %d with ballot %d\n", iid, ballot));
+        apply_anyval(rec, iid, ballot);
+        return 1;
+      }
+
+      //LOG(DBG, ("Ignoring anyval for instance %d with ballot %d.\n", iid, ballot));
+      return 0;
+    }
+
+    //Record not found in acceptor array
+    if (iid > rec->iid) {
+      //LOG(DBG, ("Accepting anyvalue instance %d with ballot %d, never seen before\n", iid, ballot));
+      apply_anyval(rec, iid, ballot);
+      return 1;
+    }
+
+    //Record was overwritten in acceptor array
+    //We must scan the logfile before accepting or not
+    if (iid < rec->iid) {
+      rec = paxlog_lookup_record(iid);
+      if (rec == NULL) {
+        // LOG(DBG, ("Accepting anyvalue instance %d with ballot %d, never seen before\n", iid, ballot));
+        apply_anyval(rec, iid, ballot);
+        return 1;
+      }
+
+      if (rec->any_enabled || (ballot >= rec->ballot)) {
+        // LOG(DBG, ("Accepting anyval for instance %d with ballot %d [info from disk]\n", iid, ballot));
+        apply_anyval(rec, iid, ballot);
+        ret = 1;
+      } else {
+        // LOG(DBG, ("Ignoring anyval for instance %d with ballot %d, already given to ballot %d [info from disk]\n", iid, ballot, rec->ballot));
+        ret = 0;
+      }
+
+      delete rec;
+      return ret;
+    }
+    return 0;
+  }
+  return 1;
 }
 
 void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<promise_msg_t> &promise_msgs) {

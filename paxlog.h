@@ -13,6 +13,10 @@ class Paxlog {
       node_id_t src;
       rid_t rid;
       viewstamp_t vs;
+      // fast paxos fields
+      int iid;
+      int ballot;
+      int value_ballot;
       paxobj::request request;
       // Remember how many servers for this view.
       unsigned int serv_cnt;
@@ -25,9 +29,11 @@ class Paxlog {
       // oldest record for too long, we try to catchup with primary
       // XXX Not currently used & not totally sure why.  A different time out?
       tick_t added_tick;
-      tup(node_id_t _src, rid_t _rid, const viewstamp_t& _vs, 
+      tup(node_id_t _src, rid_t _rid, const viewstamp_t& _vs,
              paxobj::request _request, unsigned int _serv_cnt, tick_t now);
-      tup(tup& t); 
+      tup(node_id_t _src, rid_t _rid, int _iid, int _ballot, int _value_ballot,
+                    paxobj::request _request, tick_t now);
+      tup(tup& t);
    };
    Paxlog();
    Paxlog(const Paxlog&);
@@ -40,6 +46,8 @@ class Paxlog {
    bool find_rid(node_id_t src, rid_t rid);
    void log(node_id_t src, rid_t rid, const viewstamp_t& vs, 
                paxobj::request req,  unsigned int serv_cnt, tick_t now);
+   void fastlog(node_id_t src, rid_t rid, int iid, int ballot, int value_ballot,
+                      paxobj::request req, tick_t now);
    // Find entry with viewstamp vs and increment is response count
    bool incr_resp(const viewstamp_t& vs);
    std::vector<std::unique_ptr<tup>>::iterator begin() {
@@ -68,6 +76,7 @@ class Paxlog {
    std::size_t size() const {return l.size();}
    // Get entry at vs.  MUST call contains first and be sure entry @ vs exists
    const tup* get_tup(const viewstamp_t& vs);
+   const tup* get_tup(int iid);
    // Can we execute entry? pass in its result
    bool execute(std::unique_ptr<tup>&);
    // Love the const reference to a unique_ptr

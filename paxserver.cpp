@@ -155,6 +155,9 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
             else
               MASSERT(0, "Non-leader received promise messages\n");
             break;
+        case anyval_batch_msg_t::ID:
+            acceptor->handle_anyval_batch(static_cast<const struct anyval_batch_msg_t&>(paxmsg));
+            break;
         default:
             MASSERT(0, "%s %d Should be a handler for each RPC", 
                     id_str(), paxmsg.rpc_id);
