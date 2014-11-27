@@ -99,7 +99,7 @@ class leader_t {
     // timeout ticks
     tick_t phase1_to_tick;
     tick_t phase2_to_tick;
-    
+
     bool do_first_TO;
     /*** functions for a leader ***/
     //constuctors
@@ -107,6 +107,7 @@ class leader_t {
     void do_leader_timeout(phase12_t);
     void execute_phase1();
     void phase1_check_cb();
+    void phase2_check_cb();
     void handle_promise_batch(const struct promise_batch_msg_t &);
     void handle_promise(const struct promise_msg_t &, int, struct proposer_record_t &);
     void execute_phase2(int first_iid, int last_iid);

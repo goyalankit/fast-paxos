@@ -2,6 +2,7 @@
 #include "paxrole.h"
 #include "paxserver.h"
 #include "log.h"
+#include <assert.h>
 
 /** leader functions **/
 leader_t::leader_t(paxserver *_server) {
@@ -101,8 +102,8 @@ void leader_t::phase1_check_cb(){
     if(!messages.empty()) {
       server->broadcast<prepare_batch_msg_t> (messages);
     }
-
 }
+
 
 leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec) {
   int max_ballot = -1;
@@ -121,6 +122,47 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
   }
 
   return pi;
+}
+
+void leader_t::phase2_check_cb(){
+    // LOG(DBG, ("Leader periodic p2 check\n"));
+    
+    // TODO leaner should update leader::current_iid
+    if (current_iid == p2info.current_iid) {
+        // LOG(DBG, ("No progress from last time!\n"));
+        
+        //Check in learner:
+        //Quorum has my ballot?
+        
+        // Y -> directly 2a with v (collision)
+        
+        // N -> (my any was lost?
+                // another leader?
+                // no proposer sending value?)
+        //Restart from p1
+        // (collect promises and send any/accept)
+        std::vector<prepare_msg_t>  messages;
+        
+        proposer_record_t * rec = &proposer_array[GET_PRO_INDEX(current_iid)];
+        MASSERT(rec->iid == current_iid, "phase2_check_cb(): current_iid Mismatch\n");
+        
+        if(rec->status == p1_finished) {
+            p1info.ready_count--;
+            p1info.pending_count++;
+            rec->status = p1_pending;
+        }
+        
+        rec->ballot = BALLOT_NEXT(rec->ballot);
+        rec->promise_count = 0;
+        
+        for(auto promise : rec->promises) {
+            promise.iid = -1;
+            promise.value_ballot = -1;
+            promise.value = NULL;
+        }
+        messages.emplace_back(rec->iid,rec->ballot);
+        server->broadcast<prepare_batch_msg_t>(messages);
+    }
 }
 
 void leader_t::resolve_cflt_send_accept
@@ -204,8 +246,8 @@ void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, 
     p1info.last_to_check = rec.iid;
   }
   return;
-
 }
+
 void leader_t::handle_promise_batch(const struct promise_batch_msg_t &promise_batch_msg) {
   int first_iid = promise_batch_msg.messages.front().iid;
   int last_iid = promise_batch_msg.messages.back().iid;
@@ -226,6 +268,7 @@ void leader_t::do_leader_timeout(phase12_t phase) {
         do_first_TO = false;
       } else {
         // check phase1 cb
+        phase1_check_cb();
       }
       phase1_to_tick = PHASE1_TO_TICK;
 
@@ -233,6 +276,7 @@ void leader_t::do_leader_timeout(phase12_t phase) {
     }
     case phase12_t::phase2:{
       phase2_to_tick = PHASE2_TO_TICK;
+      phase2_check_cb();
       break;
     }
     default: {
