@@ -6,6 +6,7 @@
 /** leader functions **/
 leader_t::leader_t(paxserver *_server) {
   server = _server;
+  do_first_TO = true;
 
   //initialize p1info for prepare phase
   p1info.pending_count = 0;
@@ -67,6 +68,39 @@ void leader_t::execute_phase1() {
   if(!messages.empty()) {
     server->broadcast<prepare_batch_msg_t>(messages);
   }
+
+}
+
+void leader_t::phase1_check_cb(){
+    //Check answer from last time
+    std::vector<prepare_msg_t> messages;
+    for(int i = p1info.first_to_check; i <= p1info.last_to_check; i++) {
+        proposer_record_t & rec = proposer_array[GET_PRO_INDEX(i)];
+
+        if (rec.iid == i && rec.status == p1_pending) {
+            //add prepare to sendbuf
+            rec.ballot = BALLOT_NEXT(rec.ballot);
+            rec.promise_count = 0;
+            for(auto promise : rec.promises) {
+                promise.iid = -1;
+                promise.value_ballot = -1;
+                promise.value = NULL;
+            }
+            prepare_msg_t msg (rec.iid,rec.ballot);
+            messages.push_back(msg);
+        }
+    }    
+
+    // LOG(V_VRB, ("pending count: %d\n", p1info.pending_count));
+    // LOG(V_VRB, ("ready count: %d\n", p1info.ready_count));
+
+    if (p1info.pending_count + p1info.ready_count < (PROPOSER_PREEXEC_WIN_SIZE/2)) {
+        execute_phase1(); //add some stuff to sendbuf
+    }
+    
+    if(!messages.empty()) {
+      server->broadcast<prepare_batch_msg_t> (messages);
+    }
 
 }
 
@@ -186,8 +220,15 @@ void leader_t::handle_promise_batch(const struct promise_batch_msg_t &promise_ba
 void leader_t::do_leader_timeout(phase12_t phase) {
   switch (phase){
     case phase12_t::phase1:{
-      execute_phase1();
+
+      if(do_first_TO) { 
+        execute_phase1();
+        do_first_TO = false;
+      } else {
+        // check phase1 cb
+      }
       phase1_to_tick = PHASE1_TO_TICK;
+
       break;
     }
     case phase12_t::phase2:{
