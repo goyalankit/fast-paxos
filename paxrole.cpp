@@ -73,6 +73,114 @@ void leader_t::execute_phase1() {
 
 }
 
+leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec) {
+  int max_ballot = -1;
+  promise_info_t* pi = NULL;
+
+  for (auto prom_info : rec.promises) {
+    if (prom_info.iid == -1 )
+      continue;
+
+    if (prom_info.value_ballot != -1) {
+      if(prom_info.value_ballot > max_ballot) {
+        max_ballot = prom_info.value_ballot;
+        pi = &prom_info;
+      }
+    }
+  }
+
+  return pi;
+
+}
+void leader_t::execute_phase2(int first_iid, int last_iid) {
+
+  int ballot = -1;
+  promise_info_t* pi = NULL;
+  std::vector<int> messages;
+
+  for(int i = first_iid; i <= last_iid; ++i) {
+    proposer_record_t &rec = proposer_array[GET_PRO_INDEX(i)];
+    if (rec.status != p1_ready)
+      continue;
+
+    if ((pi = phase2_getMax_promise(rec)) == NULL) {
+      if (rec.ballot > ballot) {
+        ballot = rec.ballot;
+      }
+      messages.push_back(i);
+    }
+    else {
+      // TODO resolve conflict
+      // send_accept(rec, pi);
+    }
+
+    rec.status = p1_finished;
+  }
+
+  if (!messages.empty()) {
+    server->broadcast<anyval_batch_msg_t>(messages, ballot);
+  }
+}
+
+void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, struct proposer_record_t &rec){
+
+  //Ignore because there is no info about
+  //this iid in proposer_array
+  if(rec.iid != msg.iid) {
+    //LOG(DBG, ("P: Promise for %d ignored, no info in array\n", prom->iid));
+    return;
+  }
+
+  //This promise is not relevant, because
+  //we are not waiting for promises for instance iid
+  if(rec.status != p1_pending) {
+    //LOG(DBG, ("P: Promise for %d ignored, instance is not p1_pending\n", prom->iid));
+    return;
+  }
+
+  //This promise is old, or belongs to another
+  if(rec.ballot != msg.ballot) {
+    //LOG(DBG, ("P: Promise for %d ignored, not our ballot\n", prom->iid));
+    return;
+  }
+
+  //Already received this promise
+  if(rec.promises[acceptor_id].iid != -1 && rec.ballot == msg.ballot) {
+    //LOG(DBG, ("P: Promise for %d ignored, already received\n", prom->iid));
+    return;
+  }
+
+  rec.promises[acceptor_id] = msg;
+  rec.promise_count++;
+  if (rec.promise_count < server->get_quorum()) {
+    //LOG that quorum not reached yet.
+    return;
+  }
+
+  // quorum reached.
+  rec.status = p1_ready;
+  p1info.pending_count--;
+  p1info.ready_count++;
+  if (p1info.highest_ready < rec.iid) {
+    p1info.highest_ready = rec.iid;
+  }
+  if (p1info.last_to_check < rec.iid) {
+    p1info.last_to_check = rec.iid;
+  }
+  return;
+
+}
+void leader_t::handle_promise_batch(const struct promise_batch_msg_t &promise_batch_msg) {
+  int first_iid = promise_batch_msg.messages.front().iid;
+  int last_iid = promise_batch_msg.messages.back().iid;
+  proposer_record_t rec;
+
+  for (auto prom_msg : promise_batch_msg.messages){
+    handle_promise(prom_msg, promise_batch_msg.acceptor_id, proposer_array[GET_PRO_INDEX(prom_msg.iid)]);
+  }
+  execute_phase2(first_iid, last_iid);
+}
+
 void leader_t::do_leader_timeout(phase12_t phase) {
   switch (phase){
     case phase12_t::phase1:{
@@ -89,6 +197,7 @@ void leader_t::do_leader_timeout(phase12_t phase) {
     }
   }
 }
+
 
 /** proposer functions **/
 proposer_t::proposer_t(paxserver *_server) {
@@ -146,7 +255,7 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
         //LOG(DBG, ("Promising for instance %d with ballot %d, never seen before\n", msg.iid, msg.ballot));
         paxlog_update_record(*rec);
 
-        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
         promise_msgs.push_back(prom_msg);
         return;
     }
@@ -162,7 +271,7 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
         rec->ballot = msg.ballot;
         paxlog_update_record(*rec);
 
-        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
         promise_msgs.push_back(prom_msg);
         return;
     }
@@ -182,8 +291,8 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
         if(msg.ballot > rec->ballot) {
             rec->ballot = msg.ballot;
             paxlog_update_record(*rec);
-            
-            promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+
+            promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
             promise_msgs.push_back(prom_msg);
         } else {
             //LOG(DBG, ("Ignoring prepare for instance %d with ballot %d, already promised to %d [info from disk]\n", msg.iid, msg.ballot, rec->ballot));
@@ -201,6 +310,12 @@ void acceptor_t::handle_prepare_batch(const struct prepare_batch_msg_t& prepare_
   std::vector<promise_msg_t> promise_msgs;
   for (auto prep_msg : messages) {
     handle_prepare(prep_msg, promise_msgs);
+  }
+  
+  if(!promise_msgs.empty()) {
+    node_id_t leader_id = server->vc_state.view.primary;
+    auto promise_msg = std::make_unique<promise_batch_msg_t>(promise_msgs, server->nid);
+    server->send_msg(leader_id, std::move(promise_msg));
   }
 }
 

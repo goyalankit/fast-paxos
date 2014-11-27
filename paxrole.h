@@ -77,13 +77,19 @@ class leader_t {
       int     iid;
       int     value_ballot;
       paxobj::request value;
+      promise_info_t & operator= (const promise_msg_t &rhs){
+        iid = rhs.iid;
+        value_ballot = rhs.value_ballot;
+        value = rhs.value;
+        return *this;
+      }
     };
 
     struct proposer_record_t {
       int iid = 0;
       int ballot = -1;
       status_flag status;
-      int promise_count = 0;
+      unsigned int promise_count = 0;
       vector<promise_info_t> promises; //set it to [N_OF_ACCEPTORS];
       promise_msg_t * reserved_promise = nullptr;
     };
@@ -99,6 +105,10 @@ class leader_t {
     leader_t(paxserver * _server);
     void do_leader_timeout(phase12_t);
     void execute_phase1();
+    void handle_promise_batch(const struct promise_batch_msg_t &);
+    void handle_promise(const struct promise_msg_t &, int, struct proposer_record_t &);
+    void execute_phase2(int first_iid, int last_iid);
+    promise_info_t* phase2_getMax_promise(proposer_record_t &);
 };
 
 class proposer_t {

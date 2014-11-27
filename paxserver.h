@@ -151,6 +151,7 @@ private:
    void getstate_res(struct getstate_res&);
    // Helper functions for particular states
    unsigned int get_serv_cnt(const view_t& vid);
+   unsigned int get_quorum();
    std::string paxop_on_paxobj(std::unique_ptr<Paxlog::tup>& logop);
    void execute_bk_beq(const viewstamp_t& vs);
    void execute_pr_maj();

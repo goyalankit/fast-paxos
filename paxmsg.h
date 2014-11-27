@@ -67,11 +67,13 @@ struct promise_msg_t {
   int     iid;
   int     ballot;
   int     value_ballot;
+  paxobj::request value;
 
-  promise_msg_t(int _iid, int _ballot, int _value_ballot) {
+  promise_msg_t(int _iid, int _ballot, int _value_ballot, paxobj::request _value) {
     iid = _iid;
     ballot = _ballot;
     value_ballot = _value_ballot;
+    value = _value;
   }
 
   void pr(std::ostream& os) const {
@@ -84,9 +86,10 @@ struct promise_batch_msg_t : public paxmsg_t {
   static const int ID = 21;
   static constexpr const char* _descr = "promiseBatchMsg";
   std::vector<promise_msg_t> messages;
-
-  promise_batch_msg_t(std::vector<promise_msg_t> & _messages) : paxmsg_t(_descr, ID) {
+  int acceptor_id;
+  promise_batch_msg_t(std::vector<promise_msg_t> & _messages, int _id) : paxmsg_t(_descr, ID) {
     messages = _messages;
+    acceptor_id = _id;
   }
 
   void pr(std::ostream& os) const {
@@ -154,22 +157,22 @@ struct learn_msg_t : public paxmsg_t {
   }
 };
 
-struct anyval_msg_t : public paxmsg_t {
+struct anyval_batch_msg_t : public paxmsg_t {
   static const int ID = 25;
   static constexpr const char* _descr = "anyvalMsg";
+  std::vector<int> messages;
   int     ballot;
-  int     count;
-
-  anyval_msg_t(int _ballot, int _count) : paxmsg_t(_descr, ID) {
+  anyval_batch_msg_t(std::vector<int> & _messages, int _ballot) : paxmsg_t(_descr, ID) {
+    messages = _messages;
     ballot = _ballot;
-    count = _count;
   }
 
   void pr(std::ostream& os) const {
-    os << "{" << ballot << ", " << count << "}";
+    for (auto msg : messages) {
+      os << "{" << msg <<"}";
+    }
   }
 };
-
 /* Fast Paxos Messages END */
 
 // nop message, used as heartbeat

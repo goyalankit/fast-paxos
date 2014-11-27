@@ -148,6 +148,13 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
             break;
         case prepare_batch_msg_t::ID:
             acceptor->handle_prepare_batch(static_cast<const struct prepare_batch_msg_t&>(paxmsg));
+            break;
+        case promise_batch_msg_t::ID:
+            if(primary())
+              leader->handle_promise_batch(static_cast<const struct promise_batch_msg_t&>(paxmsg));
+            else
+              MASSERT(0, "Non-leader received promise messages\n");
+            break;
         default:
             MASSERT(0, "%s %d Should be a handler for each RPC", 
                     id_str(), paxmsg.rpc_id);
@@ -197,6 +204,9 @@ void paxserver::do_heartbeat() {
 }
 
 
+unsigned int paxserver::get_quorum() {
+ return (1 + (int)((double)get_serv_cnt (vc_state.view)*2)/3); 
+}
 void paxserver::do_fastpax_timo() {
     if (primary()){
         // leader phase1 timeout
