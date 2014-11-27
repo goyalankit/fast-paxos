@@ -109,6 +109,7 @@ class leader_t {
     void handle_promise(const struct promise_msg_t &, int, struct proposer_record_t &);
     void execute_phase2(int first_iid, int last_iid);
     promise_info_t* phase2_getMax_promise(proposer_record_t &);
+    void resolve_cflt_send_accept(proposer_record_t &, promise_info_t *);
 };
 
 class proposer_t {

@@ -105,12 +105,13 @@ struct accept_msg_t : public paxmsg_t {
   int     iid;
   int     ballot;
   int     proposer_id;
-
-  accept_msg_t(int _iid, int _ballot, int _proposer_id) :
+  paxobj::request value;
+  accept_msg_t(int _iid, int _ballot, int _proposer_id,paxobj::request _value) :
     paxmsg_t(_descr, ID) {
       iid = _iid;
       ballot = _ballot;
       proposer_id = _proposer_id;
+      value = _value;
     }
 
   void pr(std::ostream& os) const {

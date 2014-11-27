@@ -33,7 +33,6 @@ void leader_t::execute_phase1() {
   vector<prepare_msg_t> messages;
 
   LOG(l::DEBUG, "Leader pre-executing phase 1 from " << from << " to " << to);
-  // LOG(DBG, ());
 
   for(int i = from; i <= to; i++) {
     rec = &proposer_array[GET_PRO_INDEX(i)];
@@ -55,8 +54,6 @@ void leader_t::execute_phase1() {
       //send_prepare_msg_to_acceptor
       prepare_msg_t prepare_msg(rec->iid, rec->ballot);
       messages.push_back(prepare_msg);
-
-      //add_prepare_to_buffer(rec->iid, rec->ballot);
     }
   }
 
@@ -90,8 +87,13 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
   }
 
   return pi;
-
 }
+
+void leader_t::resolve_cflt_send_accept
+(proposer_record_t & rec, promise_info_t * pi){
+  server->broadcast<accept_msg_t>(rec.iid,rec.ballot,VALUE_OWNER(pi->value_ballot),pi->value);
+}
+
 void leader_t::execute_phase2(int first_iid, int last_iid) {
 
   int ballot = -1;
@@ -111,7 +113,7 @@ void leader_t::execute_phase2(int first_iid, int last_iid) {
     }
     else {
       // TODO resolve conflict
-      // send_accept(rec, pi);
+      resolve_cflt_send_accept(rec, pi);
     }
 
     rec.status = p1_finished;
@@ -211,7 +213,7 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
   last_accept_hash = 1;
   last_accept_iid = current_iid;
-  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid());
+  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(),ex_arg.request);
 }
 
 void proposer_t::do_proposer_timeout() {
