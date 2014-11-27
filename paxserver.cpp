@@ -146,6 +146,8 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
         case accept_msg_t::ID:
             acceptor->handle_accept(static_cast<const struct accept_msg_t&>(paxmsg));
             break;
+        case prepare_batch_msg_t::ID:
+            acceptor->handle_prepare_batch(static_cast<const struct prepare_batch_msg_t&>(paxmsg));
         default:
             MASSERT(0, "%s %d Should be a handler for each RPC", 
                     id_str(), paxmsg.rpc_id);

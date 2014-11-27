@@ -48,7 +48,7 @@ struct prepare_msg_t {
 
 struct prepare_batch_msg_t : public paxmsg_t {
   static const int  ID = 20;
-  static constexpr const char* _descr = "executeARG";
+  static constexpr const char* _descr = "prepareBatchMsg";
 
   std::vector<prepare_msg_t> messages;
 
@@ -63,24 +63,36 @@ struct prepare_batch_msg_t : public paxmsg_t {
   }
 };
 
-struct promise_msg_t : public paxmsg_t {
-  static const int ID = 21;
-  static constexpr const char* _descr = "promiseMsg";
+struct promise_msg_t {
   int     iid;
   int     ballot;
   int     value_ballot;
-  int     value_size;
 
-  promise_msg_t(int _iid, int _ballot, int _value_ballot, int _value_size) : paxmsg_t(_descr, ID) {
+  promise_msg_t(int _iid, int _ballot, int _value_ballot) {
     iid = _iid;
     ballot = _ballot;
     value_ballot = _value_ballot;
-    value_size = _value_size;
   }
 
   void pr(std::ostream& os) const {
     os << "{" << iid << ", " << ballot  << ", " <<
-      value_ballot << "," << value_size << "}";
+      value_ballot << "}";
+  }
+};
+
+struct promise_batch_msg_t : public paxmsg_t {
+  static const int ID = 21;
+  static constexpr const char* _descr = "promiseBatchMsg";
+  std::vector<promise_msg_t> messages;
+
+  promise_batch_msg_t(std::vector<promise_msg_t> & _messages) : paxmsg_t(_descr, ID) {
+    messages = _messages;
+  }
+
+  void pr(std::ostream& os) const {
+    for (auto msg : messages) {
+      msg.pr(os);
+    }
   }
 };
 

@@ -31,7 +31,9 @@ void leader_t::execute_phase1() {
   int from = (p1info.highest_ready + 1);
   int to = (from + PROPOSER_PREEXEC_WIN_SIZE);
   vector<prepare_msg_t> messages;
-  // LOG(DBG, ("Leader pre-executing phase 1 from %d to %d\n", from, to));
+
+  LOG(l::DEBUG, "Leader pre-executing phase 1 from " << from << " to " << to);
+  // LOG(DBG, ());
 
   for(int i = from; i <= to; i++) {
     rec = &proposer_array[GET_PRO_INDEX(i)];
@@ -114,6 +116,92 @@ acceptor_t::acceptor_t(paxserver *_server){
 
 void acceptor_t::handle_accept(const struct accept_msg_t&) {
   LOG(l::DEBUG, ("********\nMil gaya!\n**********\n"));
+}
+
+
+// TODO(goyalankit) implement this method
+void acceptor_t::paxlog_update_record(acceptor_t::acceptor_record_t &rec) {
+
+}
+
+
+// TODO(goyalankit) define this method
+acceptor_t::acceptor_record_t * acceptor_t::paxlog_lookup_record(int iid) {
+  return NULL;
+}
+
+void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<promise_msg_t> &promise_msgs) {
+  acceptor_t::acceptor_record_t* rec;
+
+  rec = &acceptor_array[GET_ACC_INDEX(msg.iid)];
+
+    // Handle a new instance,
+    // possibly get rid of an old instance
+    if (msg.iid > rec->iid) {
+        rec->iid = msg.iid;
+        rec->ballot = msg.ballot;
+        rec->value_ballot = -1;
+        rec->value = NULL;
+
+        //LOG(DBG, ("Promising for instance %d with ballot %d, never seen before\n", msg.iid, msg.ballot));
+        paxlog_update_record(*rec);
+
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+        promise_msgs.push_back(prom_msg);
+        return;
+    }
+
+    //Handle a previously written instance
+    if (msg.iid == rec->iid) {
+        if (msg.ballot <= rec->ballot) {
+            //LOG(DBG, ("Ignoring prepare for instance %d with ballot %d, already promised to %d\n", msg.iid, msg.ballot, rec->ballot));
+            return;
+        }
+        //Answer if ballot is greater then last one
+        //LOG(DBG, ("Promising for instance %d with ballot %d, previously promised to %d\n", msg.iid, msg.ballot, rec->ballot));
+        rec->ballot = msg.ballot;
+        paxlog_update_record(*rec);
+
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+        promise_msgs.push_back(prom_msg);
+        return;
+    }
+
+    //Record was overwritten in memory, retrieve from disk
+    if (msg.iid < rec->iid) {
+        rec = paxlog_lookup_record(msg.iid);
+        if(rec == NULL) {
+            //No record on disk
+            rec = new acceptor_record_t();
+            rec->iid           = msg.iid;
+            rec->ballot        = -1;
+            rec->value_ballot  = -1;
+            rec->value = NULL;
+        }
+
+        if(msg.ballot > rec->ballot) {
+            rec->ballot = msg.ballot;
+            paxlog_update_record(*rec);
+            
+            promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot);
+            promise_msgs.push_back(prom_msg);
+        } else {
+            //LOG(DBG, ("Ignoring prepare for instance %d with ballot %d, already promised to %d [info from disk]\n", msg.iid, msg.ballot, rec->ballot));
+        }
+    }
+
+    if(rec != NULL) {
+        delete(rec);
+    }
+
+}
+
+void acceptor_t::handle_prepare_batch(const struct prepare_batch_msg_t& prepare_batch_msg) {
+  std::vector<prepare_msg_t> messages = prepare_batch_msg.messages;
+  std::vector<promise_msg_t> promise_msgs;
+  for (auto prep_msg : messages) {
+    handle_prepare(prep_msg, promise_msgs);
+  }
 }
 
 /** learner functions **/

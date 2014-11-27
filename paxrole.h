@@ -142,4 +142,8 @@ class acceptor_t {
     int min_ballot = 2 * MAX_PROPOSERS;
     acceptor_t(paxserver *_server);
     void handle_accept(const struct accept_msg_t&);
+    void handle_prepare_batch(const struct prepare_batch_msg_t&);
+    void handle_prepare(const struct prepare_msg_t &, std::vector<promise_msg_t> &);
+    void paxlog_update_record(acceptor_record_t &);
+    acceptor_record_t * paxlog_lookup_record(int);
 };
