@@ -98,6 +98,7 @@ class leader_t {
     //constuctors
     leader_t(paxserver * _server);
     void do_leader_timeout(phase12_t);
+    void execute_phase1();
 };
 
 class proposer_t {

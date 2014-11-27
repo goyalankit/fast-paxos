@@ -64,3 +64,6 @@ enum phase12_t {
   phase1,
   phase2
 };
+
+
+#define GET_PRO_INDEX(n) (n & (PROPOSER_ARRAY_SIZE-1))

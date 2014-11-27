@@ -17,7 +17,7 @@
 #define IS_ACCEPTER(roles) (roles.test(2))
 #define IS_LEARNER(roles)  (roles.test(3))
 
-#define FIRST_BALLOT (2 * MAX_PROPOSERS + proposer_id)
+#define FIRST_BALLOT(sid) (2 * MAX_PROPOSERS + sid)
 #define BALLOT_NEXT(lastBal) (lastBal + MAX_PROPOSERS)
 #define VALUE_OWNER(bal) (bal % MAX_PROPOSERS)
 
@@ -237,6 +237,9 @@ private:
    static bool is_normal_msg(int rpc_id) {
       return normal_msg.count(rpc_id) > 0;
    }
+
+  template< typename T>//, typename... Arguments >
+  void broadcast(T);
 
 	struct {
 		uint64_t pr_started_op;

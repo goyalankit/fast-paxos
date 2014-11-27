@@ -32,19 +32,34 @@ struct paxmsg_t : public net_msg_t {
 
 /* Fast Paxos Messages START */
 
-struct prepare_msg_t : public paxmsg_t {
-  static const int  ID = 20;
-  static constexpr const char* _descr = "executeARG";
+struct prepare_msg_t {
   int iid;
   int ballot;
 
-  prepare_msg_t(int _iid, int _ballot) : paxmsg_t(_descr, ID) {
+  prepare_msg_t(int _iid, int _ballot) {
     iid = _iid;
     ballot = _ballot;
   }
 
   void pr(std::ostream& os) const {
     os << "{" << iid << ", " << ballot << "}";
+  }
+};
+
+struct prepare_batch_msg_t : public paxmsg_t {
+  static const int  ID = 20;
+  static constexpr const char* _descr = "executeARG";
+
+  std::vector<prepare_msg_t> messages;
+
+  prepare_batch_msg_t(std::vector<prepare_msg_t> & _messages) : paxmsg_t(_descr, ID) {
+    messages = _messages;
+  }
+
+  void pr(std::ostream& os) const {
+    for (auto msg : messages) {
+      msg.pr(os);
+    }
   }
 };
 

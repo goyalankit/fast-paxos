@@ -17,7 +17,7 @@ leader_t::leader_t(paxserver *_server) {
   //initialize p2info
   p2info.current_iid = -1;
 
-  phase1_to_tick = PHASE1_TO_TICK;
+  phase1_to_tick = 0;
   phase2_to_tick = PHASE2_TO_TICK;
   for (int i = 0; i < PROPOSER_ARRAY_SIZE; i++){
     proposer_array[i] = {};
@@ -25,9 +25,57 @@ leader_t::leader_t(paxserver *_server) {
   }
 }
 
+void leader_t::execute_phase1() {
+  proposer_record_t *rec;
+
+  int from = (p1info.highest_ready + 1);
+  int to = (from + PROPOSER_PREEXEC_WIN_SIZE);
+  vector<prepare_msg_t> messages;
+  // LOG(DBG, ("Leader pre-executing phase 1 from %d to %d\n", from, to));
+
+  for(int i = from; i <= to; i++) {
+    rec = &proposer_array[GET_PRO_INDEX(i)];
+
+    if(rec->iid < i || rec->status == p1_new) {
+      p1info.pending_count++;
+      rec->iid = i;
+      rec->status = p1_pending;
+      rec->ballot = FIRST_BALLOT(server->nid);
+      rec->promise_count = 0;
+      int j;
+      for(j = 0; j < N_OF_ACCEPTORS; j++) {
+        rec->promises[j].iid = -1;
+        rec->promises[j].value_ballot = -1;
+        if (rec->promises[j].value != NULL) {
+          rec->promises[j].value = NULL;
+        }
+      }
+      //send_prepare_msg_to_acceptor
+      prepare_msg_t prepare_msg(rec->iid, rec->ballot);
+      messages.push_back(prepare_msg);
+
+      //add_prepare_to_buffer(rec->iid, rec->ballot);
+    }
+  }
+
+  if(p1info.last_to_check < to) {
+    p1info.last_to_check = to;
+  }
+  if(p1info.first_to_check > from) {
+    p1info.first_to_check = from;
+  }
+
+  if(!messages.empty()) {
+    //server->broadcast<prepare_batch_msg_t>(messages);
+  //  LOG(DBG, ("Sending propose batch for %d instances\n", ((prepare_batch_msg*)msg->data)->count));
+  }
+
+}
+
 void leader_t::do_leader_timeout(phase12_t phase) {
   switch (phase){
     case phase12_t::phase1:{
+      execute_phase1();
       phase1_to_tick = PHASE1_TO_TICK;
       break;
     }
@@ -53,14 +101,21 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
   last_accept_hash = 1;
   last_accept_iid = current_iid;
-  std::set<node_id_t> servers = server->get_other_servers(server->vc_state.view);
-  servers.insert(server->get_nid());
-
+  /*
+   *std::set<node_id_t> servers = server->get_other_servers(server->vc_state.view);
+   *servers.insert(server->get_nid());
+   */
+  //server->broadcast<struct accept_msg_t>(current_iid, fixed_ballot, server->get_nid());
+  struct accept_msg_t amsg (1,2,3);
+  server->broadcast<accept_msg_t>(amsg);
+  /*
   for (node_id_t node_id : servers) {
+
     auto amsg = std::make_unique<struct accept_msg_t>(current_iid,
         fixed_ballot, server->get_nid());
     server->send_msg(node_id, std::move(amsg));
   }
+  */
 }
 
 void proposer_t::do_proposer_timeout() {
