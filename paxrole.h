@@ -32,18 +32,22 @@ class learner_t {
     struct learner_record_t learner_array[LEARNER_ARRAY_SIZE];
     int learner_ready = 0;
 
-    int is_closed(learner_record_t *rec);
-    int add_learn_to_record(learner_record_t *rec, learn_msg_t* lmsg);
-    int update_record(learn_msg_t *lmsg);
-    int check_quorum(learn_msg_t *lmsg);
-    void learner_handle_learn_msg(learn_msg_t *lmsg);
-    void learner_handle_learner_msg(/*XXX need to decide arguments*/);
-    void ask_retransmission();
-    void lsync_check(/*XXX need to decide arguments*/);
-    void learner_wait_ready();
-    void timeout_check();
-    void do_learner_timeout();
     learner_t(paxserver *_server);
+    void do_learner_timeout();
+    void handle_learn_msg(const struct learn_msg_t&);
+    int update_record(const learn_msg_t *);
+    int add_learn_to_record(learner_record_t *, const learn_msg_t*);
+    bool is_closed(learner_record_t* rec);
+    bool check_quorum(const learn_msg_t *lmsg);
+
+    /*
+     *int is_closed(learner_record_t *rec);
+     *void ask_retransmission();
+     *void lsync_check([>XXX need to decide arguments<]);
+     *void learner_wait_ready();
+     *void timeout_check();
+     */
+
 };
 
 class leader_t {

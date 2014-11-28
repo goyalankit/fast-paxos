@@ -158,6 +158,9 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
         case anyval_batch_msg_t::ID:
             acceptor->handle_anyval_batch(static_cast<const struct anyval_batch_msg_t&>(paxmsg));
             break;
+        case learn_msg_t::ID:
+            learner->handle_learn_msg(static_cast<const struct learn_msg_t&>(paxmsg));
+            break;
         default:
             MASSERT(0, "%s %d Should be a handler for each RPC", 
                     id_str(), paxmsg.rpc_id);

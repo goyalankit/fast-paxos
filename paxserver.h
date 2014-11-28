@@ -21,6 +21,7 @@
 #define BALLOT_NEXT(lastBal) (lastBal + MAX_PROPOSERS)
 #define VALUE_OWNER(bal) (bal % MAX_PROPOSERS)
 #define GET_ACC_INDEX(n) (n & (ACCEPTOR_ARRAY_SIZE-1))
+#define GET_LEA_INDEX(n) (n & (LEARNER_ARRAY_SIZE-1))
 
 // Nominally the view change state, but doubles as operational state for servers
 struct vc_state_t {

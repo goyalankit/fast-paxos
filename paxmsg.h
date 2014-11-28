@@ -162,6 +162,8 @@ struct learn_msg_t : public paxmsg_t {
       value = _value;
     }
 
+  virtual ~learn_msg_t(){}
+
   void pr(std::ostream& os) const {
     os << "{" << acceptor_id << ", " << iid << ", " << ballot << ", "
       << proposer_id << "}";

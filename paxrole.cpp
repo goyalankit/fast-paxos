@@ -604,3 +604,139 @@ learner_t::learner_t(paxserver *_server){
 void learner_t::do_learner_timeout() {
   lsync_to_tick = LSYNC_TICK;
 }
+
+
+int learner_t::add_learn_to_record(learner_record_t *rec, const learn_msg_t* lmsg) {
+  learn_msg_t * old_learn, * new_learn;
+
+  //Check that is in bounds
+  if(lmsg->acceptor_id < 0 || lmsg->acceptor_id >= (int)(server->get_serv_cnt(server->vc_state.view) + 1)) {
+    MASSERT(0,"Error: received faulty acceptor_id\n");
+    LOG(l::DEBUG, "Dropping learn for instance too far in future: " <<  lmsg->acceptor_id << "\n");
+    return 0;
+  }
+
+  old_learn = rec->learns[lmsg->acceptor_id];
+
+  //First learn from this acceptor for this instance
+  if(old_learn == NULL) {
+    //LOG(DBG, "Got first learn for instance:%d, acceptor:%d\n", rec->iid,  lmsg->acceptor_id));
+    //LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << ", never seen before\n" );
+    new_learn = new learn_msg_t(*lmsg);
+    rec->learns[lmsg->acceptor_id] = new_learn;
+    return 1;
+  }
+
+  //This message is old, drop
+  if(old_learn->ballot >= lmsg->ballot) {
+    // LOG(DBG, ("Dropping learn for instance:%d, more recent ballot already seen\n", rec->iid));
+    return 0;
+  }
+
+  //This message is relevant! Overwrite previous learn
+  // LOG(DBG, ("Overwriting previous learn for instance %d\n", rec->iid));
+  delete(old_learn);
+  new_learn = new learn_msg_t (*lmsg);
+  rec->learns[lmsg->acceptor_id] = new_learn;
+  return 1; 
+
+}
+
+bool learner_t::is_closed(learner_record_t* rec) {
+    return (rec->final_value != NULL);
+}
+
+int learner_t::update_record(const learn_msg_t *lmsg) {
+  learner_record_t * rec;
+
+  //We are late, drop to not overwrite
+  if(lmsg->iid >= highest_delivered + LEARNER_ARRAY_SIZE) {
+    LOG(l::DEBUG, "Dropping learn for instance too far in future: " <<  lmsg->iid << "\n");
+    return 0;
+  }
+
+  //Already sent to client, drop
+  if(lmsg->iid <= highest_delivered) {
+    LOG(l::DEBUG, "Dropping learn for already enqueued instance: " <<  lmsg->iid << "\n");
+    return 0;
+  }
+
+  //Retrieve record for this iid
+  rec = &learner_array[GET_LEA_INDEX(lmsg->iid)];
+
+  //First message for this iid
+  if(rec->iid != lmsg->iid) {
+    LOG(l::DEBUG, "Received first message for instance: " <<  lmsg->iid << "\n");
+
+    //Clean record
+    rec->iid = lmsg->iid;
+    rec->final_value.reset();
+    for (auto iter = rec->learns.begin(); iter!=rec->learns.end();++iter) {
+      *iter = NULL;
+    }
+
+    //Add
+    return add_learn_to_record(rec, lmsg);
+
+    //Found record containing some info
+  } else {
+    if(is_closed(rec)) {
+      //LOG(DBG, ("Dropping learn for closed instance:%d\n", lmsg->iid));
+      return 0;
+    }
+    //Add
+    return add_learn_to_record(rec, lmsg);
+  }
+}
+
+//Checks if we have a quorum and returns 1 if the case
+bool learner_t::check_quorum(const learn_msg_t* lmsg) {
+    unsigned int count = 0;
+    learner_record_t* rec;
+    rec = &learner_array[GET_LEA_INDEX(lmsg->iid)];
+    for (auto learn : rec->learns) {
+        //No value
+        if(learn == NULL)
+            continue;
+        //Different value
+        if(learn->ballot != lmsg->ballot)
+            continue;
+        //Same ballot
+        count++;
+    }
+    //Mark as closed, we have a value
+    if (count >= server->get_quorum()) {
+      LOG(l::DEBUG, "Reached quorum, instance: " << rec->iid << "is now closed!\n");
+      rec->ballot = lmsg->ballot;
+      rec->proposer_id = lmsg->proposer_id;
+      rec->final_value = lmsg->value;
+      return true;
+    }
+    return false;
+}
+
+void learner_t::handle_learn_msg(const struct learn_msg_t& lmsg) {
+  if (lmsg.iid > highest_seen) {
+    highest_seen = lmsg.iid;
+  }
+
+  //for each message update instance record
+  int relevant = update_record(&lmsg);
+  if(!relevant) {
+    LOG(l::DEBUG, "Learner discarding learn for instance " << lmsg.iid << "\n");
+    return;
+  }
+
+  //if quorum reached, close the instance
+  int closed = check_quorum(&lmsg);
+  if(!closed) {
+    LOG(l::DEBUG, "Not yet a quorum for instance " << lmsg.iid << "\n");
+    return;
+  }
+
+  //If the closed instance is last delivered + 1
+  if (lmsg.iid == highest_delivered+1) {
+    // TODO(goyalankit) define the deliver values function
+    // deliver_values(lmsg.iid);
+  }
+}
