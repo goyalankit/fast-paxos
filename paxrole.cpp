@@ -655,6 +655,51 @@ void acceptor_t::handle_prepare_batch(const struct prepare_batch_msg_t& prepare_
   }
 }
 
+void acceptor_t::handle_lsync(const learner_sync_msg_t & lsmsg) {
+  for (auto iid : lsmsg.iids) {
+    acceptor_record_t* rec;
+    //Lookup
+    rec = &acceptor_array[GET_ACC_INDEX(iid)];
+
+    //Found record in memory
+    if (iid == rec->iid) {
+      //A value was accepted
+      if (rec->value != NULL) {
+        LOG(l::DEBUG, "Answering to lsync for instance: " << iid << "\n");
+        // broadcast learn_msg
+        server->broadcast<learn_msg_t>(server->get_nid(), rec->iid, rec->ballot, rec->proposer_id, rec->cid, rec->rid, rec->value);
+        continue;
+      }
+      //No value was accepted
+      LOG(l::DEBUG, "Ignoring lsync for instance: " << iid <<" ,record present but no value accepted\n");
+      continue;
+    }
+
+    //Record was overwritten in acceptor array
+    //We must scan the logfile before answering
+    if (iid < rec->iid) {
+      rec = paxlog_lookup_record(iid);
+      //A record was found, we accepted something 
+      if (rec != NULL) {
+        LOG(l::DEBUG, "Answering to lsync for instance: " << iid <<" [info from disk]\n");
+        server->broadcast<learn_msg_t>(server->get_nid(), rec->iid, rec->ballot, rec->proposer_id, rec->cid, rec->rid, rec->value);
+        delete rec;
+        continue;
+      } else {
+        //Nothing from disk, nothing accepted
+        LOG(l::DEBUG, "Ignoring lsync for instance: " << iid <<" , no value accepted [info from disk]\n");
+      }
+    }
+
+    //Record not found in acceptor array
+    //Nothing was accepted
+    LOG(l::DEBUG, "Ignoring lsync for instance: "<< iid <<" , no info is available\n");
+    continue;
+  }
+return;
+}
+
+
 /** learner functions **/
 learner_t::learner_t(paxserver *_server){
   server = _server;

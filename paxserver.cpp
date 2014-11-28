@@ -182,8 +182,11 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
         case learn_msg_t::ID:
             learner->handle_learn_msg(static_cast<const struct learn_msg_t&>(paxmsg));
             break;
+        case learner_sync_msg_t::ID:
+            acceptor->handle_lsync(static_cast<const struct learner_sync_msg_t&>(paxmsg));
+            break;
         default:
-            MASSERT(0, "%s %d Should be a handler for each RPC", 
+            MASSERT(0, "%s %d Should be a handler for each RPC",
                     id_str(), paxmsg.rpc_id);
     }
 }

@@ -130,7 +130,7 @@ struct accept_msg_t : public paxmsg_t {
 
 struct learner_sync_msg_t : public paxmsg_t {
   static const int ID = 23;
-  static constexpr const char* _descr = "learnerSyncMsg";
+  static constexpr const char* _descr = "learnerBatchSyncMsg";
   std::vector<int> iids;
 
   learner_sync_msg_t(std::vector<int> & _iids) : paxmsg_t(_descr, ID) {
