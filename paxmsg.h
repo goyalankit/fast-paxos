@@ -67,13 +67,17 @@ struct promise_msg_t {
   int     iid;
   int     ballot;
   int     value_ballot;
+  int     cid;
+  int     rid;
   paxobj::request value;
 
-  promise_msg_t(int _iid, int _ballot, int _value_ballot, paxobj::request _value) {
-    iid = _iid;
-    ballot = _ballot;
+  promise_msg_t(int _iid, int _ballot, int _value_ballot, int _cid, int _rid, paxobj::request _value) {
+    iid          = _iid;
+    ballot       = _ballot;
     value_ballot = _value_ballot;
-    value = _value;
+    cid          = _cid;
+    rid          = _rid;
+    value        = _value;
   }
 
   void pr(std::ostream& os) const {
@@ -105,13 +109,17 @@ struct accept_msg_t : public paxmsg_t {
   int     iid;
   int     ballot;
   int     proposer_id;
+  int     cid;
+  int     rid;
   paxobj::request value;
-  accept_msg_t(int _iid, int _ballot, int _proposer_id,paxobj::request _value) :
+  accept_msg_t(int _iid, int _ballot, int _proposer_id, int _cid, int _rid, paxobj::request _value) :
     paxmsg_t(_descr, ID) {
-      iid = _iid;
-      ballot = _ballot;
+      iid         = _iid;
+      ballot      = _ballot;
+      cid         = _cid;
+      rid         = _rid;
       proposer_id = _proposer_id;
-      value = _value;
+      value       = _value;
     }
 
   void pr(std::ostream& os) const {
@@ -141,20 +149,22 @@ struct learn_msg_t : public paxmsg_t {
   int     iid;
   int     ballot;
   int     proposer_id;
-  int     value_size;
+  paxobj::request value;
+  int cid;
+  int rid;
 
-  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, int _value_size) :
+  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, int _cid, int _rid, paxobj::request _value) :
     paxmsg_t(_descr, ID) {
       acceptor_id = _acceptor_id;
       iid = _iid;
       ballot = _ballot;
       proposer_id = _proposer_id;
-      value_size = _value_size;
+      value = _value;
     }
 
   void pr(std::ostream& os) const {
     os << "{" << acceptor_id << ", " << iid << ", " << ballot << ", "
-      << proposer_id << ", " << value_size << "}";
+      << proposer_id << "}";
   }
 };
 

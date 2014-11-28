@@ -17,6 +17,7 @@ class Paxlog {
       int iid;
       int ballot;
       int value_ballot;
+      int cid;
       paxobj::request request;
       // Remember how many servers for this view.
       unsigned int serv_cnt;

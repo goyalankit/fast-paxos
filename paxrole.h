@@ -77,11 +77,15 @@ class leader_t {
     struct promise_info_t {
       int     iid;
       int     value_ballot;
+      int     cid;
+      int     rid;
       paxobj::request value;
       promise_info_t & operator= (const promise_msg_t &rhs){
         iid = rhs.iid;
         value_ballot = rhs.value_ballot;
         value = rhs.value;
+        cid  = rhs.cid;
+        rid  = rhs.rid;
         return *this;
       }
     };
@@ -89,6 +93,8 @@ class leader_t {
     struct proposer_record_t {
       int iid = 0;
       int ballot = -1;
+      int cid;
+      int rid;
       status_flag status;
       unsigned int promise_count = 0;
       vector<promise_info_t> promises; //set it to [N_OF_ACCEPTORS];
@@ -127,7 +133,7 @@ class proposer_t {
     int value_delivered;
     int last_accept_iid;
     int last_accept_hash;
-    bool has_value;
+    bool has_value; // XXX unused as of now
 
     //char proposer_send_buffer[MAX_UDP_MSG_SIZE];
     int msg_size;
@@ -150,14 +156,18 @@ class acceptor_t {
       int     ballot;
       int     value_ballot;
       int     any_enabled;
+      int     cid;
+      int     rid;
       paxobj::request  value;
 
       acceptor_record_t() {}
       acceptor_record_t(const Paxlog::tup *tup) {
-        iid = tup->iid;
-        ballot = tup->ballot;
+        iid          = tup->iid;
+        ballot       = tup->ballot;
         value_ballot = tup->value_ballot;
-        value = tup->request;
+        value        = tup->request;
+        cid          = tup->cid;
+        rid          = tup->rid;
       }
     };
 
@@ -171,4 +181,5 @@ class acceptor_t {
     acceptor_record_t * paxlog_lookup_record(int);
     int handle_anyval_batch(const struct anyval_batch_msg_t&);
     void apply_anyval(acceptor_record_t*, int, int);
+    void apply_accept(acceptor_record_t *, const accept_msg_t *);
 };

@@ -167,7 +167,7 @@ void leader_t::phase2_check_cb(){
 
 void leader_t::resolve_cflt_send_accept
 (proposer_record_t & rec, promise_info_t * pi){
-  server->broadcast<accept_msg_t>(rec.iid,rec.ballot,VALUE_OWNER(pi->value_ballot),pi->value);
+  server->broadcast<accept_msg_t>(rec.iid, rec.ballot, VALUE_OWNER(pi->value_ballot), rec.cid, rec.rid, pi->value);
 }
 
 void leader_t::execute_phase2(int first_iid, int last_iid) {
@@ -294,11 +294,23 @@ proposer_t::proposer_t(paxserver *_server) {
   has_value = false;
 }
 
+// handling single submit request at the same time
+// TODO(drop the message if already working)
 void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
+  // TODO(goyalankit) UNCOMMENT THIS FOR MULTIPLE CLIENTS
+  // HANDLE LEARN SHOULD UPDATE
+  /*
+  if (has_value) {
+    // TODO send fail message so that client can send to another proposer
+    return;
+  } else {
+    has_value = true;
+  }
+  */
   last_accept_hash = 1;
   last_accept_iid = current_iid;
-  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(),ex_arg.request);
+  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), ex_arg.nid, ex_arg.rid, ex_arg.request);
 }
 
 void proposer_t::do_proposer_timeout() {
@@ -310,13 +322,97 @@ acceptor_t::acceptor_t(paxserver *_server){
   server = _server;
 }
 
-void acceptor_t::handle_accept(const struct accept_msg_t&) {
-  LOG(l::DEBUG, ("********\nMil gaya!\n**********\n"));
+void acceptor_t::apply_accept(acceptor_record_t *rec, const accept_msg_t *amsg) {
+  //Update record
+  rec->iid = amsg->iid;
+  rec->ballot = amsg->ballot;
+  rec->value_ballot = amsg->ballot;
+  rec->proposer_id = amsg->proposer_id;
+  rec->value = amsg->value;
+  paxlog_update_record(*rec);
+}
+
+void acceptor_t::handle_accept(const struct accept_msg_t& amsg) {
+  LOG(l::DEBUG, ("Received accept message\n"));
+  acceptor_record_t* rec;
+  //Lookup
+  rec = &acceptor_array[GET_ACC_INDEX(amsg.iid)];
+
+  //Found record previously written
+  if (amsg.iid == rec->iid) {
+    if (rec->any_enabled || (amsg.ballot >= rec->ballot && amsg.ballot >= min_ballot)) {
+      if (rec->any_enabled) {
+        rec->any_enabled = 0;
+        LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << ", any message enabled\n");
+      } else {
+        LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << " with ballot "<< amsg.ballot << "\n");
+      }
+
+      apply_accept(rec, &amsg);
+     
+      server->broadcast<learn_msg_t>(server->nid, rec->iid, rec->ballot,
+          rec->proposer_id, rec->cid, rec->rid, rec->value );
+      return;
+    }
+
+    LOG(l::DEBUG, "Ignoring value for instance" << amsg.iid << " with ballot "<< amsg.ballot << "\n");
+    return;
+  }
+
+  //Record not found in acceptor array
+  if (amsg.iid > rec->iid) {
+    if (amsg.ballot >= min_ballot) {
+      LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << " with ballot, "<< amsg.ballot << " never seen before\n");
+      apply_accept(rec, &amsg);
+      server->broadcast<learn_msg_t>(server->nid, rec->iid, rec->ballot,
+          rec->proposer_id, rec->cid, rec->rid, rec->value );
+      return;
+    } else {
+      LOG(l::DEBUG, "Ignoring value for instance" << amsg.iid << " with ballot "<< amsg.ballot << " never seen before\n");
+      return;
+    }
+  }
+
+  //Record was overwritten in acceptor array
+  //We must scan the logfile before accepting or not
+  if (amsg.iid < rec->iid) {
+    rec = paxlog_lookup_record(amsg.iid);
+    if (rec == NULL) {
+      if (amsg.ballot >= min_ballot) {
+        LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << " with ballot, "<< amsg.ballot << " never seen before[infor from disk]\n");
+        apply_accept(rec, &amsg);
+
+        server->broadcast<learn_msg_t>(server->nid, rec->iid, rec->ballot,
+            rec->proposer_id, rec->cid, rec->rid, rec->value );
+        return;
+      } else {
+        LOG(l::DEBUG, "Ignoring value for instance" << amsg.iid << " with ballot, "<< amsg.ballot << " never seen before[infor from disk]\n");
+        return;
+      }
+    }
+
+    if (rec->any_enabled || (amsg.ballot >= rec->ballot && amsg.ballot >= min_ballot)) {
+      if (rec->any_enabled) {
+        rec->any_enabled = 0;
+        LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << ", any message enabled" << "\n");
+      } else {
+        LOG(l::DEBUG, "Accepting value for instance" << amsg.iid << " with ballot, "<< amsg.ballot << " never seen before[infor from disk]\n");
+      }
+
+      apply_accept(rec, &amsg);
+      server->broadcast<learn_msg_t>(server->nid, rec->iid, rec->ballot,
+          rec->proposer_id, rec->cid, rec->rid, rec->value );
+    } else {
+      LOG(l::DEBUG, "Ignoring accept for instance" << amsg.iid << " with ballot, "<< amsg.ballot << " already given to ballot" << rec->ballot << " [infor from disk]\n");
+    }
+    delete rec;
+  }
+  return;
 }
 
 
 void acceptor_t::paxlog_update_record(acceptor_t::acceptor_record_t &rec) {
-  
+  (server->paxlog).fastlog(rec.cid, rec.rid, rec.iid, rec.ballot, rec.value_ballot, rec.value, server->net->now());
 }
 
 
@@ -330,6 +426,17 @@ acceptor_t::acceptor_record_t * acceptor_t::paxlog_lookup_record(int iid) {
 }
 
 void acceptor_t::apply_anyval(acceptor_record_t * rec, int iid, int ballot) {
+  //Update record
+  rec->iid = iid;
+  rec->ballot = ballot;
+  rec->value_ballot = -1;
+  rec->proposer_id = -1;
+  rec->value = NULL;
+  rec->any_enabled = 1;
+
+  //Write to disk
+  paxlog_update_record(*rec);
+  LOG(l::DEBUG, "Anyval for iid: "<< rec->iid << " applied\n" );
 }
 
 int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg) {
@@ -356,18 +463,18 @@ int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg)
     //Found record previously written
     if (iid == rec->iid) {
       if (rec->any_enabled || (ballot >= rec->ballot)) {
-        //LOG(DBG, ("Accepting anyval for instance %d with ballot %d\n", iid, ballot));
+        LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << "\n" );
         apply_anyval(rec, iid, ballot);
         return 1;
       }
 
-      //LOG(DBG, ("Ignoring anyval for instance %d with ballot %d.\n", iid, ballot));
+      LOG(l::DEBUG, "Ignoring anyval for instance" << iid <<  " with ballot " << ballot << "\n" );
       return 0;
     }
 
     //Record not found in acceptor array
     if (iid > rec->iid) {
-      //LOG(DBG, ("Accepting anyvalue instance %d with ballot %d, never seen before\n", iid, ballot));
+      LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << ", never seen before\n" );
       apply_anyval(rec, iid, ballot);
       return 1;
     }
@@ -377,17 +484,17 @@ int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg)
     if (iid < rec->iid) {
       rec = paxlog_lookup_record(iid);
       if (rec == NULL) {
-        // LOG(DBG, ("Accepting anyvalue instance %d with ballot %d, never seen before\n", iid, ballot));
+        LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << ", never seen before\n" );
         apply_anyval(rec, iid, ballot);
         return 1;
       }
 
       if (rec->any_enabled || (ballot >= rec->ballot)) {
-        // LOG(DBG, ("Accepting anyval for instance %d with ballot %d [info from disk]\n", iid, ballot));
+        LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << " [info from disk]\n" );
         apply_anyval(rec, iid, ballot);
         ret = 1;
       } else {
-        // LOG(DBG, ("Ignoring anyval for instance %d with ballot %d, already given to ballot %d [info from disk]\n", iid, ballot, rec->ballot));
+        LOG(l::DEBUG, "Ignoring anyval for instance" << iid <<  " with ballot " << ballot << ", already given to ballot " << rec->ballot << " [info from disk]\n" );
         ret = 0;
       }
 
@@ -411,11 +518,12 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
         rec->ballot = msg.ballot;
         rec->value_ballot = -1;
         rec->value = NULL;
-
+        rec->cid = -1;
+        rec->rid = -1;
         //LOG(DBG, ("Promising for instance %d with ballot %d, never seen before\n", msg.iid, msg.ballot));
         paxlog_update_record(*rec);
 
-        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->cid, rec->rid, rec->value);
         promise_msgs.push_back(prom_msg);
         return;
     }
@@ -431,7 +539,9 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
         rec->ballot = msg.ballot;
         paxlog_update_record(*rec);
 
-        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
+        promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->cid, rec->rid, rec->value);
+
+
         promise_msgs.push_back(prom_msg);
         return;
     }
@@ -445,6 +555,7 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
             rec->iid           = msg.iid;
             rec->ballot        = -1;
             rec->value_ballot  = -1;
+            rec->cid = -1;
             rec->value = NULL;
         }
 
@@ -452,7 +563,7 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
             rec->ballot = msg.ballot;
             paxlog_update_record(*rec);
 
-            promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->value);
+            promise_msg_t prom_msg(rec->iid, rec->ballot, rec->value_ballot, rec->cid, rec->rid, rec->value);
             promise_msgs.push_back(prom_msg);
         } else {
             //LOG(DBG, ("Ignoring prepare for instance %d with ballot %d, already promised to %d [info from disk]\n", msg.iid, msg.ballot, rec->ballot));
@@ -462,7 +573,6 @@ void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<pro
     if(rec != NULL) {
         delete(rec);
     }
-
 }
 
 void acceptor_t::handle_prepare_batch(const struct prepare_batch_msg_t& prepare_batch_msg) {
@@ -471,7 +581,7 @@ void acceptor_t::handle_prepare_batch(const struct prepare_batch_msg_t& prepare_
   for (auto prep_msg : messages) {
     handle_prepare(prep_msg, promise_msgs);
   }
-  
+
   if(!promise_msgs.empty()) {
     node_id_t leader_id = server->vc_state.view.primary;
     auto promise_msg = std::make_unique<promise_batch_msg_t>(promise_msgs, server->nid);
