@@ -814,6 +814,6 @@ void learner_t::handle_learn_msg(const struct learn_msg_t& lmsg) {
 
   //If the closed instance is last delivered + 1
   if (lmsg.iid == highest_delivered+1) {
-    // deliver_values(lmsg.iid);
+    deliver_values(lmsg.iid);
   }
 }
