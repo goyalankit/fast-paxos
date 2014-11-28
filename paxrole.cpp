@@ -287,6 +287,11 @@ void leader_t::do_leader_timeout(phase12_t phase) {
 }
 
 
+void leader_t::leader_deliver_value(int iid) {
+  current_iid = iid + 1;
+  p1info.ready_count--;
+}
+
 /** proposer functions **/
 proposer_t::proposer_t(paxserver *_server) {
   server = _server;
@@ -311,11 +316,45 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   */
   last_accept_hash = 1;
   last_accept_iid = current_iid;
-  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), ex_arg.nid, ex_arg.rid, ex_arg.request);
+  current_cid = ex_arg.nid;
+  current_rid = ex_arg.rid;
+  current_request = std::move(ex_arg.request);
+  server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), ex_arg.nid, ex_arg.rid, current_request);
 }
 
 void proposer_t::do_proposer_timeout() {
   proposer_to_tick = PROPOSER_TO_TICK;
+
+}
+
+void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer) {
+      int just_accepted;
+
+    if (server->primary()) {
+        server->leader->leader_deliver_value(iid);
+    }
+
+    just_accepted = current_iid;
+    current_iid++;
+
+    assert(just_accepted == iid);
+
+    if (has_value && current_cid == cid && current_rid == rid) {
+      auto result = server->paxop_on_paxobj(req, cid, rid);
+      has_value = false;
+
+      // Send response back to client
+      LOG(l::DEBUG, "Sending response back for client: " << cid << " for rid: " << rid << "\n");
+      auto ex_success = std::make_unique<struct execute_success>(result, rid);
+      server->send_msg(cid, std::move(ex_success));
+    } else {
+        //Send for next instance
+       // LOG(4, ("Someone else's value delivered (iid: %d), try next instance.\n", current_iid));
+        last_accept_iid = just_accepted;
+        last_accept_hash++;
+        server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), current_cid, current_rid, current_request);
+        proposer_to_tick = PROPOSER_TO_TICK;
+    }
 }
 
 /** acceptor functions **/
@@ -348,9 +387,7 @@ void acceptor_t::handle_accept(const struct accept_msg_t& amsg) {
       } else {
         LOG(l::DEBUG, "2 Accepting value for instance" << amsg.iid << " with ballot "<< amsg.ballot << "\n");
       }
-
       apply_accept(rec, &amsg);
-     
       server->broadcast<learn_msg_t>(server->nid, rec->iid, rec->ballot,
           rec->proposer_id, rec->cid, rec->rid, rec->value );
       return;
@@ -602,7 +639,27 @@ learner_t::learner_t(paxserver *_server){
 }
 
 void learner_t::do_learner_timeout() {
+  // reset the timer
   lsync_to_tick = LSYNC_TICK;
+  if (highest_seen > highest_delivered) {
+    learner_record_t* rec;
+    std::vector<int> lsync_iids;
+    for(int i = highest_delivered+1; i < highest_seen; i++) {
+      rec = &learner_array[GET_LEA_INDEX(i)];
+
+      //Not closed or never seen, request sync
+      if((rec->iid == i && !is_closed(rec)) || rec->iid < i) {
+        LOG(l::DEBUG, "Adding" << i << "to next lsync message" << "\n");
+        lsync_iids.push_back(i);
+      }
+    }
+
+    //Flush send buffer if not empty
+    if(!lsync_iids.empty()) {
+      server->broadcast<learner_sync_msg_t>(lsync_iids);
+      LOG(l::DEBUG, "Requested " << lsync_iids.size() <<" lsyncs from " << highest_delivered+1 << " to " << highest_seen << "\n");
+    }
+  }
 }
 
 
@@ -710,9 +767,30 @@ bool learner_t::check_quorum(const learn_msg_t* lmsg) {
       rec->ballot = lmsg->ballot;
       rec->proposer_id = lmsg->proposer_id;
       rec->final_value = lmsg->value;
+      rec->rid = lmsg->rid;
+      rec->cid = lmsg->cid;
       return true;
     }
     return false;
+}
+
+
+void learner_t::deliver_values(int iid) {
+  while(1) {
+    learner_record_t* rec = &learner_array[GET_LEA_INDEX(iid)];
+
+    if(!is_closed(rec)) break;
+
+
+
+    server->proposer->deliver_function(rec->final_value, rec->iid, rec->ballot, rec->cid, rec->rid, rec->proposer_id);
+    
+    //void proposer_t::deliver_function(paxobj::request *req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer) {
+    //delfun(deliver_buffer, rec->final_value_size, instance_id, rec->ballot, rec->proposer_id);
+    rec->final_value.reset();
+    highest_delivered = iid;
+    iid++;
+  }
 }
 
 void learner_t::handle_learn_msg(const struct learn_msg_t& lmsg) {
@@ -736,7 +814,6 @@ void learner_t::handle_learn_msg(const struct learn_msg_t& lmsg) {
 
   //If the closed instance is last delivered + 1
   if (lmsg.iid == highest_delivered+1) {
-    // TODO(goyalankit) define the deliver values function
     // deliver_values(lmsg.iid);
   }
 }

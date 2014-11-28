@@ -20,6 +20,8 @@ class learner_t {
       int         iid;
       int         ballot;
       int         proposer_id;
+      node_id_t   cid;
+      rid_t       rid;
       paxobj::request final_value;
       //learn_msg_t*  learns[N_OF_ACCEPTORS]; // set to vector
       vector <learn_msg_t *> learns;
@@ -39,6 +41,7 @@ class learner_t {
     int add_learn_to_record(learner_record_t *, const learn_msg_t*);
     bool is_closed(learner_record_t* rec);
     bool check_quorum(const learn_msg_t *lmsg);
+    void deliver_values(int);
 
     /*
      *int is_closed(learner_record_t *rec);
@@ -131,6 +134,7 @@ class leader_t {
     void execute_phase2(int first_iid, int last_iid);
     promise_info_t* phase2_getMax_promise(proposer_record_t &);
     void resolve_cflt_send_accept(proposer_record_t &, promise_info_t *);
+    void leader_deliver_value(int);
 };
 
 class proposer_t {
@@ -145,6 +149,9 @@ class proposer_t {
     int last_accept_iid;
     int last_accept_hash;
     bool has_value; // XXX unused as of now
+    node_id_t current_cid;
+    rid_t current_rid;
+    paxobj::request current_request;
 
     //char proposer_send_buffer[MAX_UDP_MSG_SIZE];
     int msg_size;
@@ -156,6 +163,7 @@ class proposer_t {
     proposer_t(paxserver *_server);
     void do_proposer_timeout();
     void proposer_submit_value(const struct execute_arg&);
+    void deliver_function(paxobj::request req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer);
 };
 
 class acceptor_t {

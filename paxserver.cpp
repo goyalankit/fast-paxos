@@ -80,6 +80,27 @@ std::string paxserver::paxop_on_paxobj(std::unique_ptr<Paxlog::tup>& logop) {
     return result;
 }
 
+std::string paxserver::paxop_on_paxobj(paxobj::request request, node_id_t src, rid_t rid) {
+    auto result = _paxobj->execute(request);
+
+    exec_rid_cache.insert({src, rid});
+    // Erase oldest entries (at end) until we fall below max_rid_in_cache
+    // XXX Is this compiler dependent?  STL defines it, but is that true in practice?
+    while(exec_rid_cache.count(src) > max_rid_in_cache) {
+        auto range = exec_rid_cache.equal_range(src);
+        std::advance(range.first, max_rid_in_cache);
+        exec_rid_cache.erase(range.first);
+    }
+    //last_req[src] = std::make_unique<last_tup_res>();
+    //LOG(l::DEBUG, *logop << '\n');
+    // Note, logop->request is now nullptr
+    //last_req[logop->src]->tup = std::make_unique<Paxlog::tup>(*logop);
+    //`last_req[logop->src]->result = result;
+    return result;
+}
+
+
+
 // Primarily our action depends on incoming message type, but
 // drop all normal requests (execute, replicate, accept) during view
 // change 

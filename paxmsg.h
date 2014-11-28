@@ -131,14 +131,16 @@ struct accept_msg_t : public paxmsg_t {
 struct learner_sync_msg_t : public paxmsg_t {
   static const int ID = 23;
   static constexpr const char* _descr = "learnerSyncMsg";
-  int     count;
+  std::vector<int> iids;
 
-  learner_sync_msg_t(int _count) : paxmsg_t(_descr, ID) {
-    count = _count;
+  learner_sync_msg_t(std::vector<int> & _iids) : paxmsg_t(_descr, ID) {
+    iids = _iids;
   }
 
   void pr(std::ostream& os) const {
-    os << "{" << count << "}";
+    for (auto iid : iids) {
+      os << "{" << iid <<"}";
+    }
   }
 };
 
@@ -160,6 +162,8 @@ struct learn_msg_t : public paxmsg_t {
       ballot = _ballot;
       proposer_id = _proposer_id;
       value = _value;
+      rid = _rid;
+      cid = _cid;
     }
 
   virtual ~learn_msg_t(){}
@@ -186,6 +190,7 @@ struct anyval_batch_msg_t : public paxmsg_t {
     }
   }
 };
+
 /* Fast Paxos Messages END */
 
 // nop message, used as heartbeat
