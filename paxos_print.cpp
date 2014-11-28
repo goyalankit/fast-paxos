@@ -14,6 +14,7 @@ std::ostream& operator<<(std::ostream& os, const Paxlog::tup& tup) {
       << " src:" << tup.src
       << " rid:" << tup.rid
       << " ballot:" << tup.ballot
+      << " iid:" << tup.iid
       << " value_ballot:" << tup.value_ballot;
    return os;
 }
