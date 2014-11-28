@@ -160,6 +160,12 @@ class proposer_t {
       int hash;
     };
 
+    struct timeout_info {
+      int instance_id;
+      int hash;
+    };
+
+    struct timeout_info ti;
     proposer_t(paxserver *_server);
     void do_proposer_timeout();
     void proposer_submit_value(const struct execute_arg&);

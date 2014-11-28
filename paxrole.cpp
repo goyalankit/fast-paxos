@@ -306,24 +306,47 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, ("Proposer message received from client\n"));
   // TODO(goyalankit) UNCOMMENT THIS FOR MULTIPLE CLIENTS
   // HANDLE LEARN SHOULD UPDATE
-  /*
+
   if (has_value) {
     // TODO send fail message so that client can send to another proposer
+    server->net->drop(server,ex_arg,"");
     return;
-  } else {
-    has_value = true;
   }
-  */
+  has_value = true;
+
+
+
   last_accept_hash = 1;
   last_accept_iid = current_iid;
   current_cid = ex_arg.nid;
   current_rid = ex_arg.rid;
+
+  ti.instance_id = current_iid;
+  ti.hash = 1; // first_hash
+
   current_request = std::move(ex_arg.request);
   server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), ex_arg.nid, ex_arg.rid, current_request);
 }
 
 void proposer_t::do_proposer_timeout() {
-  proposer_to_tick = PROPOSER_TO_TICK;
+
+  //Nothing new since our last accept, retry to send it
+  if( has_value && ti.instance_id == last_accept_iid && ti.hash == last_accept_hash) {
+    LOG(l::DEBUG, "Instance: " << ti.instance_id <<" timed-out ( " << last_accept_hash << " times), re-sending accept\n");
+    last_accept_hash++;
+    ti.hash = last_accept_hash;
+    //Resend in same instance
+    LOG(l::DEBUG, "Proposer: " << server->get_nid() << "\n");
+    server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), current_cid, current_rid, current_request);
+    proposer_to_tick = PROPOSER_TO_TICK;
+  } else {
+    LOG(l::DEBUG, "Timeout out-of-date, removed\n");
+    //Something changed, stop
+    // (decided or outdated timeout)
+    // TODO: need to check how to handle this.
+    //free(ti);
+  }
+
 
 }
 
@@ -354,6 +377,10 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
         last_accept_hash++;
         server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), current_cid, current_rid, current_request);
         proposer_to_tick = PROPOSER_TO_TICK;
+
+        ti.instance_id = current_iid;
+        ti.hash = last_accept_hash;
+
     }
 }
 
