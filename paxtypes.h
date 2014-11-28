@@ -13,7 +13,7 @@
 // Mazieres that identifies a Paxos participant and allows
 // network communication.  Our node_id_t (node.h)
 //  serves both those functions.
-typedef uint64_t rid_t; // Request identifier, 0 is illegal
+typedef int64_t rid_t; // Request identifier, 0 is illegal
 
 struct viewid_t {
    uint64_t counter;

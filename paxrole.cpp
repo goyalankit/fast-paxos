@@ -34,7 +34,7 @@ void leader_t::execute_phase1() {
   int to = (from + PROPOSER_PREEXEC_WIN_SIZE);
   vector<prepare_msg_t> messages;
 
-  LOG(l::DEBUG, "Leader pre-executing phase 1 from " << from << " to " << to);
+  LOG(l::DEBUG, "Leader pre-executing phase 1 from " << from << " to " << to << "\n");
 
   for(int i = from; i <= to; i++) {
     rec = &proposer_array[GET_PRO_INDEX(i)];

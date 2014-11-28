@@ -67,11 +67,11 @@ struct promise_msg_t {
   int     iid;
   int     ballot;
   int     value_ballot;
-  int     cid;
-  int     rid;
+  node_id_t cid;
+  rid_t   rid;
   paxobj::request value;
 
-  promise_msg_t(int _iid, int _ballot, int _value_ballot, int _cid, int _rid, paxobj::request _value) {
+  promise_msg_t(int _iid, int _ballot, int _value_ballot, node_id_t _cid, rid_t _rid, paxobj::request _value) {
     iid          = _iid;
     ballot       = _ballot;
     value_ballot = _value_ballot;
@@ -109,10 +109,10 @@ struct accept_msg_t : public paxmsg_t {
   int     iid;
   int     ballot;
   int     proposer_id;
-  int     cid;
-  int     rid;
+  node_id_t cid;
+  rid_t rid;
   paxobj::request value;
-  accept_msg_t(int _iid, int _ballot, int _proposer_id, int _cid, int _rid, paxobj::request _value) :
+  accept_msg_t(int _iid, int _ballot, int _proposer_id, node_id_t _cid, rid_t _rid, paxobj::request _value) :
     paxmsg_t(_descr, ID) {
       iid         = _iid;
       ballot      = _ballot;
@@ -150,10 +150,10 @@ struct learn_msg_t : public paxmsg_t {
   int     ballot;
   int     proposer_id;
   paxobj::request value;
-  int cid;
-  int rid;
+  node_id_t cid;
+  rid_t rid;
 
-  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, int _cid, int _rid, paxobj::request _value) :
+  learn_msg_t(int _acceptor_id, int _iid, int _ballot, int _proposer_id, node_id_t _cid, rid_t _rid, paxobj::request _value) :
     paxmsg_t(_descr, ID) {
       acceptor_id = _acceptor_id;
       iid = _iid;

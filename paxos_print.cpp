@@ -6,14 +6,14 @@
 //////////////////////////////////////////////////////
 // Paxlog
 std::ostream& operator<<(std::ostream& os, const Paxlog::tup& tup) {
-   os << "PLE " << std::setw(2) << tup.vs;
+   os << "PLE " << std::setw(2) ; // << tup.vs;
    if(tup.request) {
       os << " " << tup.request->name;
    }
    os << " src:" << tup.src
       << " rid:" << tup.rid
-      << " scnt:" << tup.serv_cnt
-      << " rcnt:" << tup.resp_cnt
+      << " ballot:" << tup.ballot
+      << " value_ballot:" << tup.value_ballot
       << " exec:" << tup.executed
       ;
    return os;

@@ -8,6 +8,7 @@
 #include "node.h"
 #include "paxlog.h"
 #include <vector>
+#include "paxtypes.h"
 
 using std::vector;
 class paxserver;
@@ -77,8 +78,8 @@ class leader_t {
     struct promise_info_t {
       int     iid;
       int     value_ballot;
-      int     cid;
-      int     rid;
+      node_id_t cid;
+      rid_t   rid;
       paxobj::request value;
       promise_info_t & operator= (const promise_msg_t &rhs){
         iid = rhs.iid;
@@ -93,8 +94,8 @@ class leader_t {
     struct proposer_record_t {
       int iid = 0;
       int ballot = -1;
-      int cid;
-      int rid;
+      node_id_t cid;
+      rid_t rid;
       status_flag status;
       unsigned int promise_count = 0;
       vector<promise_info_t> promises; //set it to [N_OF_ACCEPTORS];
@@ -156,8 +157,8 @@ class acceptor_t {
       int     ballot;
       int     value_ballot;
       int     any_enabled;
-      int     cid;
-      int     rid;
+      node_id_t cid;
+      rid_t rid;
       paxobj::request  value;
 
       acceptor_record_t() {}
@@ -166,7 +167,7 @@ class acceptor_t {
         ballot       = tup->ballot;
         value_ballot = tup->value_ballot;
         value        = tup->request;
-        cid          = tup->cid;
+        cid          = tup->src;
         rid          = tup->rid;
       }
     };
