@@ -261,6 +261,7 @@ void paxserver::do_timo() {
         case vc_state_t::ACTIVE: 
             {
                 std::set<node_id_t> servers = get_other_servers(vc_state.view);
+                servers.insert(nid);
                 if(primary()) {
                     // First check if we have heard from someone not in our view with
                     // a packet sent "recently" (i.e., around half of heartbeat_timo).

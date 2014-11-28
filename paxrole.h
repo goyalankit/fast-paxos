@@ -81,6 +81,12 @@ class leader_t {
       node_id_t cid;
       rid_t   rid;
       paxobj::request value;
+      promise_info_t(){
+        iid = -1;
+        rid = -1;
+        value_ballot = -1;
+        value.reset();
+      }
       promise_info_t & operator= (const promise_msg_t &rhs){
         iid = rhs.iid;
         value_ballot = rhs.value_ballot;

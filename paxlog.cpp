@@ -136,8 +136,11 @@ void Paxlog::fastlog(node_id_t src, rid_t rid, int iid, int ballot, int value_ba
   auto logit = l.begin();
   while(logit != l.end() && (*logit)->iid < iid)
     ++logit;
-
-  l.emplace(logit, std::make_unique<Paxlog::tup>(src, rid, iid, ballot, value_ballot, std::move(req), now));
+  if (logit != l.end() && (*logit)->iid == iid) {
+    * logit = std::make_unique<Paxlog::tup>(src, rid, iid, ballot, value_ballot, std::move(req), now); 
+  } else {
+    l.emplace(logit, std::make_unique<Paxlog::tup>(src, rid, iid, ballot, value_ballot, std::move(req), now));
+  }
    LOG(l::DEBUG, "Log: " << *l[l.size()-1] << "\n");
 }
 
