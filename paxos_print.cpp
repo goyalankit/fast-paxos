@@ -13,9 +13,10 @@ std::ostream& operator<<(std::ostream& os, const Paxlog::tup& tup) {
    os << " src:" << tup.src
       << " rid:" << tup.rid
       << " ballot:" << tup.ballot
-      << " value_ballot:" << tup.value_ballot
-      << " exec:" << tup.executed
-      ;
+      << " value_ballot:" << tup.value_ballot;
+     // << " exec:" << tup.executed
+   if (tup.request != NULL)
+      os << "request name" << tup.request->name;
    return os;
 }
 std::ostream& operator<<(std::ostream& os, const Paxlog& plog) {

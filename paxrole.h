@@ -161,7 +161,15 @@ class acceptor_t {
       rid_t rid;
       paxobj::request  value;
 
-      acceptor_record_t() {}
+      acceptor_record_t() {
+        iid = -1;
+        ballot = -1;
+        value = NULL;
+        cid = -1;
+        rid = -1;
+        proposer_id = -1;
+        any_enabled = 0;
+      }
       acceptor_record_t(const Paxlog::tup *tup) {
         iid          = tup->iid;
         ballot       = tup->ballot;
@@ -169,6 +177,7 @@ class acceptor_t {
         value        = tup->request;
         cid          = tup->src;
         rid          = tup->rid;
+        any_enabled = 0;
       }
     };
 
