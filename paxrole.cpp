@@ -407,6 +407,7 @@ void acceptor_t::handle_accept(const struct accept_msg_t& amsg) {
 
   //Found record previously written
   if (amsg.iid == rec->iid) {
+    LOG(l::DEBUG, "|HANDLE_ACCEPT| " << "amsg.iid" << amsg.iid << " rec.iid" << rec->iid  << " any"<< rec->any_enabled << "; Ballot: " << amsg.ballot << "; rec->ballot" << rec->ballot << "; Min ballot" << min_ballot<< "\n");
     if (rec->any_enabled || (amsg.ballot >= rec->ballot && amsg.ballot >= min_ballot)) {
       if (rec->any_enabled) {
         rec->any_enabled = 0;
