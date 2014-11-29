@@ -370,7 +370,7 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
       has_value = false;
 
       // Send response back to client
-      LOG(l::DEBUG, "Sending response back for client: " << cid << " for rid: " << rid << "\n");
+      LOG(l::DEBUG, "Sending response back for client: " << cid << " for rid: " << rid << " iid: " << iid << "\n");
       auto ex_success = std::make_unique<struct execute_success>(result, rid);
       
       server->send_msg(cid, std::move(ex_success));
