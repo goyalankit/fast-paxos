@@ -705,7 +705,7 @@ learner_t::learner_t(paxserver *_server){
   lsync_to_tick = LSYNC_TICK;
   for (int i = 0; i < LEARNER_ARRAY_SIZE; i++){
     learner_array[i] = {};
-    learner_array[i].learns.resize(server->get_serv_cnt(server->vc_state.view));
+    learner_array[i].learns.resize(server->get_serv_cnt(server->vc_state.view)+1);
   }
 }
 
