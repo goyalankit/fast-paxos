@@ -55,10 +55,10 @@
 #define PROPOSER_TO_TICK 9
 
 // Server related timeout values
-#define DEFAULT_SWITCH_TIMO 3
-#define SERV_VCA_TIMO 50
-#define SERV_DEAD_TIMO 200
-#define SERV_HEARTBEAT_TIMO 75
+#define DEFAULT_SWITCH_TIMO 3 * 2
+#define SERV_VCA_TIMO 50 * 2
+#define SERV_DEAD_TIMO 200 * 2
+#define SERV_HEARTBEAT_TIMO 75 * 2
 
 enum phase12_t {
   phase1,

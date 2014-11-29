@@ -313,8 +313,6 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   }
   has_value = true;
 
-
-
   last_accept_hash = 1;
   last_accept_iid = current_iid;
   current_cid = ex_arg.nid;
@@ -322,7 +320,7 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
 
   ti.instance_id = current_iid;
   ti.hash = 1; // first_hash
-
+  
   current_request = std::move(ex_arg.request);
   server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), ex_arg.nid, ex_arg.rid, current_request);
 }
@@ -361,6 +359,10 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
     current_iid++;
 
     assert(just_accepted == iid);
+    if(!has_value) {
+      LOG(l::DEBUG, "Value delivered "<< just_accepted << "for client: " << cid << " rid: " << rid <<" accepted, client is not waiting\n");
+      return;
+    }
 
     if (has_value && current_cid == cid && current_rid == rid) {
 
@@ -374,7 +376,8 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
       server->send_msg(cid, std::move(ex_success));
     } else {
         //Send for next instance
-       // LOG(4, ("Someone else's value delivered (iid: %d), try next instance.\n", current_iid));
+        LOG(l::DEBUG, "Someone else's value delivered my id" << server->nid <<" (iid: "<< current_iid << "), try next instance.\n");
+        
         last_accept_iid = just_accepted;
         last_accept_hash++;
         server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), current_cid, current_rid, current_request);
@@ -510,7 +513,7 @@ void acceptor_t::apply_anyval(acceptor_record_t * rec, int iid, int ballot) {
   LOG(l::DEBUG, "Anyval for iid: "<< rec->iid << " applied\n" );
 }
 
-int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg) {
+void acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg) {
   std::vector<int> iids = anyval_msg.messages;
   int ballot = anyval_msg.ballot;
   for (int iid : iids) {
@@ -525,9 +528,7 @@ int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg)
     // found  -> check ballot and enabled
     // not found -> return 0
 
-    int ret;
     acceptor_record_t* rec;
-
     //Lookup
     rec = &acceptor_array[GET_ACC_INDEX(iid)];
 
@@ -536,18 +537,18 @@ int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg)
       if (rec->any_enabled || (ballot >= rec->ballot)) {
         LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << "\n" );
         apply_anyval(rec, iid, ballot);
-        return 1;
+        continue;
       }
 
       LOG(l::DEBUG, "Ignoring anyval for instance" << iid <<  " with ballot " << ballot << "\n" );
-      return 0;
+      continue;
     }
 
     //Record not found in acceptor array
     if (iid > rec->iid) {
       LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << ", never seen before\n" );
       apply_anyval(rec, iid, ballot);
-      return 1;
+      continue;
     }
 
     //Record was overwritten in acceptor array
@@ -557,24 +558,22 @@ int acceptor_t::handle_anyval_batch(const struct anyval_batch_msg_t& anyval_msg)
       if (rec == NULL) {
         LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << ", never seen before\n" );
         apply_anyval(rec, iid, ballot);
-        return 1;
+        continue;
       }
 
       if (rec->any_enabled || (ballot >= rec->ballot)) {
         LOG(l::DEBUG, "Accepting anyval for instance" << iid <<  " with ballot " << ballot << " [info from disk]\n" );
         apply_anyval(rec, iid, ballot);
-        ret = 1;
       } else {
         LOG(l::DEBUG, "Ignoring anyval for instance" << iid <<  " with ballot " << ballot << ", already given to ballot " << rec->ballot << " [info from disk]\n" );
-        ret = 0;
       }
 
       delete rec;
-      return ret;
+      continue;
     }
-    return 0;
+    continue;
   }
-  return 1;
+  return;
 }
 
 void acceptor_t::handle_prepare(const struct prepare_msg_t &msg, std::vector<promise_msg_t> &promise_msgs) {

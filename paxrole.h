@@ -213,7 +213,7 @@ class acceptor_t {
     void handle_prepare(const struct prepare_msg_t &, std::vector<promise_msg_t> &);
     void paxlog_update_record(acceptor_record_t &);
     acceptor_record_t * paxlog_lookup_record(int);
-    int handle_anyval_batch(const struct anyval_batch_msg_t&);
+    void handle_anyval_batch(const struct anyval_batch_msg_t&);
     void apply_anyval(acceptor_record_t*, int, int);
     void apply_accept(acceptor_record_t *, const accept_msg_t *);
     void handle_lsync(const learner_sync_msg_t &);
