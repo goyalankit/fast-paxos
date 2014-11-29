@@ -7,7 +7,7 @@ endif
 
 LINK_TIME=$(shell date)
 GIT_SHA=$(shell git rev-parse HEAD)
-CFLAGS = -Wall -g -O2 -std=gnu++11 -Igetoptpp
+CFLAGS = -Wall -g -O0 -std=gnu++11 -Igetoptpp
 ifeq ($(SYS_UNAME), Linux)
 DBG_CFLAGS = -Wall -g -fsanitize=address -fno-omit-frame-pointer -std=gnu++11 -Igetoptpp
 else

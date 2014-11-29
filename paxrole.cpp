@@ -307,6 +307,7 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
 
   if (has_value) {
     // TODO send fail message so that client can send to another proposer
+    
     server->net->drop(server,ex_arg,"");
     return;
   }
@@ -349,7 +350,8 @@ void proposer_t::do_proposer_timeout() {
 }
 
 void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer) {
-      int just_accepted;
+    
+    int just_accepted;
 
     if (server->primary()) {
         server->leader->leader_deliver_value(iid);
@@ -361,12 +363,14 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
     assert(just_accepted == iid);
 
     if (has_value && current_cid == cid && current_rid == rid) {
+
       auto result = server->paxop_on_paxobj(req, cid, rid);
       has_value = false;
 
       // Send response back to client
       LOG(l::DEBUG, "Sending response back for client: " << cid << " for rid: " << rid << "\n");
       auto ex_success = std::make_unique<struct execute_success>(result, rid);
+      
       server->send_msg(cid, std::move(ex_success));
     } else {
         //Send for next instance
@@ -394,6 +398,8 @@ void acceptor_t::apply_accept(acceptor_record_t *rec, const accept_msg_t *amsg) 
   rec->value_ballot = amsg->ballot;
   rec->proposer_id = amsg->proposer_id;
   rec->value = amsg->value;
+  rec->cid = amsg->cid;
+  rec->rid = amsg->rid;
   paxlog_update_record(*rec);
 }
 

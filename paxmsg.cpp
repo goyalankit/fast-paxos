@@ -33,7 +33,7 @@ bool operator >=(const viewstamp_t& x, const viewstamp_t& y) {
 }
 
 std::unordered_map<int, std::string> paxrpc2str = {
-   {execute_arg::ID,       execute_arg::_descr},
+/*   {execute_arg::ID,       execute_arg::_descr},
    {replicate_arg::ID,     replicate_arg::_descr},
    {replicate_res::ID,     replicate_res::_descr},
    {accept_arg::ID,        accept_arg::_descr},
@@ -48,6 +48,7 @@ std::unordered_map<int, std::string> paxrpc2str = {
    {init_view_request::ID, init_view_request::_descr},
    {getstate_arg::ID,      getstate_arg::_descr},
    {getstate_res::ID,      getstate_res::_descr},
+*/
 };
 
   
