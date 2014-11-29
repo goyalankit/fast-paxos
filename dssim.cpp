@@ -267,6 +267,7 @@ bool dssim_t::tick() {
       }
    }
    ticks++;
+   LOG(l::DEBUG, "TickLive:" << ticks << "\n");
    if((ticks % 99) == 0) {
       LOG(l::DBG_EV, "Tick:" << ticks << "\n");
    }

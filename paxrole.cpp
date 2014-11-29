@@ -34,7 +34,7 @@ void leader_t::execute_phase1() {
   int to = (from + PROPOSER_PREEXEC_WIN_SIZE);
   vector<prepare_msg_t> messages;
 
-  LOG(l::DEBUG, "Leader pre-executing phase 1 from " << from << " to " << to << "\n");
+  LOG(l::DEBUG, "(tick "<< server->net->now() <<")Leader pre-executing phase 1 from " << from << " to " << to << "\n");
 
   for(int i = from; i <= to; i++) {
     rec = &proposer_array[GET_PRO_INDEX(i)];
@@ -87,9 +87,6 @@ void leader_t::phase1_check_cb(){
             messages.push_back(msg);
         }
     }
-
-    // LOG(V_VRB, ("pending count: %d\n", p1info.pending_count));
-    // LOG(V_VRB, ("ready count: %d\n", p1info.ready_count));
 
     if (p1info.pending_count + p1info.ready_count < (PROPOSER_PREEXEC_WIN_SIZE/2)) {
         execute_phase1(); //add some stuff to sendbuf
@@ -203,26 +200,26 @@ void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, 
   //Ignore because there is no info about
   //this iid in proposer_array
   if(rec.iid != msg.iid) {
-    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, no info in array\n");
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Promise for " << msg.iid << " ignored, no info in array\n");
     return;
   }
 
   //This promise is not relevant, because
   //we are not waiting for promises for instance iid
   if(rec.status != p1_pending) {
-    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, instance is not p1_pending\n");
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Promise for " << msg.iid << " ignored, instance is not p1_pending\n");
     return;
   }
 
   //This promise is old, or belongs to another
   if(rec.ballot != msg.ballot) {
-    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, not our ballot\n");
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Promise for " << msg.iid << " ignored, not our ballot\n");
     return;
   }
 
   //Already received this promise
   if(rec.promises[acceptor_id].iid != -1 && rec.ballot == msg.ballot) {
-    LOG(l::DEBUG, "handle_promise: Already received this promise " << server->nid << "\n");
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Already received this promise " << server->nid << "\n");
     return;
   }
 
@@ -230,7 +227,7 @@ void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, 
   rec.promise_count++;
 
   if (rec.promise_count < server->get_quorum()) {
-    LOG(l::DEBUG, "handle_promise: Quorum not reached\n");
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Quorum not reached\n");
     return;
   }
 
