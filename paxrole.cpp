@@ -23,7 +23,7 @@ leader_t::leader_t(paxserver *_server) {
   phase2_to_tick = PHASE2_TO_TICK;
   for (int i = 0; i < PROPOSER_ARRAY_SIZE; i++){
     proposer_array[i] = {};
-    proposer_array[i].promises.resize(server->get_serv_cnt(server->vc_state.view));
+    proposer_array[i].promises.resize(server->get_serv_cnt(server->vc_state.view)+1);
   }
 }
 
@@ -66,7 +66,6 @@ void leader_t::execute_phase1() {
   if(!messages.empty()) {
     server->broadcast<prepare_batch_msg_t>(messages);
   }
-
 }
 
 void leader_t::phase1_check_cb(){
@@ -200,39 +199,38 @@ void leader_t::execute_phase2(int first_iid, int last_iid) {
   }
 }
 
-void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, struct proposer_record_t &rec){
-  
+void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, struct proposer_record_t &rec){ 
   //Ignore because there is no info about
   //this iid in proposer_array
   if(rec.iid != msg.iid) {
-    //LOG(DBG, ("P: Promise for %d ignored, no info in array\n", prom->iid));
+    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, no info in array\n");
     return;
   }
 
   //This promise is not relevant, because
   //we are not waiting for promises for instance iid
   if(rec.status != p1_pending) {
-    //LOG(DBG, ("P: Promise for %d ignored, instance is not p1_pending\n", prom->iid));
+    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, instance is not p1_pending\n");
     return;
   }
 
   //This promise is old, or belongs to another
   if(rec.ballot != msg.ballot) {
-    //LOG(DBG, ("P: Promise for %d ignored, not our ballot\n", prom->iid));
+    LOG(l::DEBUG, "handle_promise: Promise for " << msg.iid << " ignored, not our ballot\n");
     return;
   }
 
   //Already received this promise
   if(rec.promises[acceptor_id].iid != -1 && rec.ballot == msg.ballot) {
+    LOG(l::DEBUG, "handle_promise: Already received this promise " << server->nid << "\n");
     return;
   }
 
   rec.promises[acceptor_id] = msg;
   rec.promise_count++;
 
-
   if (rec.promise_count < server->get_quorum()) {
-    //LOG that quorum not reached yet.
+    LOG(l::DEBUG, "handle_promise: Quorum not reached\n");
     return;
   }
 

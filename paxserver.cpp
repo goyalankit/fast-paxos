@@ -105,6 +105,7 @@ std::string paxserver::paxop_on_paxobj(paxobj::request request, node_id_t src, r
 // drop all normal requests (execute, replicate, accept) during view
 // change 
 void paxserver::dispatch(paxmsg_t &paxmsg) {
+
     net->rpc_incr(paxmsg.rpc_id);
     // Set basis for timeout
     if(paxmsg.rpc_id != execute_arg::ID) {
