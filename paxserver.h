@@ -248,7 +248,7 @@ private:
     std::set<node_id_t> servers = get_other_servers(vc_state.view);
     servers.insert(get_nid());
 
-    std::cout << "S" << get_nid() << " ," << typeid(T).name() << std::endl;
+    // std::cout << "S" << get_nid() << " ," << typeid(T).name() << std::endl;
 
     for (node_id_t node_id : servers) {
       auto amsg = std::make_unique<T>(args...);
