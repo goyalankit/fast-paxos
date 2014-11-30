@@ -118,14 +118,15 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
 }
 
 void leader_t::phase2_check_cb(){
-    // LOG(DBG, ("Leader periodic p2 check\n"));
-
+    LOG(l::DEBUG, "Leader periodic p2 check at tick " <<  server->net->now() << "\n");
+    LOG(l::DEBUG, "No progress from last time, current_iid "<< current_iid << 
+      " p2info.current_iid " << p2info.current_iid <<"\n");
     // TODO leaner should update leader::current_iid
    // int x;
    // std::cin >> x;
 
     if (current_iid == p2info.current_iid) {
-        // LOG(DBG, ("No progress from last time!\n"));
+
 
         //Check in learner:
         //Quorum has my ballot?
@@ -157,8 +158,10 @@ void leader_t::phase2_check_cb(){
             promise.value = NULL;
         }
         messages.emplace_back(rec->iid,rec->ballot);
+
         server->broadcast<prepare_batch_msg_t>(messages);
     }
+
 }
 
 void leader_t::resolve_cflt_send_accept
@@ -273,8 +276,9 @@ void leader_t::do_leader_timeout(phase12_t phase) {
       break;
     }
     case phase12_t::phase2:{
-      phase2_to_tick = PHASE2_TO_TICK;
       phase2_check_cb();
+      phase2_to_tick = PHASE2_TO_TICK;
+      p2info.current_iid = current_iid;
       break;
     }
     default: {
@@ -301,7 +305,8 @@ proposer_t::proposer_t(paxserver *_server) {
 // TODO(drop the message if already working)
 void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, "Execute received from cid " << ex_arg.nid << ",rid " << ex_arg.rid <<" \n");
-  LOG(l::DEBUG, "Current working iid" << current_iid << " cid " << current_cid <<",rid " << current_rid <<" \n");
+  if(has_value)
+    LOG(l::DEBUG, "Current working iid" << current_iid << " cid " << current_cid <<",rid " << current_rid <<" \n");
   // TODO(goyalankit) UNCOMMENT THIS FOR MULTIPLE CLIENTS
   // HANDLE LEARN SHOULD UPDATE
 
