@@ -11,13 +11,32 @@
 #include "make_unique.h"
 #include "args.h"
 #include "massert.h"
-
+#include <signal.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 
+
+dssim_t *global_dssim;
+
+void sigint_handler(int s){
+  printf("Caught signal %d\n",s);
+  global_dssim->pr_stat(l::og(l::INFO));
+  printf("Caught signal %d\n",s);
+  exit(1); 
+}
+
+
 int main(int argc, char* argv[]) {
+   struct sigaction sigIntHandler;
+
+   sigIntHandler.sa_handler = sigint_handler;
+   sigemptyset(&sigIntHandler.sa_mask);
+   sigIntHandler.sa_flags = 0;
+
+   sigaction(SIGINT, &sigIntHandler, NULL);
    try {
       dssim_t dssim;
+      global_dssim = &dssim;
       Net net(&dssim);
       dssim_t::Config con;
       do_args(argc, argv, con);

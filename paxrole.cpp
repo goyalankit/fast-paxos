@@ -383,6 +383,8 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
     current_iid++;
 
     assert(just_accepted == iid);
+    auto result = server->paxop_on_paxobj(req, cid, rid);
+
     if(!has_value) {
       LOG(l::DEBUG, "Value delivered for iid"<< just_accepted << "for client: " << cid << " rid: " << rid <<" accepted, client is not waiting\n");
       return;
@@ -390,7 +392,6 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
 
     if (has_value && current_cid == cid && current_rid == rid) {
 
-      auto result = server->paxop_on_paxobj(req, cid, rid);
       has_value = false;
 
       // Send response back to client
@@ -409,7 +410,6 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
 
         ti.instance_id = current_iid;
         ti.hash = last_accept_hash;
-
     }
 }
 
