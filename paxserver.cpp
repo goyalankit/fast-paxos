@@ -3,7 +3,7 @@
 #include "make_unique.h"
 #include "paxserver.h"
 #include "log.h"
-
+#include "config.h"
 //////////////////////////////////////////////////////
 // paxserver
 
@@ -413,6 +413,8 @@ void paxserver::do_fake_init_vc() {
     MASSERT(v.backups.size() >= 2,
             "For fault tolerance, paxos generally runs"
             "at least 3 servers");
+    MASSERT(v.backups.size() < MAX_PROPOSERS, "Change the MAX_PROPOSERS to whatever number you want.\n"
+        "Default is 25 servers. So try with servers less than 25!\n");
     v.primary = pr;
     v.vid.counter = 1;
     v.vid.manager = pr;

@@ -39,7 +39,7 @@
 
 #define N_OF_ACCEPTORS  3
 
-#define MAX_PROPOSERS 10
+#define MAX_PROPOSERS 25
 
 /*
  PHASE1_TO_TICK is the timeout value for phase 1
