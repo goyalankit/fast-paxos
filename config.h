@@ -46,8 +46,8 @@
  to happen in case there are no messages in the system
  TODO(goyalankit) Set appropriate values
 */
-#define PHASE1_TO_TICK 20
-#define PHASE2_TO_TICK 20
+#define PHASE1_TO_TICK 15
+#define PHASE2_TO_TICK 30
 
 // TODO(goyalankit) change the value
 #define LSYNC_TICK 12
