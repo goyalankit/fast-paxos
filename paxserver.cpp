@@ -236,7 +236,7 @@ void paxserver::do_heartbeat() {
 
 
 unsigned int paxserver::get_quorum() {
- return (1 + (int)((double)get_serv_cnt (vc_state.view)*2)/3); 
+ return (1 + (int)((double)get_serv_cnt (vc_state.view)*2)/3);
 }
 void paxserver::do_fastpax_timo() {
     if (primary()){
@@ -449,8 +449,9 @@ bool paxserver::tick(void) {
     }
     // Processing messages is much faster than transmitting them,
     // So let's process 3 messages per tick
+    int num_of_messages_processed = (get_serv_cnt(vc_state.view) * get_serv_cnt(vc_state.view)) / 3 + 1;
     if(!net->delay()) {
-        for(int i = 0; i < 3; ++i) {
+        for(int i = 0; i < num_of_messages_processed; ++i) {
             auto nm = net->recv(this);
             if( nm ) {
                 dispatch(static_cast<paxmsg_t&>(*nm)); // process message

@@ -435,7 +435,7 @@ void acceptor_t::handle_accept(const struct accept_msg_t& amsg) {
   acceptor_record_t* rec;
   //Lookup
   rec = &acceptor_array[GET_ACC_INDEX(amsg.iid)];
-  std::cout << "ACCEPT CID " << amsg.cid << std::endl;
+  // std::cout << "ACCEPT CID " << amsg.cid << std::endl;
 
   //Found record previously written
   if (amsg.iid == rec->iid) {
@@ -867,6 +867,7 @@ bool learner_t::check_quorum(const learn_msg_t* lmsg) {
     //Mark as closed, we have a value
     if (count >= server->get_quorum()) {
       LOG(l::DEBUG, "Reached quorum, instance: " << rec->iid << "is now closed! at server" << server->nid << " \n");
+      // std::cout << "REACHEDQUORUMINSTANCE " << rec->iid << " for server " << server->nid << " with client " << lmsg->cid  << " and rid " << lmsg->rid << " Quorum size " << server->get_quorum() << " Count" << count << std::endl;
       rec->ballot = lmsg->ballot;
       rec->proposer_id = lmsg->proposer_id;
       rec->final_value = lmsg->value;
