@@ -169,6 +169,8 @@ void leader_t::resolve_cflt_send_accept
 (proposer_record_t & rec, promise_info_t * pi){
   LOG(l::DEBUG, "Leader is resolving conflict for iid " << rec.iid << ", accepted ballot " 
     << rec.ballot << "accepted cid " << pi->cid <<" rid " << pi->rid <<"\n");
+  rec.cid = pi->cid;
+  rec.rid = pi->rid;
   server->broadcast<accept_msg_t>(rec.iid, rec.ballot, VALUE_OWNER(pi->value_ballot), pi->cid, pi->rid, pi->value);
 }
 
@@ -311,6 +313,7 @@ proposer_t::proposer_t(paxserver *_server) {
 // TODO(drop the message if already working)
 void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
   LOG(l::DEBUG, "Execute received from cid " << ex_arg.nid << ",rid " << ex_arg.rid <<" \n");
+
   if(has_value)
     LOG(l::DEBUG, "Current working iid" << current_iid << " cid " << current_cid <<",rid " << current_rid <<" \n");
   // TODO(goyalankit) UNCOMMENT THIS FOR MULTIPLE CLIENTS
@@ -322,6 +325,15 @@ void proposer_t::proposer_submit_value(const struct execute_arg& ex_arg) {
     server->net->drop(server,ex_arg,"");
     return;
   }
+  // checking for duplicate request from client.
+  for (auto it = server->exec_rid_cache.begin(), ie = server->exec_rid_cache.end();
+        it != ie; ++it ){
+    if (((*it).first == ex_arg.nid) && ((*it).second == ex_arg.rid)) {
+      server->net->drop(server, ex_arg, "Duplicate Execute Message");
+      return;
+    }
+  }
+
   has_value = true;
 
   last_accept_hash = 1;
