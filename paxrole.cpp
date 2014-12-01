@@ -102,7 +102,7 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
   int max_ballot = -1;
   promise_info_t* pi = NULL;
 
-  for (auto prom_info : rec.promises) {
+  for (auto && prom_info : rec.promises) {
     if (prom_info.iid == -1 )
       continue;
 
@@ -152,12 +152,14 @@ void leader_t::phase2_check_cb(){
         rec->ballot = BALLOT_NEXT(rec->ballot);
         rec->promise_count = 0;
 
-        for(auto promise : rec->promises) {
-            promise.iid = -1;
-            promise.value_ballot = -1;
-            promise.value = NULL;
+        for(unsigned int i = 0; i < rec->promises.size(); ++ i) {
+            rec->promises[i].iid = -1;
+            rec->promises[i].value_ballot = -1;
+            rec->promises[i].value = NULL;
         }
         messages.emplace_back(rec->iid,rec->ballot);
+
+        LOG(l::DEBUG, "Resending prepare for ballot " <<  rec->ballot << "\n");
 
         server->broadcast<prepare_batch_msg_t>(messages);
     }
@@ -219,12 +221,15 @@ void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, 
   //This promise is old, or belongs to another
   if(rec.ballot != msg.ballot) {
     LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Promise for " << msg.iid << " ignored, not our ballot\n");
+    LOG(l::DEBUG, "rec ballot " << rec.ballot << " msg ballot " << msg.ballot << "\n");
     return;
   }
 
   //Already received this promise
   if(rec.promises[acceptor_id].iid != -1 && rec.ballot == msg.ballot) {
     LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Already received this promise " << server->nid << "\n");
+    LOG(l::DEBUG, "acceptor_id "<<  acceptor_id <<" iid " <<  rec.promises[acceptor_id].iid << 
+        " rec.ballot "  << rec.ballot <<"\n");
     return;
   }
 
@@ -232,10 +237,12 @@ void leader_t::handle_promise(const struct promise_msg_t &msg, int acceptor_id, 
   rec.promise_count++;
 
   if (rec.promise_count < server->get_quorum()) {
-    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Quorum not reached\n");
+
+    LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Quorum not reached, rec ballot "<< 
+      rec.ballot << "msg ballot" << msg.ballot <<"\n");
     return;
   }
-
+  LOG(l::DEBUG, "(tick "<< server->net->now() <<")handle_promise: Quorum reached\n");
   // quorum reached.
   rec.status = p1_ready;
   p1info.pending_count--;
@@ -835,7 +842,7 @@ bool learner_t::check_quorum(const learn_msg_t* lmsg) {
     unsigned int count = 0;
     learner_record_t* rec;
     rec = &learner_array[GET_LEA_INDEX(lmsg->iid)];
-    for (auto learn : rec->learns) {
+    for (auto && learn : rec->learns) {
         //No value
         if(learn == NULL)
             continue;
