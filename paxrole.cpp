@@ -113,7 +113,6 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
       }
     }
   }
-
   return pi;
 }
 
@@ -169,8 +168,8 @@ void leader_t::phase2_check_cb(){
 void leader_t::resolve_cflt_send_accept
 (proposer_record_t & rec, promise_info_t * pi){
   LOG(l::DEBUG, "Leader is resolving conflict for iid " << rec.iid << ", accepted ballot " 
-    << rec.ballot << "accepted cid " << rec.cid <<" rid " << rec.rid <<"\n");
-  server->broadcast<accept_msg_t>(rec.iid, rec.ballot, VALUE_OWNER(pi->value_ballot), rec.cid, rec.rid, pi->value);
+    << rec.ballot << "accepted cid " << pi->cid <<" rid " << pi->rid <<"\n");
+  server->broadcast<accept_msg_t>(rec.iid, rec.ballot, VALUE_OWNER(pi->value_ballot), pi->cid, pi->rid, pi->value);
 }
 
 void leader_t::execute_phase2(int first_iid, int last_iid) {
@@ -424,6 +423,7 @@ void acceptor_t::handle_accept(const struct accept_msg_t& amsg) {
   acceptor_record_t* rec;
   //Lookup
   rec = &acceptor_array[GET_ACC_INDEX(amsg.iid)];
+  std::cout << "ACCEPT CID " << amsg.cid << std::endl;
 
   //Found record previously written
   if (amsg.iid == rec->iid) {
@@ -854,7 +854,7 @@ bool learner_t::check_quorum(const learn_msg_t* lmsg) {
     }
     //Mark as closed, we have a value
     if (count >= server->get_quorum()) {
-      LOG(l::DEBUG, "Reached quorum, instance: " << rec->iid << "is now closed!\n");
+      LOG(l::DEBUG, "Reached quorum, instance: " << rec->iid << "is now closed! at server" << server->nid << " \n");
       rec->ballot = lmsg->ballot;
       rec->proposer_id = lmsg->proposer_id;
       rec->final_value = lmsg->value;
@@ -871,9 +871,6 @@ void learner_t::deliver_values(int iid) {
     learner_record_t* rec = &learner_array[GET_LEA_INDEX(iid)];
 
     if(!is_closed(rec)) break;
-
-
-
     server->proposer->deliver_function(rec->final_value, rec->iid, rec->ballot, rec->cid, rec->rid, rec->proposer_id);
     
     //void proposer_t::deliver_function(paxobj::request *req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer) {
