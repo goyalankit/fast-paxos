@@ -4,6 +4,7 @@
 #include "log.h"
 #include <assert.h>
 #include <stdio.h>
+#include <map>
 /** leader functions **/
 leader_t::leader_t(paxserver *_server) {
   server = _server;
@@ -102,6 +103,23 @@ leader_t::promise_info_t* leader_t::phase2_getMax_promise(proposer_record_t &rec
   int max_ballot = -1;
   promise_info_t* pi = NULL;
 
+  // check if we have simple majority in quorum -> safe to choose value
+  std::map<int, unsigned int> majority_set;
+  for (auto && prom_info : rec.promises) {
+    if (prom_info.iid == -1 )
+      continue;
+    if (prom_info.value_ballot != -1) {
+      if (majority_set.find(prom_info.value_ballot) != majority_set.end()) {
+        majority_set[prom_info.value_ballot]++;
+      } else {
+        majority_set[prom_info.value_ballot] = 1;
+      }
+      if (majority_set[prom_info.value_ballot] > server->get_quorum() / 2 + 1) {
+        return &prom_info;
+      }
+    }
+  }
+
   for (auto && prom_info : rec.promises) {
     if (prom_info.iid == -1 )
       continue;
@@ -167,8 +185,8 @@ void leader_t::phase2_check_cb(){
 
 void leader_t::resolve_cflt_send_accept
 (proposer_record_t & rec, promise_info_t * pi){
-  LOG(l::DEBUG, "Leader is resolving conflict for iid " << rec.iid << ", accepted ballot " 
-    << rec.ballot << "accepted cid " << pi->cid <<" rid " << pi->rid <<"\n");
+  LOG(l::DEBUG, "Leader is resolving conflict for iid: " << rec.iid << " accepted ballot: "
+    << rec.ballot << " accepted cid: " << pi->cid <<" rid: " << pi->rid <<"\n");
   rec.cid = pi->cid;
   rec.rid = pi->rid;
   server->broadcast<accept_msg_t>(rec.iid, rec.ballot, VALUE_OWNER(pi->value_ballot), pi->cid, pi->rid, pi->value);
