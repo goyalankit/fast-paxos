@@ -48,6 +48,13 @@ std::unordered_map<int, std::string> paxrpc2str = {
    {init_view_request::ID, init_view_request::_descr},
    {getstate_arg::ID,      getstate_arg::_descr},
    {getstate_res::ID,      getstate_res::_descr},
+   {prepare_batch_msg_t::ID,    prepare_batch_msg_t::_descr},
+   {promise_batch_msg_t::ID,      promise_batch_msg_t::_descr},
+   {accept_msg_t::ID,      accept_msg_t::_descr},
+   {learner_sync_msg_t::ID,      learner_sync_msg_t::_descr},
+   {learn_msg_t::ID,      learn_msg_t::_descr},
+   {anyval_batch_msg_t::ID,      anyval_batch_msg_t::_descr},
+   {nop_msg::ID,      nop_msg::_descr},
 
 };
 
