@@ -6,17 +6,6 @@
 #include "paxmsg.h"
 #include "paxrole.h"
 #include "config.h"
-#include <bitset>
-
-#define SET_LEADER(roles)    (roles.set(0))
-#define SET_PROPOSER(roles)  (roles.set(1))
-#define SET_ACCEPTER(roles)  (roles.set(2))
-#define SET_LEARNER(roles)   (roles.set(3))
-
-#define IS_LEADER(roles)   (roles.test(0))
-#define IS_PROPOSER(roles) (roles.test(1))
-#define IS_ACCEPTER(roles) (roles.test(2))
-#define IS_LEARNER(roles)  (roles.test(3))
 
 #define FIRST_BALLOT(sid) (2 * MAX_PROPOSERS + sid)
 #define BALLOT_NEXT(lastBal) (lastBal + MAX_PROPOSERS)
@@ -106,9 +95,6 @@ public:
    paxserver(Net* _net, node_id_t _nid, const pax_serv_timo& ps_timo,
              std::unique_ptr<paxobj>);
    ~paxserver();
-
-   // 8 bit flags to determine it's role
-   std::bitset<8> roles;
 
    // Return false when done
    virtual bool tick(void) override;
