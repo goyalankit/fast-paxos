@@ -15,13 +15,33 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
+extern std::unordered_map<int, std::string> paxrpc2str;
 
 dssim_t *global_dssim;
+Net *global_net;
 
 void sigint_handler(int s){
-  printf("Caught signal %d\n",s);
   global_dssim->pr_stat(l::og(l::INFO));
-  printf("Caught signal %d\n",s);
+
+  std::map<int, std::map<int, unsigned int>> m_count_by_type = global_net->m_count_by_type;
+
+  for (auto server_messages : m_count_by_type) {
+    std::cout << "For server: " << server_messages.first << std::endl;
+    std::cout << "--------------------------------" << std::endl;
+    for (auto msg_cnt : server_messages.second) {
+      std::cout << paxrpc2str[msg_cnt.first] << "\t" << msg_cnt.second << std::endl;
+    }
+    std::cout << "--------------------------------" << std::endl;
+  }
+/*
+ *  std::cout << "At Server: " << server->get_nid() << std::endl;
+ *    std::cout << "--------------------------------" << std::endl;
+ *    for (auto type_and_count : server->m_count_by_type) {
+ *      std::cout << paxrpc2str[type_and_count.first] << " " << type_and_count.second << std::endl;
+ *    }
+ *    std::cout << "--------------------------------" << std::endl;
+ *
+ */
   exit(1); 
 }
 
@@ -38,8 +58,10 @@ int main(int argc, char* argv[]) {
       dssim_t dssim;
       global_dssim = &dssim;
       Net net(&dssim);
+      global_net = &net;
       dssim_t::Config con;
       do_args(argc, argv, con);
+      net.num_total_requests = con.nclients * con.nclient_req;
       for(int i = 0; i < argc; ++i) {
          LOG(l::SHORT, argv[i] << " ");
       }

@@ -6,6 +6,7 @@
 #include "paxmsg.h"
 #include "paxrole.h"
 #include "config.h"
+#include <map>
 
 #define FIRST_BALLOT(sid) (2 * MAX_PROPOSERS + sid)
 #define BALLOT_NEXT(lastBal) (lastBal + MAX_PROPOSERS)
@@ -200,6 +201,7 @@ private:
       std::unique_ptr<Paxlog::tup> tup;
       std::string result;
    };
+
    std::unordered_map<node_id_t, std::unique_ptr<last_tup_res>> last_req;
    // Rely on C++11 multimap guarantee that values remain in inserted order
    std::unordered_multimap<node_id_t,rid_t> exec_rid_cache;

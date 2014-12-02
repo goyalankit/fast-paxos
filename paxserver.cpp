@@ -120,6 +120,9 @@ void paxserver::dispatch(paxmsg_t &paxmsg) {
         net->drop(this, paxmsg, "not ACTIVE");
         return;
     }
+
+    net->m_count_by_type[get_nid()][paxmsg.rpc_id]++;
+
     switch(paxmsg.rpc_id) {
         case nop_msg::ID: 
             break;
@@ -480,10 +483,10 @@ bool paxserver::primary() const {
 bool paxserver::in_view(node_id_t node) const {
     MASSERT(primary(), "Only query in_view of primary");
     return vc_state.view.elt_in(node);
-}   
+}
 
 // Limited lifetime, provided mostly for stats or checking equality.
-paxobj*  paxserver::get_paxobj() { 
+paxobj*  paxserver::get_paxobj() {
     return _paxobj.get();
 }
 

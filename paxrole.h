@@ -170,6 +170,7 @@ class proposer_t {
     void do_proposer_timeout();
     void proposer_submit_value(const struct execute_arg&);
     void deliver_function(paxobj::request req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer);
+    void exit_if_done();
 };
 
 class acceptor_t {

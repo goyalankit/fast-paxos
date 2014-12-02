@@ -7,6 +7,7 @@
 #include <memory>
 #include <iostream>
 #include <iomanip>
+#include <map>
 
 #include "node.h"
 // Base type for a network message
@@ -87,6 +88,13 @@ public:
    // Printing statistics for network
    std::ostream& pr_stat(std::ostream& os) const;
    std::ostream& pr_rpc_stat(std::ostream& os) const;
+
+   // Number of total request submitted
+   unsigned int num_total_requests;
+   std::map<int, unsigned int> learner_request_count;
+   // to collect statisctics on number of messages for each type.
+   std::map<int, std::map<int, unsigned int> > m_count_by_type;
+
    // Query stats
    uint64_t sends(node_id_t);
    uint64_t recvs(node_id_t);

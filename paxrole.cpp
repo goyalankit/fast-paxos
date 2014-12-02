@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <stdio.h>
 #include <map>
+#include <signal.h>
+
 /** leader functions **/
 leader_t::leader_t(paxserver *_server) {
   server = _server;
@@ -389,6 +391,24 @@ void proposer_t::do_proposer_timeout() {
 
 }
 
+
+void proposer_t::exit_if_done() {
+  bool all_done = true;
+  std::cout << "CONDITIONCHECK Server Checking: " << server->get_nid() << std::endl;
+  for (int i = 1; i < (int)server->get_serv_cnt(server->vc_state.view) ; i++) {
+    std::cout << "CONDITIONCHECK " << server->net->learner_request_count[i] << " total " <<  server->net->num_total_requests  << std::endl;
+    if (server->net->learner_request_count[i] < server->net->num_total_requests) {
+      all_done = false;
+    } else {
+      all_done &= true;
+    }
+  }
+
+  if (all_done) {
+    raise(SIGINT);
+  }
+}
+
 void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node_id_t cid, rid_t rid, int proposer) {
     
     int just_accepted;
@@ -402,9 +422,11 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
 
     assert(just_accepted == iid);
     auto result = server->paxop_on_paxobj(req, cid, rid);
+    server->net->learner_request_count[server->get_nid()]++;
+    exit_if_done();
 
     if(!has_value) {
-      LOG(l::DEBUG, "Value delivered for iid"<< just_accepted << "for client: " << cid << " rid: " << rid <<" accepted, client is not waiting\n");
+      LOG(l::DEBUG, "Value delivered for iid "<< just_accepted << "for client: " << cid << " rid: " << rid <<" accepted, client is not waiting\n");
       return;
     }
 
@@ -415,12 +437,12 @@ void proposer_t::deliver_function(paxobj::request req, int iid, int ballot, node
       // Send response back to client
       LOG(l::DEBUG, "Sending response back for client: " << cid << " for rid: " << rid << " iid: " << iid << "\n");
       auto ex_success = std::make_unique<struct execute_success>(result, rid);
-      
+
       server->send_msg(cid, std::move(ex_success));
     } else {
         //Send for next instance
         LOG(l::DEBUG, "Someone else's value delivered my id" << server->nid <<" (iid: "<< current_iid << "), try next instance.\n");
-        
+
         last_accept_iid = just_accepted;
         last_accept_hash++;
         server->broadcast<accept_msg_t>(current_iid, fixed_ballot, server->get_nid(), current_cid, current_rid, current_request);
