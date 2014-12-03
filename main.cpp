@@ -25,14 +25,22 @@ void sigint_handler(int s){
 
   std::map<int, std::map<int, unsigned int>> m_count_by_type = global_net->m_count_by_type;
 
+  std::map<int, unsigned int> total_message_by_type;
   for (auto server_messages : m_count_by_type) {
     std::cout << "For server: " << server_messages.first << std::endl;
     std::cout << "--------------------------------" << std::endl;
     for (auto msg_cnt : server_messages.second) {
       std::cout << paxrpc2str[msg_cnt.first] << "\t" << msg_cnt.second << std::endl;
+      total_message_by_type[msg_cnt.first] += msg_cnt.second;
     }
     std::cout << "--------------------------------" << std::endl;
   }
+
+  std::cout << "***************** Aggregate Values ***************" << std::endl;
+  for (auto msg_type : total_message_by_type) {
+    std::cout << paxrpc2str[msg_type.first] << "\t" << msg_type.second  << std::endl;
+  }
+
 /*
  *  std::cout << "At Server: " << server->get_nid() << std::endl;
  *    std::cout << "--------------------------------" << std::endl;

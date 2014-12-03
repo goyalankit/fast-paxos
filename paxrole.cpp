@@ -394,9 +394,9 @@ void proposer_t::do_proposer_timeout() {
 
 void proposer_t::exit_if_done() {
   bool all_done = true;
-  std::cout << "CONDITIONCHECK Server Checking: " << server->get_nid() << std::endl;
+  // std::cout << "CONDITIONCHECK Server Checking: " << server->get_nid() << std::endl;
   for (int i = 1; i < (int)server->get_serv_cnt(server->vc_state.view) ; i++) {
-    std::cout << "CONDITIONCHECK " << server->net->learner_request_count[i] << " total " <<  server->net->num_total_requests  << std::endl;
+    // std::cout << "CONDITIONCHECK " << server->net->learner_request_count[i] << " total " <<  server->net->num_total_requests  << std::endl;
     if (server->net->learner_request_count[i] < server->net->num_total_requests) {
       all_done = false;
     } else {
